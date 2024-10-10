@@ -1,6 +1,6 @@
 # Page
-    - Login Page
-    - Register Page
+    - Login Page (DONE)
+    - Register Page (DONE)
     - Password Reset Page
     - Welcome Page
     - Dashboard Page
