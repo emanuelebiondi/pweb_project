@@ -20,17 +20,31 @@
         $usr_surname = ucfirst(strtolower($_POST['surname']));
         $usr_password1 = $_POST['password1'];
         $usr_password2 = $_POST['password2'];
+        echo ("USR:" . $usr_name);
+        echo ("USR:" . $usr_surname);
+        echo ("USR:" . $usr_email);
+        echo ("USR:" . $usr_password2);
         
-        if ( preg_match($regex_email, $usr_email) && 
-            preg_match($regex_name, $usr_name) && 
-            preg_match($regex_surname, $usr_surname) && 
-            preg_match($regex_password, $usr_password1)
-            ){
-    
-            require "../config/database.php"; // Check and Connect to DB     
- 
+        try {
+            if (!preg_match($regex_email, $usr_email) && !preg_match($regex_name, $usr_name) && 
+                !preg_match($regex_surname, $usr_surname) && !preg_match($regex_password, $usr_password1)) {
+                    echo ("ALLURA: " . preg_match($regex_email, $usr_email));
+                    echo ("ALLURA: " . preg_match($regex_name, $usr_name));
+                    echo ("ALLURA: " . preg_match($regex_surname, $usr_surname));
+                    echo ("ALLURA: " . preg_match($regex_password, $usr_password1));
+                    throw new Exception("Check the inputs format");
+            }
+        
+            if (strcmp($usr_password1, $usr_password2) !== 0) { 
+                throw new Exception("The passwords do not match");
+            }
+
+            // Check and Connect to DB 
+            require "../config/database.php"; 
+
             // Prepare statement to prevent SQL injection
             $query = "SELECT * FROM users WHERE email = ?;";
+
             if ($statement = mysqli_prepare($connection, $query)) {
                 mysqli_stmt_bind_param($statement, 's', $usr_email);    // Bind the user with the query statement
                 mysqli_stmt_execute($statement);
@@ -39,8 +53,7 @@
                 
                 // Check if extist an user with the same email
                 if (mysqli_num_rows($result) !== 0) { 
-                    $error = "Email already registered";
-        
+                    throw new Exception("Email already registered");
                 }
                 else {
                     // Insert new user in the databases
@@ -51,17 +64,22 @@
                         mysqli_stmt_bind_param($statement, 'ssss', $usr_email, $password, $usr_name, $usr_surname);
                         mysqli_stmt_execute($statement);
                         header("location: login.php");
-            
                     }
-                 
+                
                 }
+                // Closing statement and connection
+                mysqli_stmt_close($statement);
+                mysqli_close($connection); 
             }
-            // Closing statement and connection
-            mysqli_stmt_close($statement);
-            mysqli_close($connection); 
+            else { die(mysqli_connect_error()); }       
+        } 
+        catch (Exception $e) {
+            // Handle the exception
+            $error = $e->getMessage();
         }
-        else { die(mysqli_connect_error()); }    
-    } 
+    }
+
+    
 
 ?>
 
