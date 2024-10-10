@@ -1,0 +1,134 @@
+
+:root {
+    --body-bg--color: #E07A5F;
+    --button-bg-color: #E07A5F;
+    --special-bg-color: #E07A5F;
+    --form-border-bottom-color: #E07A5F;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-bg--color);
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+.container {
+    position: relative;
+    background: white;
+    padding: 5rem;
+    border-radius: 5px;
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.special {
+    background: var(--special-bg-color);
+    padding: 5px 20px;
+    color: white;
+}
+
+.form-control {
+    position: relative;
+    margin: 20px 0 40px;
+    width: 300px;
+}
+
+.form-control input{
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid black;
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 18px;
+    color: black
+}
+
+.form-control input:focus,  /* Remove border of text-box and add color if active*/
+.form-control input:valid {
+    outline: 0;
+    border-bottom-color: var(--form-border-bottom-color);
+}
+
+.btn:focus {
+    outline: 0;
+}
+.btn:active {
+    transform: scale(0.98);
+}
+
+.form-control label {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    color: black;
+}
+
+/* Sposta la label quando l'input è attivo o ha contenuto 
+.form-control input:focus + label,
+.form-control input:not(:placeholder-shown) + label {
+    top: -10px; /* Sposta la label sopra l'input 
+    font-size: 14px; /* Riduci la dimensione del font 
+    color: #E07A5F; /* Cambia il colore della label 
+*/
+
+/* Nascondi la label quando l'input è attivo o ha contenuto */
+.form-control input:focus + label,
+.form-control input:not(:placeholder-shown) + label {
+    opacity: 0; /* Nascondi la label */
+    visibility: hidden; /* Rendi invisibile */
+}
+
+/* Rimuovi il segnaposto se non è necessario */
+.form-control input::placeholder {
+    color: transparent; /* Rendi il segnaposto invisibile */
+}
+
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bolder;
+    width: 100%;
+    background-color: var(--button-bg-color);
+    padding: 15px;
+    font-family: inherit;
+    font-size: 18px;
+    border: 0;
+    border-radius: 100px;
+    color: #ffffff;
+}
+
+.elseregister {
+    font-size: 12px; /* Dimensione del font più piccola */
+    color: gray; /* Colore grigio */
+    text-align: center;
+}
+.elseregister a {
+    color: black; /* Colore nero per il link */
+    text-decoration: none; /* Rimuovi la sottolineatura se non desiderato */
+}
+.elseregister a:hover {
+    text-decoration: underline; /* Aggiungi sottolineatura al passaggio del mouse */
+}
+
+/* Sovrascrittura delle variabili per la pagina di registrazione */
+.register-page {
+    --body-bg--color: #3D405B;
+    --button-bg-color: #3D405B;
+    --special-bg-color: #3D405B;
+    --form-border-bottom-color: #3D405B
+}
