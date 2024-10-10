@@ -8,7 +8,7 @@
 
 
 # Colors palette:
-    - `#F4F1DE`
+    - `#f4f1de`
     - `#E07A5F`
     - `#3D405B`
     - `#81B29A`
