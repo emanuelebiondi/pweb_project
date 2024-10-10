@@ -4,6 +4,7 @@
     --button-bg-color: #E07A5F;
     --special-bg-color: #E07A5F;
     --form-border-bottom-color: #E07A5F;
+    --form-bg: #F4F1DE;
 }
 
 * {
@@ -23,7 +24,7 @@ body {
 
 .container {
     position: relative;
-    background: white;
+    background: var(--form-bg);
     padding: 5rem;
     border-radius: 5px;
 }
@@ -36,7 +37,7 @@ body {
 .special {
     background: var(--special-bg-color);
     padding: 5px 20px;
-    color: white;
+    color: var(--form-bg);
 }
 
 .form-control {
@@ -127,8 +128,8 @@ body {
 
 /* Sovrascrittura delle variabili per la pagina di registrazione */
 .register-page {
-    --body-bg--color: #3D405B;
-    --button-bg-color: #3D405B;
-    --special-bg-color: #3D405B;
-    --form-border-bottom-color: #3D405B
+    --body-bg--color: #1F5270;
+    --button-bg-color: #1F5270;
+    --special-bg-color: #1F5270;
+    --form-border-bottom-color: #1F5270
 }
