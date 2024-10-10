@@ -1,6 +1,13 @@
+<!-- 
+ Final Project for Web Design - University of Pisa 
+ Professor: Alessio Vecchio
+ Student: Emanuele Biondi
+ January 2025 
+-->
+
 <?php
     $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
-    $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/"; // sia almeno 8 caratteri e includa almeno una lettera maiuscola, un numero e un carattere speciale:
+    $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/"; // Must be at least 8 characters, with one uppercase letter, one number, and one special character.
     $regex_name = "/^[A-Za-z]{2,12}$/";
     $regex_surname = "/^[A-Za-z]{2,12}$/";
     
@@ -20,21 +27,15 @@
         $usr_surname = ucfirst(strtolower($_POST['surname']));
         $usr_password1 = $_POST['password1'];
         $usr_password2 = $_POST['password2'];
-        echo ("USR:" . $usr_name);
-        echo ("USR:" . $usr_surname);
-        echo ("USR:" . $usr_email);
-        echo ("USR:" . $usr_password2);
         
         try {
+            // Check input format 
             if (!preg_match($regex_email, $usr_email) && !preg_match($regex_name, $usr_name) && 
                 !preg_match($regex_surname, $usr_surname) && !preg_match($regex_password, $usr_password1)) {
-                    echo ("ALLURA: " . preg_match($regex_email, $usr_email));
-                    echo ("ALLURA: " . preg_match($regex_name, $usr_name));
-                    echo ("ALLURA: " . preg_match($regex_surname, $usr_surname));
-                    echo ("ALLURA: " . preg_match($regex_password, $usr_password1));
                     throw new Exception("Check the inputs format");
             }
-        
+            
+            // Check if the two password metch
             if (strcmp($usr_password1, $usr_password2) !== 0) { 
                 throw new Exception("The passwords do not match");
             }
@@ -55,18 +56,17 @@
                 if (mysqli_num_rows($result) !== 0) { 
                     throw new Exception("Email already registered");
                 }
-                else {
-                    // Insert new user in the databases
-                    $query = "INSERT INTO users (email, password, name, surname) values (?, ?, ?, ?)";
 
-                    if ($statement = mysqli_prepare($connection, $query)){
-                        $password = password_hash($usr_password1, PASSWORD_BCRYPT);
-                        mysqli_stmt_bind_param($statement, 'ssss', $usr_email, $password, $usr_name, $usr_surname);
-                        mysqli_stmt_execute($statement);
-                        header("location: login.php");
-                    }
-                
+                // Insert new user in the databases
+                $query = "INSERT INTO users (email, password, name, surname) values (?, ?, ?, ?)";
+
+                if ($statement = mysqli_prepare($connection, $query)){
+                    $password = password_hash($usr_password1, PASSWORD_BCRYPT);
+                    mysqli_stmt_bind_param($statement, 'ssss', $usr_email, $password, $usr_name, $usr_surname);
+                    mysqli_stmt_execute($statement);
+                    header("location: login.php");
                 }
+
                 // Closing statement and connection
                 mysqli_stmt_close($statement);
                 mysqli_close($connection); 

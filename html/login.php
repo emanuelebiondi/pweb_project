@@ -1,6 +1,11 @@
+<!-- 
+ Final Project for Web Design - University of Pisa 
+ Professor: Alessio Vecchio
+ Student: Emanuele Biondi
+ January 2025 
+-->
 
 <?php
-
     $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
     /*$regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/"; */
     
@@ -11,46 +16,55 @@
         isset($_POST['email']) && 
         isset($_POST['password'])
     ){
-
-        $usr_email = $_POST['email'];
+        $usr_email = strtolower($_POST['email']);
         $usr_password = $_POST['password'];
-
-        // Check if the form data is valid
-        if (preg_match($regex_email, $usr_email)){
+        
+        try {
+            // Check input format 
+            if (!preg_match($regex_email, $usr_email)){
+                throw new Exception("Check the inputs format");
+            }
             
             require "../config/database.php"; // Check and Connect to DB     
 
             // Prepare statement to prevent SQL injection
             $query = "SELECT * FROM users WHERE email = ?;";
+
             if ($statement = mysqli_prepare($connection, $query)) {
                 mysqli_stmt_bind_param($statement, 's', $usr_email);    // Bind the user with the query statement
                 mysqli_stmt_execute($statement);
 
                 $result = mysqli_stmt_get_result($statement);
-                
-                // Return in no mach email is present
-                if (mysqli_num_rows($result) === 0) { $error = "There is no user with this email."; }
-                else {
-                    $row = mysqli_fetch_assoc($result);
-                    $hash = $row['password'];
-                    
-                    if(password_verify($usr_password, $hash)){
-                        session_start();
-                        // Set session's variable
-                        $_SESSION["id"] = $row['id'];
-                        $_SESSION["email"] = $row['email'];
-                        $_SESSION["name"] = $row['name'];
-                        $_SESSION["surname"] = $row['surname'];
-                        header("location: index.php");
-                        exit();
-                    }
-                    else { $error = "Wrong password!";}
+
+                // Return if no mach email is present
+                if (mysqli_num_rows($result) === 0) { 
+                    throw new Exception("There is no user with this email."); 
                 }
+
+                $row = mysqli_fetch_assoc($result);
+                $hash = $row['password'];
+
+                if(!password_verify($usr_password, $hash)){
+                    throw new Exception("Wrong password!");
+                }
+
+                session_start();
+                // Set session's variable
+                $_SESSION["id"] = $row['id'];
+                $_SESSION["email"] = $row['email'];
+                $_SESSION["name"] = $row['name'];
+                $_SESSION["surname"] = $row['surname'];
+                header("location: index.php");
+
                 // Closing statement and connection
                 mysqli_stmt_close($statement);
                 mysqli_close($connection);
             }
-            else { die(mysqli_connect_error());}
+            else { die(mysqli_connect_error()); }    
+        }
+        catch (Exception $e) {
+            // Handle the exception
+            $error = $e->getMessage();
         }
     }
 ?>
@@ -72,11 +86,11 @@
         <h1> Cohabitat <span class="special">Login</span></h1>
         <form id="loginform" action="login.php" method="POST">
             <div class="form-control">
-                <input type="email" id="email" name="email" placeholder=" " require pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
+                <input type="email" id="email" name="email" placeholder=" " required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
                 <label for="email"> Email </label>
             </div>
             <div class="form-control">
-                <input type="password" id="password" name="password" placeholder=" ">
+                <input type="password" id="password" name="password" placeholder=" " required>
                 <label for="password"> Password </label>
             </div>
             <input class="btn" type="submit" value="Send" name="login">
