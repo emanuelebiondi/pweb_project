@@ -1,4 +1,4 @@
 <?php
-    include("php/home.php");
+    include("html/home.php");
 ?>
 

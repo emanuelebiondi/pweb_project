@@ -1,28 +1,119 @@
+<?php
+    $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
+    $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/"; // sia almeno 8 caratteri e includa almeno una lettera maiuscola, un numero e un carattere speciale:
+    $regex_name = "/^[A-Za-z]{2,12}$/";
+    $regex_surname = "/^[A-Za-z]{2,12}$/";
+    
+    $error = ""; 
+
+
+    // Check the submit request and form data
+    if (isset($_POST['register']) && 
+        isset($_POST['email']) && 
+        isset($_POST['name']) && 
+        isset($_POST['surname']) && 
+        isset($_POST['password1']) &&
+        isset($_POST['password2'])
+    ){
+        $usr_email = strtolower($_POST['email']);
+        $usr_name = ucfirst(strtolower($_POST['name']));
+        $usr_surname = ucfirst(strtolower($_POST['surname']));
+        $usr_password1 = $_POST['password1'];
+        $usr_password2 = $_POST['password2'];
+        
+        if ( preg_match($regex_email, $usr_email) && 
+            preg_match($regex_name, $usr_name) && 
+            preg_match($regex_surname, $usr_surname) && 
+            preg_match($regex_password, $usr_password1)
+            ){
+    
+            require "../config/database.php"; // Check and Connect to DB     
+ 
+            // Prepare statement to prevent SQL injection
+            $query = "SELECT * FROM users WHERE email = ?;";
+            if ($statement = mysqli_prepare($connection, $query)) {
+                mysqli_stmt_bind_param($statement, 's', $usr_email);    // Bind the user with the query statement
+                mysqli_stmt_execute($statement);
+    
+                $result = mysqli_stmt_get_result($statement); 
+                
+                // Check if extist an user with the same email
+                if (mysqli_num_rows($result) !== 0) { 
+                    $error = "Email already registered";
+        
+                }
+                else {
+                    // Insert new user in the databases
+                    $query = "INSERT INTO users (email, password, name, surname) values (?, ?, ?, ?)";
+
+                    if ($statement = mysqli_prepare($connection, $query)){
+                        $password = password_hash($usr_password1, PASSWORD_BCRYPT);
+                        mysqli_stmt_bind_param($statement, 'ssss', $usr_email, $password, $usr_name, $usr_surname);
+                        mysqli_stmt_execute($statement);
+                        header("location: login.php");
+            
+                    }
+                 
+                }
+            }
+            // Closing statement and connection
+            mysqli_stmt_close($statement);
+            mysqli_close($connection); 
+        }
+        else { die(mysqli_connect_error()); }    
+    } 
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Cohabitat</title>
-    <link rel="stylesheet" href="../css/login.css" />
-</head>
-<body class="register-page">
-    <main class="container">
-        <h1> Cohabitat <span class="special">Register</span></h1>
-        <form>
-            <div class="form-control">
-                <input type="email" id="email" placeholder=" " required>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register Cohabitat</title>
+        <link rel="stylesheet" href="../css/login.css" />
+    </head>
+    <body class="register-page">
+        <main class="container">
+            <h1> Cohabitat <span class="special">Register</span></h1>
+            
+            <form action="register.php" method="POST">  
+                <div class="form-control">
+                    <input type="email" id="email" name="email" placeholder=" " autocomplete="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
+                    <label for="email"> Email </label>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" id="name" name="name" placeholder=" " autocomplete="given-name" required pattern="[A-Za-z]{2,12}">
+                    <label for="name"> Name </label>
+                </div>
                 
-                <label for="email"> Email </label>
-            </div>
-            <div class="form-control">
-                <input type="password" id="password" placeholder=" " required>
-                <label for="password"> Password </label>
-            </div>
-            <button class="btn"> Submit </button>
-        </form>
-        <p class="elseregister">If you are already registered, <a href="login.php">log in here!</a></p>
-    </main>
-    
-</body>
+                <div class="form-control">
+                    <input type="text" id="surname" name="surname" placeholder=" " autocomplete="family-name" required pattern="[A-Za-z]{2,12}">
+                    <label for="surname"> Surname </label>
+                </div>
+                
+                <div class="form-control">
+                    <input type="password" id="password1" name="password1" placeholder=" " required pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}">
+                    <label for="password1"> Password </label>
+                    <p>Must be at least 8 characters, with one uppercase letter, one number, and one special character.</p> 
+                    
+                </div>
+                
+                <div class="form-control">
+                    <input type="password" id="password2" name="password2" placeholder=" " required pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}">
+                    
+                    <label for="password2"> Repeat Password </label>
+                </div>
+                
+                <input class="btn" type="submit" value="Send" name="register">
+                <p class="errormsg"> <?php if (!empty($error)) echo $error; # // In case of error, display the message ?> </p>
+            </form>
+            <p class="elseregister">If you are already registered, <a href="login.php">log in here!</a></p>
+        </main>
+    </body>
+    <?php include "footer.html"?>
 </html>
