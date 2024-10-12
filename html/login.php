@@ -43,7 +43,8 @@
 
                 $row = mysqli_fetch_assoc($result);
                 $hash = $row['password'];
-
+                
+                // Check the password
                 if(!password_verify($usr_password, $hash)){
                     throw new Exception("Wrong password!");
                 }
@@ -54,7 +55,7 @@
                 $_SESSION["email"] = $row['email'];
                 $_SESSION["name"] = $row['name'];
                 $_SESSION["surname"] = $row['surname'];
-                header("location: index.php");
+                header("location: dashboard.php");
 
                 // Closing statement and connection
                 mysqli_stmt_close($statement);
@@ -76,10 +77,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Cohabitat</title>
-    <link rel="stylesheet" href="../css/login.css" />
+    <title>Cohabitat - Login</title>
+    <link rel="stylesheet" href="../css/login-register.css" />
+    <?php include "snippet/head-meta.html"?>
 </head>
 <body>
     <main class="container">
@@ -100,7 +100,7 @@
         <p class="elseregister">If you are not registered, <a href="register.php">sign up here!</a></p>
     </main>
 </body>
-<?php include "footer.html"?>
+<?php include "snippet/footer.html"?>
 </html>
 
 

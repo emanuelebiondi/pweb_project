@@ -89,10 +89,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Register Cohabitat</title>
-        <link rel="stylesheet" href="../css/login.css" />
+        <title>Cohabitat - Register</title>
+        <link rel="stylesheet" href="../css/login-register.css" />
+        <?php include "snippet/head-meta.html"?>
     </head>
     <body class="register-page">
         <main class="container">
@@ -133,5 +132,5 @@
             <p class="elseregister">If you are already registered, <a href="login.php">log in here!</a></p>
         </main>
     </body>
-    <?php include "footer.html"?>
+    <?php include "snippet/footer.html"?>
 </html>
