@@ -1,0 +1,796 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --light: #f6f6f9;
+
+    --primary: #E07A5F;
+    --light-primary: #ffe8e0;
+    
+    --secondary: #008080;
+    --light-secondary: #63b6b6;
+
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #363949;
+    
+    --danger: #D32F2F;
+	--light-danger: #FECDD3;
+    
+    --warning: #FBC02D;
+    --light-warning: #FFF2C6;
+    
+    --success: #388E3C;
+    --light-success: #BBF7D0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.bx{
+    font-size: 1.7rem;
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+body{
+    background: var(--grey);
+    overflow-x: hidden;
+}
+
+
+/* Styling for the icon */
+.icon.standard {
+    width: 24px; /* Change width */
+    height: 24px; /* Change height */
+}
+
+/* Optional: Change the color for SVG inline (if applicable) */
+.icon.standard {
+    fill: var(--primary); /* Change fill color for inline SVGs */
+}
+
+
+
+
+.sidebar{
+    position: fixed;
+    background: var(--light);
+    width: 230px;
+    height: 100%;
+    padding-top: 30px;
+}
+
+/* SIDEBAR - LOGO */
+.sidebar .logo{
+    font-size: 26px;
+    font-weight: 700;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--warning);
+    z-index: 500;
+    padding-bottom: 20px;
+    box-sizing: content-box;
+}
+
+.sidebar .logo .logo-name span{
+    color: var(--dark);
+}
+
+.sidebar .logo .logo-name .habitant {
+    color: var(--light);
+    background-color: var(--primary); /* Applica lo sfondo solo a "Habitat" */
+    padding: 4px 10px; /* Aggiungi del padding se vuoi un po' di spazio attorno al testo */
+    
+}
+
+/* SIDEBAR - MENU */
+.sidebar {
+    position: fixed;
+    background: var(--light);
+    width: 230px;
+    height: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .menu-voices {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between; /* Aggiungi questo per distribuire le voci */
+}
+
+.sidebar .side-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar .menu-voices .main-menu {
+    flex-grow: 1; /* Fa in modo che le altre voci occupino tutto lo spazio */
+}
+
+.sidebar .menu-voices .side-menu.logout-menu {
+    margin-top: auto; /* Spinge la voce logout in fondo */
+    margin-bottom: 20px;
+}
+
+.sidebar .side-menu li {
+    height: 48px;
+    background: transparent;
+    margin-left: 16px;
+    margin-right: 16px;
+    border-radius: 48px 0 0 48px;
+    padding: 2px;
+}
+
+.sidebar .side-menu li a {
+    width: 100%;
+    height: 100%;
+    background: var(--light);
+    display: flex;
+    align-items: center;
+    border-radius: 48px;
+    font-size: 16px;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+.sidebar .side-menu li.active a {
+    color: var(--light-primary);
+    background: var(--primary);
+}
+
+.sidebar .side-menu li.active:hover a {
+    color: var(--light);
+}
+
+.sidebar .side-menu li:hover a {
+    color: var(--primary);
+}
+
+.sidebar .side-menu li a .bx {
+    padding-left: 20px;
+    display: flex;
+    font-size: 1.6rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar .side-menu li a.logout {
+    color: var(--danger);
+}
+
+
+
+
+/* NAVBAR */
+.content{
+    position: relative;
+    width: calc(100% - 230px);
+    left: 230px;
+    transition: all 0.3s ease;
+}
+
+
+.content nav {
+    height: 56px;
+    background: var(--light);
+    padding: 0 24px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content nav .house-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.content main{
+    width: 100%;
+    padding: 36px 24px;
+    max-height: calc(100vh - 56px);
+}
+
+.content main .header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 16px;
+    flex-wrap: wrap;
+}
+
+.content main .header .left h1{
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.content main .header .left .breadcrumb{
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+}
+
+.content main .header .left .breadcrumb li{
+    color: var(--dark);
+}
+
+.content main .header .left .breadcrumb li a{
+    color: var(--dark-grey);
+    pointer-events: none;
+}
+
+.content main .header .left .breadcrumb li a.active{
+    color: var(--primary);
+    pointer-events: none;
+}
+
+.content nav .profile {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background: var(--secondary);
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+    font-weight: 500;
+}
+
+.content main .top-data{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin-top: 24px;
+    width: 100%;
+    color: var(--dark);
+}
+
+.content main .top-data .insights{
+    display: grid;
+    align-items: center;
+    justify-content: space-arounds;
+    flex-wrap: no wrap;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-gap: 24px;
+}
+
+.content main .insights li{
+    padding: 24px;
+    background: var(--light);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+    cursor: pointer;
+}
+
+.content main .insights li .bx{
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content main .insights li:nth-child(1) .bx{
+    background: var(--light-primary);
+    color: var(--primary);
+}
+
+.content main .insights li:nth-child(2) .bx{
+    background: var(--light-secondary);
+    color: var(--secondary);
+}
+
+.content main .insights li:nth-child(3) .bx{
+    background: var(--light-warning);
+    color: var(--warning);
+}
+
+.content main .insights li .info h3{
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.content main .insights li .info p{
+    color: var(--dark);
+}
+
+.content main .top-data .payments-status{
+    border-radius: 20px;
+    background: var(--light);
+    padding: 24px;
+}
+
+
+.content main .top-data .header{
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+    margin-bottom: 24px;
+}
+
+.content main .top-data .header h3{
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.content main .top-data .header .bx{
+    cursor: pointer;
+}
+
+.content main .top-data .payments-status{
+    flex-basis: 400px;
+}
+
+.content main .top-data .payments-status table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content main .top-data .payments-status table th{
+    padding-bottom: 12px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey);
+}
+
+.content main .top-data .payments-status table td{
+    padding: 16px 0;
+}
+
+.content main .top-data .payments-status table tr td:first-child{
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 6px;
+}
+
+
+.content main .top-data .payments-status table tbody tr{
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.content main .top-data .payments-status table tbody tr:hover{
+    background: var(--grey);
+}
+
+.content main .top-data .payments-status table tr td .status{
+    font-size: 10px;
+    padding: 6px 16px;
+    color: var(--light);
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.content main .top-data .payments-status table tr td .status.send{
+    background: var(--primary);
+}
+
+
+.content main .top-data .payments-status table tr td .status.recive{
+    background: var(--secondary);
+}
+
+.content main .bottom-data{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin-top: 24px;
+    width: 100%;
+    color: var(--dark);
+}
+
+.content main .bottom-data>div{
+    border-radius: 20px;
+    background: var(--light);
+    padding: 24px;
+    overflow-x: auto;
+}
+
+.content main .bottom-data .header{
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+    margin-bottom: 24px;
+}
+
+.content main .bottom-data .header h3{
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.content main .bottom-data .header .bx{
+    cursor: pointer;
+}
+
+.content main .bottom-data .payments{
+    flex-basis: 500px;
+}
+
+.content main .bottom-data .payments.last{
+    flex-grow: 1;
+}
+
+.content main .bottom-data .payments.all{
+    flex-grow: 3;
+}
+
+.content main .bottom-data .payments td i {
+    width: 24px; /* Change width */
+    height: 24px; /* Change height */
+    color: var(--primary); /* Change fill color */
+}
+
+.content main .bottom-data .payments table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content main .bottom-data .payments table th{
+    padding-bottom: 12px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey);
+}
+
+.content main .bottom-data .payments table td{
+    padding: 16px 0;
+}
+
+.content main .bottom-data .payments table tr td:first-child{
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 6px;
+}
+
+.content main .bottom-data .payments table tbody tr{
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.content main .bottom-data .payments table tbody tr:hover{
+    background: var(--light-primary);
+}
+
+
+.content main .bottom-data .payments .pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.content main .bottom-data .payments .pagination a{
+    color: black;
+    float: left;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+
+.content main .bottom-data .payments .pagination a.active{
+    background-color: var(--primary);
+    color: white;
+    border-radius: 20px;
+}
+
+
+.content main .bottom-data .payments .all {
+    flex-grow: 10;
+}
+
+.content main .bottom-data .reminders{
+    flex-grow: 1;
+}
+
+.content main .bottom-data .reminders .task-list{
+    width: 100%;
+}
+
+.content main .bottom-data .reminders .task-list li{
+    width: 100%;
+    margin-bottom: 16px;
+    background: var(--grey);
+    padding: 14px 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content main .bottom-data .reminders .task-list li .task-title{
+    display: flex;
+    align-items: center;
+}
+
+.content main .bottom-data .reminders .task-list li .task-title p{
+    margin-left: 6px;
+}
+
+.content main .bottom-data .reminders .task-list li .bx{
+  cursor: pointer;  
+}
+
+.content main .bottom-data .reminders .task-list li.completed{
+    border-left: 10px solid var(--success);
+}
+
+.content main .bottom-data .reminders .task-list li.not-completed{
+    border-left: 10px solid var(--danger);
+}
+
+.content main .bottom-data .reminders .task-list li:last-child{
+   margin-bottom: 0;
+}
+
+
+
+
+.content main .bottom-data .user-expense {
+    background: var(--light);
+    border-radius: 20px;
+    padding: 20px;
+    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.content main .bottom-data .user-expense .user-list {
+    list-style: none;
+    padding: 0;
+}
+
+.content main .bottom-data .user-expense .user-list .user {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    background-color: var(--light-primary);
+}
+
+.content main .bottom-data .user-expense .user-list .user .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--light-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.content main .bottom-data .user-expense .user-list .name {
+    flex: 1;
+    color: var(--dark);
+}
+
+.content main .bottom-data .user-expense .user-list .amount {
+    color: var(--dark);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    .sidebar{
+        width: 200px;
+    }
+
+    .content{
+        width: calc(100% - 60px);
+        left: 200px;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    
+    .content nav form .form-input input{
+        display: none;
+    }
+
+    .content nav form .form-input button{
+        width: auto;
+        height: auto;
+        background: transparent;
+        color: var(--dark);
+        border-radius: none;
+    }
+
+    .content nav form.show .form-input input{
+        display: block;
+        width: 100%;
+    }
+
+    .content nav form.show .form-input button{
+        width: 36px;
+        height: 100%;
+        color: var(--light);
+        background: var(--danger);
+        border-radius: 0 36px 36px 0;
+    }
+
+}
+
+
+
+
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
+/* POPUP MODEL */
+
+#openPopupBtn {
+    border: 0;
+    background: transparent;
+}
+
+/* Stile per il popup (modal) */
+.popup {
+    display: none; /* Nascondi popup inizialmente */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Sfondo trasparente scuro */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenuto del popup */
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Bottone di chiusura */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+
+/* Stile del form */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+}
+
+form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}

@@ -6,6 +6,14 @@
 -->
 
 <?php
+    // Start the session
+    session_start(); 
+    // Check if exist the session
+    if (isset($_SESSION['id'])) {
+        header('Location: dashboard.php');
+        exit();
+    }
+
     $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
     $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/"; // Must be at least 8 characters, with one uppercase letter, one number, and one special character.
     $regex_name = "/^[A-Za-z]{2,12}$/";
@@ -64,7 +72,7 @@
                     $password = password_hash($usr_password1, PASSWORD_BCRYPT);
                     mysqli_stmt_bind_param($statement, 'ssss', $usr_email, $password, $usr_name, $usr_surname);
                     mysqli_stmt_execute($statement);
-                    header("location: login.php");
+                    header("location: php/login.php");
                 }
 
                 // Closing statement and connection

@@ -6,6 +6,14 @@
 -->
 
 <?php
+    // Start the session
+    session_start(); 
+    // Check if exist the session
+    if (isset($_SESSION['id'])) {
+        header('Location: dashboard.php');
+        exit();
+    }
+
     $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
     /*$regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/"; */
     
