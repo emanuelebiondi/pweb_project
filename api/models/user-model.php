@@ -1,24 +1,22 @@
 
 <?php
-    require_once 'database.php'; // Include la connessione al database
+    require_once '..\config\database.php'; // Include la connessione al database
 
     class UserModel {
 
         // Ottieni tutti gli user
         public function fetchAll() {
-            global $conn;
-            $sql = "SELECT * FROM user";
-            $result = $conn->query($sql);
-            return $result->fetch_all(MYSQLI_ASSOC);
+            // TODO
+            // $sql = "SELECT * FROM user";
         }
 
         // Ottieni un utente per ID
         public function fetchById($id) {
-            global $conn;
-            $sql = "SELECT * FROM user WHERE id = $id";
-            $result = $conn->query($sql);
-            return $result->fetch_assoc();
+            //TODO
+            // $sql = "SELECT * FROM user WHERE id = $id";
+
         }
+
 
         // Crea un nuovo utente
         public function create($data) {
@@ -36,19 +34,14 @@
 
         // Aggiorna un utente esistente
         public function update($data) {
-            global $conn;
-            $id = intval($data['id']);
-            $name = $conn->real_escape_string($data['name']);
-            $email = $conn->real_escape_string($data['email']);
-            $sql = "UPDATE user SET name='$name', email='$email' WHERE id=$id";
-            return $conn->query($sql);
+            // TODO
+            // $sql = "UPDATE user SET name='$name', email='$email' WHERE id=$id";
         }
 
         // Elimina un utente
         public function delete($id) {
-            global $conn;
-            $sql = "DELETE FROM user WHERE id=$id";
-            return $conn->query($sql);
+            // TODO
+            // $sql = "DELETE FROM user WHERE id=$id";
         }
     }
 ?>
