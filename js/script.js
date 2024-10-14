@@ -21,6 +21,21 @@ window.addEventListener('click', (event) => {
     }
 });
 
+
+// TODO:Controll logich to check if user as already joined in a House
+window.addEventListener('click', (event) => {
+    if (event.target == popupForm) {
+        popupForm.style.display = 'none';
+    }
+});
+
+
+
+mobiscroll.select('#single-select', {
+    inputElement: document.getElementById('my-input'),
+    touchUi: false
+});
+
 // Gestisce l'invio del form (puoi aggiungere la logica per inviare i dati tramite AJAX)
 document.getElementById('formData').addEventListener('submit', function(event) {
     event.preventDefault(); // Evita il refresh della pagina

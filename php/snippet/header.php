@@ -9,9 +9,6 @@
         exit;
     }
 
-    $_SESSION['id'] = "";
-    $_SESSION['username'] = "Mario Rossi";
-
 
 // Supponiamo che $active_page contenga il nome della pagina attuale
 $active_page = $page_name; // Modifica questo valore per testare diverse pagine
@@ -21,7 +18,7 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
     <a href="#" class="logo">
         <div class="logo-name">
             <span>Co</span>
-            <span class="habitant">Habitat</span>
+            <span class="habitant">Habitant</span>
         </div>
     </a>
     <div class="menu-voices">
@@ -30,13 +27,13 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
                 <a href="dashboard.php"><i class='bx bxs-dashboard'></i>&nbsp Dashboard</a>
             </li>
             <li class="<?= $active_page === 'payments' ? 'active' : '' ?>">
-                <a href="payments.php"><i class='bx bx-store-alt'></i>&nbsp Payments</a>
+                <a href="payments.php"><i class='bx bx-dollar-circle'></i>&nbsp Payments</a>
             </li>
             <li class="<?= $active_page === 'expenses' ? 'active' : '' ?>">
-                <a href="expenses.php"><i class='bx bx-store-alt'></i>&nbsp Expenses</a>
+                <a href="expenses.php"><i class='bx bx-cart-alt'></i>&nbsp Expenses</a>
             </li>
             <li class="<?= $active_page === 'reminders' ? 'active' : '' ?>">
-                <a href="reminders.php"><i class='bx bx-analyse'></i>&nbsp Reminders</a>
+                <a href="reminders.php"><i class='bx bx-note'></i>&nbsp Reminders</a>
             </li>
             <li class="<?= $active_page === 'roommates' ? 'active' : '' ?>">
                 <a href="roommates.php"><i class='bx bx-group'></i>&nbsp Roommates</a>
@@ -65,7 +62,7 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
             <br>
             <span class="house-name">Grabiela's House</span>
             <div class="profile">
-                <span><?php $_SESSION['name'] . ' ' . $_SESSION['surname'] ?></span>
+                <span><?php echo $_SESSION['name'] . ' ' . $_SESSION['surname'] ?></span>
             </div>
 
         </nav>

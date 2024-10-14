@@ -53,7 +53,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>From</th>
-                                <th>To</th>
+                                <th>Category</th>
                                 <th>Desc</th>
                                 <th>Amount</th>
                             </tr>
@@ -62,7 +62,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Sapone Piatti</td>
                                 <td>200,00€</td>
                                 <td><i class='bx bx-edit'></i></td>
@@ -71,7 +71,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Bolletta Enel + robe della casaa</td>
                                 <td>200,00€</td>
                                  <td><i class='bx bx-edit'></i></td>
@@ -80,7 +80,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Tovaglia</td>
                                 <td>200,00€</td>
                                  <td><i class='bx bx-edit'></i></td>
@@ -89,7 +89,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Sapone Piatti</td>
                                 <td>200,00€</td>
                                  <td><i class='bx bx-edit'></i></td>
@@ -98,7 +98,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Bolletta Enel</td>
                                 <td>200,00€</td>
                                 <td><i class='bx bx-edit'></i></td>
@@ -108,7 +108,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Tovaglia</td>
                                 <td>200,00€</td>
                                  <td><i class='bx bx-edit'></i></td>
@@ -117,7 +117,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Sapone Piatti</td>
                                 <td>200,00€</td>
                                  <td><i class='bx bx-edit'></i></td>
@@ -126,7 +126,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Bolletta Enel</td>
                                 <td>200,00€</td>
                                  <td><i class='bx bx-edit'></i></td>
@@ -135,7 +135,7 @@
                             <tr>
                                 <td>18/08/2024</td>
                                 <td><p>John Doe</p></td>
-                                <td>Emanuele Biondi</td>
+                                <td>Casa</td>
                                 <td>Tovaglia</td>
                                 <td>200,00€</td>
                                  <td><i class='bx bx-edit'></i></td>
@@ -184,21 +184,40 @@
                 <!-- End of User Expense-->
 
             </div>
-            <!-- Bottone per aprire il popup -->
 
 
-        <!-- Popup Add Payment -->
+        <!-- Popup Add Payment (Hidden by default)-->
         <div id="popupForm" class="popup">
             <div class="popup-content">
-                <span class="close-btn">&times;</span> <!-- Bottone di chiusura -->
-                <h2>Inserisci i tuoi dati</h2>
+                <h2>New Expense</h2>
+                <br>
+                <span class="close-btn"></span>
                 <form id="formData">
                     <label for="date">Date:</label>
                     <input type="date" id="date" name="dates" required>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="user">user:</label>
+                    <select name="user" id="user">
+                        <option value="1">Emanuele Biondi</option>
+                        <option value="2">John Doe</option>
+                        <option value="3">Jane Smith</option>
+                    </select>
 
+                    <label for="category">Category:</label>
+                    <select name="category" id="category">
+                        <option value="Tasse">Tasse</option>
+                        <option value="Bollette">Bollette</option>
+                        <option value="Detersivi">Detersivi</option>
+                        <option value="Altro">Altro</option>
+                    </select>
+
+                    <label for="desc">Description:</label>
+                    <input type="text" id="desc" name="desc" required>
+
+                    <label for="desc">Amount:</label>
+                    <input type="number" id="amount" name="amount" min="0" step="0.01" placeholder="0.00">
+
+                    <br>
                     <button type="submit">Invia</button>
                 </form>
             </div>

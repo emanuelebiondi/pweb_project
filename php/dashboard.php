@@ -168,8 +168,9 @@
 
             </div>
 
-        </main>
+                <!-- Popup Create or Join in House (Hidden by default)-->
 
+        </main>
     </div>
 
     <script src="index.js"></script>

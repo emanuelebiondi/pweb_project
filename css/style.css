@@ -4,6 +4,7 @@
     --light: #f6f6f9;
 
     --primary: #E07A5F;
+    
     --light-primary: #ffe8e0;
     
     --secondary: #008080;
@@ -177,9 +178,19 @@ body{
 }
 
 .sidebar .side-menu li a.logout {
-    color: var(--danger);
+    width: 100%;
+    height: 100%;
+    background: var(--light);
+    display: flex;
+    align-items: center;
+    border-radius: 48px;
+    font-size: 16px;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow-x: hidden;
+    color: var(--light);
+    background: var(--secondary);
 }
-
 
 
 
@@ -651,8 +662,7 @@ body{
 }
 
 
-
-
+/* POPUP AND FORM SETTINGS*/
 
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
@@ -739,7 +749,7 @@ body{
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Sfondo trasparente scuro */
+    background-color: rgba(224, 122, 95, 0.5); /* Sfondo trasparente scuro */;
     justify-content: center;
     align-items: center;
 }
@@ -747,28 +757,26 @@ body{
 /* Contenuto del popup */
 .popup-content {
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
+    padding: 40px;
+    border-radius: 20px;
+    width: 350px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Bottone di chiusura */
 .close-btn {
-    position: absolute;
     top: 10px;
     right: 20px;
     font-size: 24px;
     cursor: pointer;
 }
 
-
-
 /* Stile del form */
 form {
     display: flex;
     flex-direction: column;
 }
+
 
 form label {
     margin-bottom: 5px;
@@ -782,15 +790,23 @@ form input {
     border-radius: 5px;
 }
 
+form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 form button {
     padding: 10px;
-    background-color: #28a745;
+    background-color: var(--primary);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
 }
 
 form button:hover {
-    background-color: #218838;
+    background-color: var(--secondary);
 }
