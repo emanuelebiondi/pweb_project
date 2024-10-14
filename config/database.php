@@ -27,4 +27,8 @@
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
 
+    // Rendi la connessione globale
+    global $conn;
+    $conn = $connection; // Assegna la connessione alla variabile globale $conn
+
 ?>

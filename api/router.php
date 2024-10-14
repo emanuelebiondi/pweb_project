@@ -8,8 +8,12 @@
 
 */
 
-require_once 'controllers\user-controller.php';
-require_once 'controllers\auth-controller.php'; // Includi il nuovo controller per l'autenticazione
+require_once 'controllers/user-controller.php';
+require_once 'controllers/auth-controller.php';
+require_once 'controllers/expance-controller.php';
+require_once 'controllers/house-controller.php';
+
+require_once '../config/database.php'; // Include la connessione al database
 
 // Ottieni il metodo HTTP e l'endpoint richiesto
 $method = $_SERVER['REQUEST_METHOD'];
@@ -17,19 +21,33 @@ $request = explode('/', trim($_SERVER['PATH_INFO'], '/')); // Prende l'endpoint 
 
 // Verifica l'endpoint e instrada la richiesta al controller corretto
 switch ($request[0]) {
-    case 'user':
-        $controller = new UtentiController();
-        $controller->handleRequest($method, $request);
-        break;
-
     case 'register':
         if ($method === 'POST') {
             $authController = new AuthController();
             $authController->register(); // Chiama il metodo di registrazione
-        } else {
-            header("HTTP/1.0 405 Method Not Allowed");
-            echo json_encode(['error' => 'Method not allowed']);
         }
+        break;
+
+    case 'login':
+        if ($method === 'POST') {
+            $authController = new AuthController();
+            $authController->login(); // Chiama il metodo di registrazione
+        }
+        break;
+
+    case 'user':
+        $controller = new UserController();
+        $controller->handleRequest($method, $request);
+        break;
+
+    case 'expance':
+        $controller = new ExpanceController();
+        $controller->handleRequest($method, $request);
+        break;
+
+    case 'house':
+        $controller = new HouseController();
+        $controller->handleRequest($method, $request);
         break;
 
     // Altri endpoint possono essere aggiunti qui, es. prodotti, ordini, ecc.

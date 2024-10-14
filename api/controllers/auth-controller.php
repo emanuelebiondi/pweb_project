@@ -70,6 +70,7 @@ class AuthController {
     
         } catch (Exception $e) {
             // Gestione degli errori
+            header("HTTP/1.0 409 Conflict");
             echo json_encode(['error' => $e->getMessage()]);
         } finally {
             // Chiudi la connessione al database
@@ -79,4 +80,86 @@ class AuthController {
         }
     }
 
+
+    public function login() {
+        header('Content-Type: application/json');
+    
+        // Regex per la validazione
+        $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
+        
+        // Ricevi i dati dalla richiesta
+        $data = json_decode(file_get_contents("php://input"), true);
+        $usr_email = strtolower($data['email']);
+        $usr_password = $data['password'];
+    
+        try {
+            // Validazione dei dati
+            if (!preg_match($regex_email, $usr_email)) {
+                throw new Exception('Invalid email format');
+            }
+    
+            // Connessione al database
+            require "../config/database.php";
+    
+            if (!$connection) {
+                throw new Exception('Database connection error');
+            }
+    
+            // Prepara la query per prevenire SQL injection
+            $query = "
+                SELECT  U.*, H.name as house_name
+                FROM
+                    users U
+                    left join
+                    houses H on U.house_id = H.id 
+                WHERE email = ?";
+
+            if ($statement = mysqli_prepare($connection, $query)) {
+                mysqli_stmt_bind_param($statement, 's', $usr_email);
+                mysqli_stmt_execute($statement);
+                $result = mysqli_stmt_get_result($statement);
+    
+                // Controlla se l'email è presente
+                if (mysqli_num_rows($result) === 0) {
+                    throw new Exception('No user found with this email');
+                }
+    
+                $row = mysqli_fetch_assoc($result);
+                $hash = $row['password'];
+    
+                // Controlla la password
+                if (!password_verify($usr_password, $hash)) {
+                    throw new Exception('Incorrect password');
+                }
+    
+                // Imposta le variabili di sessione
+                session_start();
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['name'] = $row['name'];
+                $_SESSION['surname'] = $row['surname'];
+                $_SESSION['house_id'] = $row['house_id'];
+                $_SESSION['house_name'] = $row['house_name'];
+    
+                // Rispondi con successo
+                echo json_encode(['success' => 'Login successful']);
+            } else {
+                throw new Exception('Database query preparation error');
+            }
+    
+            mysqli_stmt_close($statement);
+        } catch (Exception $e) {
+            // Gestione degli errori
+            header("HTTP/1.0 409 Conflict");
+            echo json_encode(['error' => $e->getMessage()]);
+        } finally {
+            // Chiudi la connessione al database
+            if (isset($connection)) {
+                mysqli_close($connection);
+            }
+        }
+    }
 }
+    
+
+?>

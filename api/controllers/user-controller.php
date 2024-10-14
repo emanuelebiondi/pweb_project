@@ -12,7 +12,7 @@ class UserController {
         switch ($method) {
             case 'GET':
                 if (isset($request[1])) {
-                    $this->getUtente(intval($request[1])); // GET /user/1
+                    $this->getUserById(intval($request[1])); // GET /user/1
                 } else {
                     $this->getuser(); // GET /user
                 }
@@ -40,13 +40,18 @@ class UserController {
     }
 
     // Funzione per ottenere tutti gli user
-    public function getuser() {
+    public function getUser() {
         $data = $this->model->fetchAll();
         echo json_encode($data);
     }
 
+    public function getUserHouse() {
+        $data = $this->model->userHouse();
+        echo json_encode($data);
+    }
+
     // Funzione per ottenere un singolo utente
-    public function getUtente($id) {
+    public function getUserById($id) {
         $data = $this->model->fetchById($id);
         if ($data) {
             echo json_encode($data);

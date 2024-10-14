@@ -60,7 +60,7 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
         <!-- Navbar -->
         <nav>
             <br>
-            <span class="house-name">Grabiela's House</span>
+            <span class="house-name" id ="house-name"><?php echo $_SESSION['house_name'] ?></span>
             <div class="profile">
                 <span><?php echo $_SESSION['name'] . ' ' . $_SESSION['surname'] ?></span>
             </div>

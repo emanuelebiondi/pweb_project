@@ -8,7 +8,8 @@
 <?php
     // Start the session
     session_start(); 
-    // Check if exist the session
+    
+    // Check if exist the session, so redirect to dashboard
     if (isset($_SESSION['id'])) {
         header('Location: dashboard.php');
         exit();
@@ -61,35 +62,8 @@
             <p class="elseregister">If you are already registered, <a href="login.php">log in here!</a></p>
         </main>
     
-        <script>
-            document.getElementById('registerForm').addEventListener('submit', async function(event) {
-                event.preventDefault(); // Previeni il comportamento predefinito del form
-    
-                const email = document.getElementById('email').value;
-                const name = document.getElementById('name').value;
-                const surname = document.getElementById('surname').value;
-                const password1 = document.getElementById('password1').value;
-                const password2 = document.getElementById('password2').value;
-    
-                const response = await fetch('../api/router.php/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, name, surname, password1, password2 })
-                });
-    
-                const data = await response.json();
-    
-                if (response.ok) {
-                    // Registrazione avvenuta con successo
-                    window.location.href = 'login.php'; // Reindirizza al login
-                } else {
-                    // Mostra l'errore
-                    document.getElementById('errorMessage').innerText = data.error;
-                }
-            });
-        </script>
+        <script src="../js/register.js"></script>
+
     </body>
     <?php include "snippet/footer.html"?>
     </html>
