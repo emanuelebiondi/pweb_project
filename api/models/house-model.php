@@ -15,6 +15,17 @@ class HouseModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function fetchByJoinCode($join_code) {
+        global $conn;
+        $sql = "SELECT * FROM houses WHERE join_code = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) die('Error in query preparation ' . $conn->error);
+
+        $stmt->bind_param('s', $join_code);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     // Create a new houses
     public function create($data) {
         global $conn;

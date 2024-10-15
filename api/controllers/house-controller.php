@@ -12,8 +12,18 @@ class HouseController {
         switch ($method) {
             case 'GET':
                 if (isset($request[1])) {
-                    $this->getHouseById(intval($request[1])); // GET /house/1
-                } 
+                    // Controlla se la richiesta è per join_code
+                    if ($request[1] === 'join_code' && isset($request[2])) {
+                        // Passa il house_code
+                        $this->getHouseByJoinCode($request[2]); // GET /house/join_code/abc123
+                    } elseif (is_numeric($request[1])) {
+                        // Passa l'ID se è numerico
+                        $this->getHouseById(intval($request[1])); // GET /user/1
+                    } else {
+                        header("HTTP/1.0 400 Bad Request");
+                        echo json_encode(['error' => 'Format not valid']);
+                    }
+                }
                 break;
 
             case 'POST':
@@ -33,8 +43,18 @@ class HouseController {
 
     // Function to fetch a single house by ID
     public function getHouseById($id) {
-
         $data = $this->model->fetchById($id);
+        if ($data) {
+            echo json_encode($data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+            echo json_encode(['error' => 'House not found']);
+        }
+    }
+
+
+    public function getHouseByJoinCode($join_code) {
+        $data = $this->model->fetchByJoinCode($join_code);
         if ($data) {
             echo json_encode($data);
         } else {

@@ -2,7 +2,6 @@
 
     // Set the current page name
     $page_name = basename($_SERVER['PHP_SELF'], '.php');   
-    include "snippet/header.php";
 ?>
 
 
@@ -10,7 +9,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,9 +18,8 @@
 </head>
 
 <body>
-
     <!-- Header + topbar inserted by snippet/header.php -->
-    
+    <?php include "snippet/header.php"?>
         <main>
             <div class="header">
                 <div class="left">
@@ -165,39 +162,18 @@
                 </div>
 
                 <!-- End of Reminders-->
-
             </div>
 
-                <!-- Popup Create or Join in House (Hidden by default)-->
-                <div id="popupFormJoinHouse" class="popup">
-                    <div class="popup-content">
-                        
-                        <br>
-    
-                        <form id="formData">
-                            <h2>Join in an House</h2>
-                            <label for="house_code">Insert the code: </label>
-                            <input type="text" id="house_code" name="house_code">
-
-                            <br> 
-                            <h2>OR</h2>
-                            <br>
-
-                            <h2>Create an House</h2>
-                            <label for="house_name">Enter the house name:</label>
-                            <input type="text" id="house_name" name="house_name">
-                                                                                                                                            
-                            <br>
-                            <button type="submit">Send</button>
-                        </form>
-                    </div>
-                </div>
-
+            <!-- Popup Create or Join in House (Hidden by default)-->
+            <?php include_once 'popupForms/houseJoinForm.php' ?>
 
         </main>
     </div>
 
     <script src="../js/dashboard.js"></script>
+    <script src="../js/houseChoiceDashboard.js"></script>
 </body>
+
+
 
 </html>

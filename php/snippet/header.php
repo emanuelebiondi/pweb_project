@@ -14,44 +14,44 @@
 $active_page = $page_name; // Modifica questo valore per testare diverse pagine
 ?>
 
-<div class="sidebar">
-    <a href="#" class="logo">
-        <div class="logo-name">
-            <span>Co</span>
-            <span class="habitant">Habitant</span>
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <div class="logo-name">
+                <span>Co</span>
+                <span class="habitant">Habitat</span>
+            </div>
+        </a>
+        <div class="menu-voices">
+            <ul class="side-menu main-menu">
+                <li class="<?= $active_page === 'dashboard' ? 'active' : '' ?>">
+                    <a href="dashboard.php"><i class='bx bxs-dashboard'></i>&nbsp Dashboard</a>
+                </li>
+                <li class="<?= $active_page === 'payments' ? 'active' : '' ?>">
+                    <a href="payments.php"><i class='bx bx-dollar-circle'></i>&nbsp Payments</a>
+                </li>
+                <li class="<?= $active_page === 'expenses' ? 'active' : '' ?>">
+                    <a href="expenses.php"><i class='bx bx-cart-alt'></i>&nbsp Expenses</a>
+                </li>
+                <li class="<?= $active_page === 'reminders' ? 'active' : '' ?>">
+                    <a href="reminders.php"><i class='bx bx-note'></i>&nbsp Reminders</a>
+                </li>
+                <li class="<?= $active_page === 'roommates' ? 'active' : '' ?>">
+                    <a href="roommates.php"><i class='bx bx-group'></i>&nbsp Roommates</a>
+                </li>
+                <li class="<?= $active_page === 'settings' ? 'active' : '' ?>">
+                    <a href="settings.php"><i class='bx bx-cog'></i>&nbsp Settings</a>
+                </li>
+            </ul>
+            <ul class="side-menu logout-menu">
+                <li>
+                    <a href="../php/script/logout.php" class="logout">
+                        <i class='bx bx-log-out-circle'></i>
+                        &nbsp Logout
+                    </a>
+                </li>
+            </ul>
         </div>
-    </a>
-    <div class="menu-voices">
-        <ul class="side-menu main-menu">
-            <li class="<?= $active_page === 'dashboard' ? 'active' : '' ?>">
-                <a href="dashboard.php"><i class='bx bxs-dashboard'></i>&nbsp Dashboard</a>
-            </li>
-            <li class="<?= $active_page === 'payments' ? 'active' : '' ?>">
-                <a href="payments.php"><i class='bx bx-dollar-circle'></i>&nbsp Payments</a>
-            </li>
-            <li class="<?= $active_page === 'expenses' ? 'active' : '' ?>">
-                <a href="expenses.php"><i class='bx bx-cart-alt'></i>&nbsp Expenses</a>
-            </li>
-            <li class="<?= $active_page === 'reminders' ? 'active' : '' ?>">
-                <a href="reminders.php"><i class='bx bx-note'></i>&nbsp Reminders</a>
-            </li>
-            <li class="<?= $active_page === 'roommates' ? 'active' : '' ?>">
-                <a href="roommates.php"><i class='bx bx-group'></i>&nbsp Roommates</a>
-            </li>
-            <li class="<?= $active_page === 'settings' ? 'active' : '' ?>">
-                <a href="settings.php"><i class='bx bx-cog'></i>&nbsp Settings</a>
-            </li>
-        </ul>
-        <ul class="side-menu logout-menu">
-            <li>
-                <a href="../php/script/logout.php" class="logout">
-                    <i class='bx bx-log-out-circle'></i>
-                    &nbsp Logout
-                </a>
-            </li>
-        </ul>
     </div>
-</div>
 
     <!-- End of Sidebar -->
 

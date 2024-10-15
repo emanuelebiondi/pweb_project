@@ -11,10 +11,20 @@
         }
 
         // Ottieni un utente per ID
-        public function fetchById($id) {
-            //TODO
-            // $sql = "SELECT * FROM user WHERE id = $id";
 
+        public function fetchById($id) {
+            global $conn;
+            $sql = "
+                SELECT U.id, U.name, U.surname, U.email, U.house_id, H.name as house_name 
+                FROM users U
+                    left join houses H on U.house_id = H.id 
+                WHERE U.id = ?";
+            $stmt = $conn->prepare($sql);
+            if ($stmt === false) die('Error in query preparation ' . $conn->error);
+    
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
         }
 
 
@@ -53,51 +63,52 @@
         }
 
         // Aggiorna un utente esistente
-        public function updateUser($data) {
-            // Assicurarsi che l'user_id sia presente nell'array $data
-            if (!isset($data['user_id'])) {
-                return ['success' => false, 'error' => 'user_id is required'];
+        public function update($data) {
+            global $conn;
+        
+            // Verificare che la sessione contenga l'user_id
+            if (!isset($_SESSION['id'])) {
+                return false;  // Se l'user_id non è presente, restituisce false
             }
-    
-            // Estraiamo l'user_id e rimuoviamolo da $data perché non fa parte dei campi da aggiornare
-            $userId = $SESSION['id'];
-    
+        
+            $userId = $_SESSION['id'];  // Recupera l'user_id dalla sessione
+        
             // Costruire la clausola SET dinamicamente
             $setClause = '';
             $params = [];
             $types = '';  // Questo servirà per i tipi di dati per il bind_param
-    
+        
             foreach ($data as $key => $value) {
                 $setClause .= "$key = ?, ";  // Segnaposto per ogni campo
                 $params[] = $value;          // Aggiungere il valore
                 $types .= $this->getType($value);  // Determinare il tipo di dato (i - intero, s - stringa, etc.)
             }
-    
+        
             $setClause = rtrim($setClause, ', ');  // Rimuovere l'ultima virgola
-    
+        
             // Query di aggiornamento
             $sql = "UPDATE users SET $setClause WHERE id = ?";
-    
+        
             // Preparare lo statement
-            $stmt = $this->db->prepare($sql);
+            $stmt = $conn->prepare($sql);
             if ($stmt === false) {
-                return ['success' => false, 'error' => 'Error preparing statement'];
+                return false;  // Restituisce false in caso di errore nella preparazione dello statement
             }
-    
+        
             // Aggiungere l'user_id alla fine dei parametri per la clausola WHERE
-            $params[] = $userId;
+            $params[] = $userId;  // Aggiungere l'user_id preso dalla sessione
             $types .= 'i';  // Assumiamo che user_id sia sempre un intero
-    
+        
             // Bind dei parametri dinamici
             $stmt->bind_param($types, ...$params);  // Legare dinamicamente i parametri
-    
+        
             // Eseguire la query
             if ($stmt->execute()) {
-                return ['success' => true];
+                return $userId;  // Restituisce l'user_id al successo
             } else {
-                return ['success' => false, 'error' => 'Error during update'];
+                return false;  // Restituisce false in caso di errore durante l'update
             }
-    
+        
             $stmt->close();  // Chiudere lo statement
         }
     

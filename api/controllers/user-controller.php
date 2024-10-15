@@ -23,7 +23,7 @@ class UserController {
                 break;
 
             case 'PUT':
-                $this->updateUtente(); // PUT /user
+                $this->updateUser(); // PUT /user
                 break;
 
             case 'DELETE':
@@ -74,14 +74,52 @@ class UserController {
     }
 
     // Funzione per aggiornare un utente
-    public function updateUtente() {
-        $input = json_decode(file_get_contents("php://input"), true);
-        if ($this->model->update($input)) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Errore durante l\'aggiornamento']);
+     public function updateUser() {
+        try {
+            // Read input from HTTP request
+            $input = json_decode(file_get_contents("php://input"), true);
+    
+            // Verifica se i dati sono stati decodificati correttamente
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                header("HTTP/1.0 400 Bad Request");
+                echo json_encode(['error' => 'Invalid JSON']);
+                return; // Esci dalla funzione
+            }
+
+            session_start();
+            if (isset($_SESSION['id'])) {
+                $user = $this->model->update($input);
+                if ($user) {
+                    $user = $this->model->fetchById($_SESSION['id']);
+                    
+                    // Update the session information
+                    $_SESSION['name'] = $user['name'];
+                    $_SESSION['surname'] = $user['surname'];
+                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['house_id'] = $user['house_id'];
+                    $_SESSION['house_name'] = $user['house_name'];
+                    
+                    header("HTTP/1.0 201 Created"); // Usa 201 Created se la risorsa è stata creata con successo
+                    echo json_encode($user); // Restituisci i dati dell'utente aggiornati
+                } else {
+                    throw new Exception('User updated, but could not retrieve it.');
+                }
+            } else {
+                throw new Exception('Error while updating user.');
+            }
+        } catch (Exception $e) {
+            // Gestione delle eccezioni
+            header("HTTP/1.0 500 Internal Server Error"); // Codice 500 per errori sul server
+            echo json_encode(['error' => $e->getMessage()]); // Restituisci il messaggio dell'eccezione
+        } catch (Throwable $t) {
+            // Gestione di eventuali errori non catturati
+            header("HTTP/1.0 500 Internal Server Error");
+            echo json_encode(['error' => 'An unexpected error occurred: ' . $t->getMessage()]);
         }
     }
+
+
+
 
     // Funzione per eliminare un utente
     public function deleteUtente($id) {
