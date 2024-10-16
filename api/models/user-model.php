@@ -5,9 +5,22 @@
     class UserModel {
 
         // Ottieni tutti gli user
-        public function fetchAll() {
-            // TODO
-            // $sql = "SELECT * FROM user";
+        public function fetchAll($house_id) {
+            global $conn;
+            
+            $query = "
+                SELECT id, name, surname
+                FROM users 
+                WHERE house_id = ?";
+            
+            $stmt = $conn->prepare($query); // Prepare statement 
+            if ($stmt === false) 
+                die('Error in query preparation ' . $conn->error);
+
+            $stmt->bind_param('i', $house_id); // Bind parameters
+            
+            $stmt->execute();
+            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         }
 
         // Ottieni un utente per ID

@@ -5,6 +5,7 @@ class UserController {
     private $model;
 
     public function __construct() {
+        session_start();
         $this->model = new UserModel(); // Inizializza il modello
     }
 
@@ -14,12 +15,12 @@ class UserController {
                 if (isset($request[1])) {
                     $this->getUserById(intval($request[1])); // GET /user/1
                 } else {
-                    $this->getuser(); // GET /user
+                    $this->getUser(); // GET /user
                 }
                 break;
 
             case 'POST':
-                $this->createUtente(); // POST /user
+                $this->createUser(); // POST /user
                 break;
 
             case 'PUT':
@@ -28,12 +29,12 @@ class UserController {
 
             case 'DELETE':
                 if (isset($request[1])) {
-                    $this->deleteUtente(intval($request[1])); // DELETE /user/1
+                    $this->deleteUser(intval($request[1])); // DELETE /user/1
                 }
                 break;
 
             default:
-                header("HTTP/1.0 405 Method Not Allowed");
+                header("HTTP/1.0 410 Method Not Allowed");
                 echo json_encode(['error' => 'Metodo non supportato']);
                 break;
         }
@@ -41,7 +42,9 @@ class UserController {
 
     // Funzione per ottenere tutti gli user
     public function getUser() {
-        $data = $this->model->fetchAll();
+        $house_id = $_SESSION['house_id'];
+
+        $data = $this->model->fetchAll($house_id);
         echo json_encode($data);
     }
 
@@ -50,19 +53,19 @@ class UserController {
         echo json_encode($data);
     }
 
-    // Funzione per ottenere un singolo utente
+    // Funzione per ottenere un singolo User
     public function getUserById($id) {
         $data = $this->model->fetchById($id);
         if ($data) {
             echo json_encode($data);
         } else {
             header("HTTP/1.0 404 Not Found");
-            echo json_encode(['error' => 'Utente non trovato']);
+            echo json_encode(['error' => 'User non trovato']);
         }
     }
 
-    // Funzione per creare un nuovo utente
-    public function createUtente() {
+    // Funzione per creare un nuovo User
+    public function createUser() {
         $input = json_decode(file_get_contents("php://input"), true);   // read input from HTTP request
         
         // Decode input from JSON to PHP structure
@@ -73,7 +76,7 @@ class UserController {
         }
     }
 
-    // Funzione per aggiornare un utente
+    // Funzione per aggiornare un User
      public function updateUser() {
         try {
             // Read input from HTTP request
@@ -85,8 +88,6 @@ class UserController {
                 echo json_encode(['error' => 'Invalid JSON']);
                 return; // Esci dalla funzione
             }
-
-            session_start();
             if (isset($_SESSION['id'])) {
                 $user = $this->model->update($input);
                 if ($user) {
@@ -100,7 +101,7 @@ class UserController {
                     $_SESSION['house_name'] = $user['house_name'];
                     
                     header("HTTP/1.0 201 Created"); // Usa 201 Created se la risorsa è stata creata con successo
-                    echo json_encode($user); // Restituisci i dati dell'utente aggiornati
+                    echo json_encode($user); // Restituisci i dati dell'User aggiornati
                 } else {
                     throw new Exception('User updated, but could not retrieve it.');
                 }
@@ -121,8 +122,8 @@ class UserController {
 
 
 
-    // Funzione per eliminare un utente
-    public function deleteUtente($id) {
+    // Funzione per eliminare un User
+    public function deleteUser($id) {
         if ($this->model->delete($id)) {
             echo json_encode(['success' => true]);
         } else {

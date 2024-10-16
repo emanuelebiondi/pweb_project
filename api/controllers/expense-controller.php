@@ -1,34 +1,35 @@
 <?php
-require_once 'models\expance-model.php';
+require_once 'models\expense-model.php';
 
-class ExpanceController {
+class expenseController {
     private $model;
 
     public function __construct() {
-        $this->model = new ExpanceModel(); // Initialize the model
+        if (!isset($_SESSION)) session_start();
+        $this->model = new expenseModel(); // Initialize the model
     }
 
     public function handleRequest($method, $request) {
         switch ($method) {
             case 'GET':
                 if (isset($request[1])) {
-                    $this->getExpanceById(intval($request[1])); // GET /expance/1
+                    $this->getexpenseById(intval($request[1])); // GET /expense/1
                 } else {
-                    $this->getExpance(); // GET /expance
+                    $this->getExpensesWithPagination(); // GET /expenses con paginazione
                 }
                 break;
 
             case 'POST':
-                $this->createExpance(); // POST /expance
+                $this->createExpense(); // POST /expense
                 break;
 
             case 'PUT':
-                $this->updateExpance(); // PUT /expance
+                $this->updateexpense(); // PUT /expense
                 break;
 
             case 'DELETE':
                 if (isset($request[1])) {
-                    $this->deleteExpance(intval($request[1])); // DELETE /expance/1
+                    $this->deleteexpense(intval($request[1])); // DELETE /expense/1
                 }
                 break;
 
@@ -40,13 +41,18 @@ class ExpanceController {
     }
 
     // Function to fetch all expenses
-    public function getExpance() {
-        $data = $this->model->fetchAll();
+    public function getExpensesWithPagination() {
+        $house_id = $_SESSION['house_id'];
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Ottieni la pagina
+        $limit = 9; // Numero di risultati per pagina
+        $offset = ($page - 1) * $limit; // Calcola l'offset
+    
+        $data = $this->model->fetchAll($house_id, $limit, $offset);
         echo json_encode($data);
     }
 
     // Function to fetch a single expense by ID
-    public function getExpanceById($id) {
+    public function getexpenseById($id) {
         $data = $this->model->fetchById($id);
         if ($data) {
             echo json_encode($data);
@@ -57,19 +63,21 @@ class ExpanceController {
     }
 
     // Function to create a new expense
-    public function createExpance() {
+    public function createExpense() {
         $input = json_decode(file_get_contents("php://input"), true);   // Read input from HTTP request
+
         
         // Decode input from JSON to PHP structure
-        if ($this->model->create($input)) {
-            echo json_encode(['success' => true]);
+        $data = $this->model->create($input);
+        if ($data) {
+            echo json_encode($data);
         } else {
             echo json_encode(['success' => false, 'error' => 'Error while creating']);
         }
     }
 
     // Function to update an expense
-    public function updateExpance() {
+    public function updateexpense() {
         $input = json_decode(file_get_contents("php://input"), true);
         if ($this->model->update($input)) {
             echo json_encode(['success' => true]);
@@ -79,7 +87,7 @@ class ExpanceController {
     }
 
     // Function to delete an expense
-    public function deleteExpance($id) {
+    public function deleteexpense($id) {
         if ($this->model->delete($id)) {
             echo json_encode(['success' => true]);
         } else {
@@ -87,4 +95,5 @@ class ExpanceController {
         }
     }
 }
+
 ?>

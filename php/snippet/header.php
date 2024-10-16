@@ -42,6 +42,13 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
                     <a href="settings.php"><i class='bx bx-cog'></i>&nbsp Settings</a>
                 </li>
             </ul>
+            <ul class="side-menu housecode-menu">
+                <li>
+                    Share this code to join the house:
+                    <b><span class="house-code" id ="house-code"><?php echo $_SESSION['house_name'] ?></span></b>
+                </li>
+            </ul>
+            <br>
             <ul class="side-menu logout-menu">
                 <li>
                     <a href="../php/script/logout.php" class="logout">
@@ -50,6 +57,7 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
                     </a>
                 </li>
             </ul>
+
         </div>
     </div>
 

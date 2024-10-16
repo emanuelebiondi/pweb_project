@@ -73,6 +73,7 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     // Controllo della risposta per il secondo fetch
     if (response2.ok) {
         // Registrazione avvenuta con successo
+        document.getElementById('popupFormJoinHouse').style.display = 'none';
         window.location.href = 'dashboard.php'; // Redirect to dashboard
     } else {
         alert(data2.error || 'Error updating user');

@@ -2,7 +2,6 @@
 
     // Set the current page name
     $page_name = basename($_SERVER['PHP_SELF'], '.php');   
-    include "snippet/header.php";
 ?>
 
 
@@ -16,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cohabitant - Dashboard</title>
+    <title>Cohabitant - Expenses</title>
     <script> 
         function openForm() {
             document.getElementById("myForm").style.display = "block";
@@ -31,7 +30,7 @@
 <body>
 
     <!-- Header + topbar inserted by snippet/header.php -->
-    
+    <?php include "snippet/header.php"?>
         <main>
             <div class="header">
                 <div class="left">
@@ -59,99 +58,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Sapone Piatti</td>
-                                <td>200,00€</td>
-                                <td><i class='bx bx-edit'></i></td>
-                                <td><i class='bx bx-trash'></i></td>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Bolletta Enel + robe della casaa</td>
-                                <td>200,00€</td>
-                                 <td><i class='bx bx-edit'></i></td>
-                                 <td><i class='bx bx-trash'></i></td>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Tovaglia</td>
-                                <td>200,00€</td>
-                                 <td><i class='bx bx-edit'></i></td>
-                                 <td><i class='bx bx-trash'></i></td>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Sapone Piatti</td>
-                                <td>200,00€</td>
-                                 <td><i class='bx bx-edit'></i></td>
-                                 <td><i class='bx bx-trash'></i></td>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Bolletta Enel</td>
-                                <td>200,00€</td>
-                                <td><i class='bx bx-edit'></i></td>
-                                <td><i class='bx bx-trash'></i></td>
-                                <em></em>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Tovaglia</td>
-                                <td>200,00€</td>
-                                 <td><i class='bx bx-edit'></i></td>
-                                 <td><i class='bx bx-trash'></i></td>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Sapone Piatti</td>
-                                <td>200,00€</td>
-                                 <td><i class='bx bx-edit'></i></td>
-                                 <td><i class='bx bx-trash'></i></td>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Bolletta Enel</td>
-                                <td>200,00€</td>
-                                 <td><i class='bx bx-edit'></i></td>
-                                 <td><i class='bx bx-trash'></i></td>
-                            </tr>
-                            <tr>
-                                <td>18/08/2024</td>
-                                <td><p>John Doe</p></td>
-                                <td>Casa</td>
-                                <td>Tovaglia</td>
-                                <td>200,00€</td>
-                                 <td><i class='bx bx-edit'></i></td>
-                                 <td><i class='bx bx-trash'></i></td>
-                            </tr>
+                            <!-- php/expenses.php:(183-184) -->
+
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <a href="#">&laquo;</a>
-                        <a class="active" href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">&raquo;</a>
+                        <!-- php/expenses.php:(189-190) -->
                     </div>
                 </div>
 
@@ -182,51 +94,11 @@
                 </div>
 
                 <!-- End of User Expense-->
-
             </div>
-
-
-        <!-- Popup Add Payment (Hidden by default)-->
-        <div id="popupForm" class="popup">
-            <div class="popup-content">
-                <h2>New Expense</h2>
-                <br>
-                <span class="close-btn"></span>
-                <form id="formData">
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" name="dates" required>
-
-                    <label for="user">user:</label>
-                    <select name="user" id="user">
-                        <option value="1">Emanuele Biondi</option>
-                        <option value="2">John Doe</option>
-                        <option value="3">Jane Smith</option>
-                    </select>
-
-                    <label for="category">Category:</label>
-                    <select name="category" id="category">
-                        <option value="Tasse">Tasse</option>
-                        <option value="Bollette">Bollette</option>
-                        <option value="Detersivi">Detersivi</option>
-                        <option value="Altro">Altro</option>
-                    </select>
-
-                    <label for="desc">Description:</label>
-                    <input type="text" id="desc" name="desc" required>
-
-                    <label for="desc">Amount:</label>
-                    <input type="number" id="amount" name="amount" min="0" step="0.01" placeholder="0.00">
-
-                    <br>
-                    <button type="submit">Invia</button>
-                </form>
-            </div>
-        </div>
-
 
         </main>
-
-    </div>
+        <!-- Popup Add Payment (Hidden by default)-->
+        <?php include_once 'popupForms\addExpenceForm.php'; ?>
 
     <script src="../js/script.js"></script>
 </body>

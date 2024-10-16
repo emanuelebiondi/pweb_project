@@ -10,10 +10,19 @@
 
 require_once 'controllers/user-controller.php';
 require_once 'controllers/auth-controller.php';
-require_once 'controllers/expance-controller.php';
+require_once 'controllers/expense-controller.php';
 require_once 'controllers/house-controller.php';
 
 require_once '../config/database.php'; // Include la connessione al database
+
+
+// Middleware per controllare che l'utente sia autenticato
+/*if (!isset($_SESSION['id'])) {
+    header("HTTP/1.0 405 Method Not Allowed");
+    exit;
+}
+    */
+
 
 // Ottieni il metodo HTTP e l'endpoint richiesto
 $method = $_SERVER['REQUEST_METHOD'];
@@ -40,8 +49,8 @@ switch ($request[0]) {
         $controller->handleRequest($method, $request);
         break;
 
-    case 'expance':
-        $controller = new ExpanceController();
+    case 'expense':
+        $controller = new expenseController();
         $controller->handleRequest($method, $request);
         break;
 
@@ -55,6 +64,7 @@ switch ($request[0]) {
     default:
         header("HTTP/1.0 404 Not Found");
         echo json_encode(['error' => 'Endpoint not found']);
+        echo error_log("Received request: Method = $method, Request = " . json_encode($request));
         break;
 }
 ?>
