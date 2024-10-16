@@ -745,13 +745,12 @@ body{
 .popup {
     display: none; /* Nascondi popup inizialmente */
     position: fixed;
-    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(224, 122, 95, 0.5); /* Sfondo trasparente scuro */;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(7px);
     justify-content: center;
     align-items: center;
 }

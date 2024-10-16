@@ -2,7 +2,9 @@ let currentPage = 1; // Pagina corrente
 const limit = 9; // Numero di spese per pagina
 
 // Carica le spese inizialmente
-loadExpenses(currentPage);
+loadExpenses(currentPage); // Load expenses for the first open
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const openPopupBtn = document.getElementById('openPopupBtn');
@@ -16,12 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Chiude il popup se si clicca al di fuori del contenuto del popup
     window.addEventListener('click', (event) => {
         if (event.target === popupForm) {
-            popupForm.style.display = 'none';
+            popupForm.style.display = 'none';   // popupForm is the container of popup-content
         }
     });
 });
 
-// Funzione per caricare gli utenti
+
+
+/**
+ * Asynchronously loads users from the API and populates the user select dropdown.
+ * 
+ * Fetches user data from '../api/router.php/user' using a GET request. If the response 
+ * is successful, clears the existing options in the user select dropdown and adds new 
+ * options for each user retrieved from the API. Each option's value is set to the user's ID,
+ * and the displayed text is a combination of the user's name and surname.
+ * 
+ * In case of an error during the fetch operation, logs an error message to the console.
+ */
 async function loadUsers() {
     try {
         const response = await fetch(`../api/router.php/user`, {
@@ -50,7 +63,13 @@ async function loadUsers() {
     }
 }
 
-// LOAD ALL EXPENSES
+
+/**
+ * Fetches the expenses from the API and updates the table with the expenses.
+ *
+ * @param {number} page The page number to fetch.
+ * @throws {Error} If the network response is not OK.
+ */
 async function loadExpenses(page) {
     try {
         const response = await fetch(`../api/router.php/expense?page=${page}`, {
@@ -111,9 +130,23 @@ async function loadExpenses(page) {
     }
 }
 
+
+/**
+ * Updates the pagination controls on the page based on the current and total number of pages.
+ * Creates and attaches "previous", "next", and individual page number links to the pagination section.
+ * Handles click events to load expenses for the selected page.
+ *
+ * @param {number} currentPage - The current active page number.
+ * @param {number} totalPages - The total number of pages available.
+ */
 function updatePagination(currentPage, totalPages) {
     const paginationDiv = document.querySelector('.pagination');
     paginationDiv.innerHTML = ''; // Svuota la paginazione
+
+    // Verifica se ci sono pagine da visualizzare, anche se c'è solo una pagina
+    if (totalPages === 0) {
+        totalPages = 1; // Forza la visualizzazione della pagina 1 anche se non ci sono elementi
+    }
 
     // Crea il link "precedente"
     const prevLink = document.createElement('a');
@@ -155,6 +188,12 @@ function updatePagination(currentPage, totalPages) {
     paginationDiv.appendChild(nextLink);
 }
 
+
+/**
+ * Opens the create popup with pre-filled data for creating a new expense.
+ * Loads users when the popup is opened and sets the form fields with default values.
+ * Handles the form submission to create a new expense.
+ */
 async function openCreatePopup() {
     await loadUsers(); // Carica gli utenti quando il popup viene aperto
     document.getElementById('popupForm').style.display = 'flex'; // Mostra il popup
@@ -184,6 +223,18 @@ async function openCreatePopup() {
     };
 }
 
+
+/**
+ * Opens the edit popup with pre-filled data for editing an expense.
+ * Loads users when the popup is opened and sets the form fields with existing expense data.
+ * Handles the form submission to update the expense.
+ * @param {number} id - The ID of the expense to edit.
+ * @param {string} date - The date of the expense.
+ * @param {number} userId - The user ID associated with the expense.
+ * @param {string} category - The category of the expense.
+ * @param {string} descr - The description of the expense.
+ * @param {number} amount - The amount of the expense.
+ */
 async function openEditPopup(id, date, userId, category, descr, amount) {
     await loadUsers(); // Carica gli utenti quando il popup viene aperto
     document.querySelector('button[type="submit"]').className = 'edit-button';
@@ -222,6 +273,18 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
 }
 
 
+/**
+ * Creates or updates an expense, given the HTTP method and the expense data.
+ * @param {string} method - The HTTP method to use, either 'POST' or 'PUT'.
+ * @param {object} data - The expense data to send. Must contain the following properties:
+ *  - id (optional): The ID of the expense to update.
+ *  - date: The date of the expense.
+ *  - user_id: The ID of the user who made the expense.
+ *  - category: The category of the expense.
+ *  - descr: The description of the expense.
+ *  - amount: The amount of the expense.
+ * @throws {Error} If the request fails.
+ */
 async function createUpdateExpense(method, data) {
     try {
         const response = await fetch(`../api/router.php/expense`, {
@@ -243,6 +306,12 @@ async function createUpdateExpense(method, data) {
     }
 }
 
+
+/**
+ * Deletes an expense with the given ID.
+ * @param {number} id - The ID of the expense to delete.
+ * @throws {Error} If the request fails.
+ */
 async function deleteExpense(id) {
     try {
         const response = await fetch(`../api/router.php/expense/${id}`, {

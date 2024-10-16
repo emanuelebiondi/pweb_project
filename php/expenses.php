@@ -16,15 +16,6 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style.css">
     <title>Cohabitant - Expenses</title>
-    <script> 
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-            }
-
-            function closeForm() {
-            document.getElementById("myForm").style.display = "none";
-            }
-    </script>
 </head>
 
 <body>
@@ -58,12 +49,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- php/expenses.php:(183-184) -->
+                            <!-- php/expenses.php:(loadExpenses) -->
 
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <!-- php/expenses.php:(189-190) -->
+                        <!-- php/expenses.php:(updatePagination) -->
                     </div>
                 </div>
 
@@ -100,7 +91,7 @@
         <!-- Popup Add Payment (Hidden by default)-->
         <?php include_once 'popupForms\addExpenceForm.php'; ?>
 
-    <script src="../js/script.js"></script>
+    <script src="../js/expenses.js"></script>
 </body>
 
 </html>
