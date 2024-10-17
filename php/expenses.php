@@ -63,24 +63,8 @@
                     <div class="header">
                         <i class='bx bx-money-withdraw'></i>
                         <h3>Total Expenditure</h3>
-                        <i class='bx bx-filter'></i>
                     </div>
                     <ul class="user-list">
-                        <li class="user">
-                            <div class="circle">E</div>
-                            <span class="name">Emanuele Biondi</span>
-                            <span class="amount">200,00€</span>
-                        </li>
-                        <li class="user">
-                            <div class="circle">J</div>
-                            <span class="name">John Doe</span>
-                            <span class="amount">150,00€</span>
-                        </li>
-                        <li class="user">
-                            <div class="circle">J</div>
-                            <span class="name">Jane Smith</span>
-                            <span class="amount">300,00€</span>
-                        </li>
                     </ul>
                 </div>
 

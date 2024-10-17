@@ -1,8 +1,9 @@
-let currentPage = 1; // Pagina corrente
-const limit = 9; // Numero di spese per pagina
+let currentPage = 1; // Current page
+const limit = 9; // Number of expenses per page
 
-// Carica le spese inizialmente
+// Load expenses initially
 loadExpenses(currentPage); // Load expenses for the first open
+updateAmounts(); // Update amounts for the first open
 
 
 
@@ -10,12 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const openPopupBtn = document.getElementById('openPopupBtn');
     const popupForm = document.getElementById('popupForm');
 
-    // Apre il popup e carica gli utenti quando si clicca sul bottone
+    // Opens the popup and loads users when the button is clicked
     openPopupBtn.addEventListener('click', async () => {
         await openCreatePopup();
     });
 
-    // Chiude il popup se si clicca al di fuori del contenuto del popup
+    // Closes the popup if clicked outside the popup content
     window.addEventListener('click', (event) => {
         if (event.target === popupForm) {
             popupForm.style.display = 'none';   // popupForm is the container of popup-content
@@ -50,13 +51,13 @@ async function loadUsers() {
 
         const data = await response.json();
         const userSelect = document.getElementById('user');
-        userSelect.innerHTML = ''; // Svuota il select
+        userSelect.innerHTML = ''; // Clears the select
 
         data.forEach(user => {
             const option = document.createElement('option');
-            option.value = user.id;  // Imposta il value come ID utente
-            option.textContent = `${user.name} ${user.surname}`;  // Testo da mostrare come nome utente
-            userSelect.appendChild(option);  // Aggiungi l'opzione al select
+            option.value = user.id;  // Sets the value as user ID
+            option.textContent = `${user.name} ${user.surname}`;  // Text to display as the user's name
+            userSelect.appendChild(option);  // Adds the option to the select
         });
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -72,7 +73,7 @@ async function loadUsers() {
  */
 async function loadExpenses(page) {
     try {
-        const response = await fetch(`../api/router.php/expense?page=${page}`, {
+        const response = await fetch(`../api/router.php/expense/all?page=${page}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -85,11 +86,11 @@ async function loadExpenses(page) {
 
         const data = await response.json();
 
-        // Aggiorna il corpo della tabella con le spese
+        // Updates the table body with expenses
         const tableBody = document.querySelector('.payments table tbody');
-        tableBody.innerHTML = ''; // Svuota il corpo della tabella
+        tableBody.innerHTML = ''; // Clears the table body
 
-        // Verifica che expenses esista e sia un array
+        // Verifies that expenses exist and is an array
         data.expenses.forEach(expense => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -97,14 +98,14 @@ async function loadExpenses(page) {
                 <td><p>${expense.name} ${expense.surname}</p></td>
                 <td>${expense.category}</td>
                 <td>${expense.descr}</td>
-                <td>${expense.amount}€</td>
+                <td>${expense.amount.toFixed(2)}€</td>
                 <td><i class='bx bx-edit' onclick="openEditPopup(${expense.id}, '${expense.date}', '${expense.user_id}', '${expense.category}', '${expense.descr}', ${expense.amount})"></i></td>
-                <td><i class='bx bx-trash' onclick="deleteExpense(${expense.id})"></i></td>
+                <td><i class='bx bx-trash' onclick="deleteExpense(${expense.id}, '${expense.date}', '${expense.descr}', ${expense.amount})"></i></td>
             `;
             tableBody.appendChild(row);
         });
 
-        // Aggiunge le righe vuote per le pagine con meno record di limit
+        // Adds empty rows for pages with fewer records than the limit
         const numRows = data.expenses.length;
         if (numRows < limit) {
             const emptyRows = limit - numRows;
@@ -122,13 +123,66 @@ async function loadExpenses(page) {
                 tableBody.appendChild(emptyRow);
             }
         }
-
-        // Aggiorna la paginazione passando il numero di pagine e la pagina corrente
+        // Updates pagination by passing the current page and total number of pages
         updatePagination(data.current_page, data.total_pages);
     } catch (error) {
         console.error('Error fetching expenses:', error);
     }
 }
+
+async function updateAmounts() {
+    try {
+        const response = await fetch(`../api/router.php/expense/statistics`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        //console.log(':::RESPONSE', response);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        
+        const data = await response.json();
+        const userList = document.querySelector('.user-list'); // Assicurati che questo selettore sia corretto
+        userList.innerHTML = ''; // Svuota la lista prima di aggiungere nuovi dati
+        
+        // Itera attraverso l'array di dati
+        data.forEach(expense => {  // Cambia data.expenses con data
+            const userItem = document.createElement('li');
+            userItem.className = 'user';
+
+            // Crea un cerchio con l'iniziale del nome
+            const firstLetter = expense.name.charAt(0).toUpperCase(); // Prendi la prima lettera del nome
+            userItem.innerHTML = `
+                <div class="circle">${firstLetter}</div>
+                <span class="name">${expense.name} <br> ${expense.surname}</span>
+                <div class="amounts">
+                    <div class="amount-row">
+                        <span class="amount-week">W:</span>
+                        <span class="week-value">${expense.weeklyTotal !== null ? expense.weeklyTotal.toFixed(2) : '0.00'}€</span>
+                    </div>
+                    <div class="amount-row">
+                        <span class="amount-month">M:</span>
+                        <span class="month-value">${expense.monthlyTotal !== null ? expense.monthlyTotal.toFixed(2) : '0.00'}€</span>
+                    </div>
+                    <div class="amount-row">
+                        <span class="amount-year">Y:</span>
+                        <span class="year-value">${expense.yearlyTotal !== null ? expense.yearlyTotal.toFixed(2) : '0.00'}€</span>
+                    </div>
+
+                </div>
+            `;
+            userList.appendChild(userItem);
+        });
+
+    } catch (error) {
+        console.error('Error updateAmounts:', error);
+    }
+}
+
 
 
 /**
@@ -141,14 +195,14 @@ async function loadExpenses(page) {
  */
 function updatePagination(currentPage, totalPages) {
     const paginationDiv = document.querySelector('.pagination');
-    paginationDiv.innerHTML = ''; // Svuota la paginazione
+    paginationDiv.innerHTML = ''; // Clears the pagination
 
-    // Verifica se ci sono pagine da visualizzare, anche se c'è solo una pagina
+    // Check if there are pages to display, even if there is only one page
     if (totalPages === 0) {
-        totalPages = 1; // Forza la visualizzazione della pagina 1 anche se non ci sono elementi
+        totalPages = 1; // Forces the display of page 1 even if there are no items
     }
 
-    // Crea il link "precedente"
+    // Creates the "previous" link
     const prevLink = document.createElement('a');
     prevLink.href = '#';
     prevLink.innerText = '«';
@@ -158,13 +212,13 @@ function updatePagination(currentPage, totalPages) {
     });
     paginationDiv.appendChild(prevLink);
 
-    // Crea i link per ogni pagina
+    // Creates the links for each page
     for (let i = 1; i <= totalPages; i++) {
         const pageLink = document.createElement('a');
         pageLink.href = '#';
         pageLink.innerText = i;
 
-        // Aggiungi la classe "active" per la pagina corrente
+        // Adds the "active" class for the current page
         if (i === currentPage) {
             pageLink.classList.add('active');
         }
@@ -177,7 +231,7 @@ function updatePagination(currentPage, totalPages) {
         paginationDiv.appendChild(pageLink);
     }
 
-    // Crea il link "successivo"
+    // Creates the "next" link
     const nextLink = document.createElement('a');
     nextLink.href = '#';
     nextLink.innerText = '»';
@@ -195,20 +249,20 @@ function updatePagination(currentPage, totalPages) {
  * Handles the form submission to create a new expense.
  */
 async function openCreatePopup() {
-    await loadUsers(); // Carica gli utenti quando il popup viene aperto
-    document.getElementById('popupForm').style.display = 'flex'; // Mostra il popup
+    await loadUsers(); // Loads users when the popup is opened
+    document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
 
-    // Assicurati di resettare il form
+    // Ensures the form is reset
     const formData = document.getElementById('formData');
-    formData.reset(); // Resetta il form
+    formData.reset(); // Resets the form
 
     formData.onsubmit = async (e) => {
-        e.preventDefault(); // Impedisce il refresh della pagina
+        e.preventDefault(); // Prevents page refresh
 
-        // Crea un'istanza di FormData
+        // Creates an instance of FormData
         const data = new FormData(formData);
 
-        // Crea l'oggetto dati da inviare
+        // Creates the data object to send
         const expenseData = {
             date: data.get('date'),
             user_id: data.get('user'),
@@ -217,9 +271,9 @@ async function openCreatePopup() {
             amount: parseFloat(data.get('amount')),
         };
 
-        //console.log('Dati inviati:', expenseData); // Log per il debug
-        await createUpdateExpense('POST', expenseData); // Chiama la funzione per creare la spesa
-        document.getElementById('popupForm').style.display = 'none'; // Nasconde il popup dopo l'invio
+        //console.log('Submitted data:', expenseData); // Log for debugging
+        await createUpdateExpense('POST', expenseData); // Calls the function to create the expense
+        document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
     };
 }
 
@@ -236,20 +290,20 @@ async function openCreatePopup() {
  * @param {number} amount - The amount of the expense.
  */
 async function openEditPopup(id, date, userId, category, descr, amount) {
-    await loadUsers(); // Carica gli utenti quando il popup viene aperto
+    await loadUsers(); // Loads users when the popup is opened
     document.querySelector('button[type="submit"]').className = 'edit-button';
-    document.querySelector('.popup-title').innerHTML = 'Edit Expense'; // Cambia il titolo
-    document.getElementById('popupForm').style.display = 'flex'; // Mostra il popup
-    document.getElementById('date').value = date; // Precompila la data
-    document.getElementById('user').value = userId; // Precompila l'utente
-    document.getElementById('category').value = category; // Precompila la categoria
-    document.getElementById('desc').value = descr; // Precompila la descrizione
-    document.getElementById('amount').value = amount; // Precompila l'importo
+    document.querySelector('.popup-title').innerHTML = 'Edit Expense'; // Changes the title
+    document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
+    document.getElementById('date').value = date; // Pre-fills the date
+    document.getElementById('user').value = userId; // Pre-fills the user
+    document.getElementById('category').value = category; // Pre-fills the category
+    document.getElementById('desc').value = descr; // Pre-fills the description
+    document.getElementById('amount').value = amount; // Pre-fills the amount
 
-    // Cambia il comportamento del form per l'aggiornamento
+    // Changes the form behavior for updating
     const formData = document.getElementById('formData');
     formData.onsubmit = async (e) => {
-        e.preventDefault(); // Impedisce il refresh della pagina
+        e.preventDefault(); // Prevents page refresh
 
         const data = new FormData(formData);
         const expenseData = {
@@ -261,11 +315,11 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
             amount: parseFloat(data.get('amount')),
         };
 
-       // console.log('Dati inviati:', expenseData); // Log per il debug
+       // console.log('Submitted data:', expenseData); // Log for debugging
 
         try {
-            await createUpdateExpense('PUT', expenseData); // Chiama la funzione per aggiornare la spesa
-            document.getElementById('popupForm').style.display = 'none'; // Chiudi il popup dopo l'aggiornamento
+            await createUpdateExpense('PUT', expenseData); // Calls the function to update the expense
+            document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
         } catch (error) {
             console.error('Error updating expense:', error);
         }
@@ -299,8 +353,9 @@ async function createUpdateExpense(method, data) {
             throw new Error('Failed to ' + method + ' expense');
         }
 
-        // Ricarica le spese per riflettere la modifica
-        loadExpenses(currentPage); // Assicurati di avere `currentPage` corretto
+        // Reloads expenses to reflect the change
+        loadExpenses(currentPage); // Ensures the correct `currentPage` is loaded
+        updateAmounts(); // Updates the amounts of total expenditure
     } catch (error) {
         console.error('Error:', error);
     }
@@ -312,21 +367,26 @@ async function createUpdateExpense(method, data) {
  * @param {number} id - The ID of the expense to delete.
  * @throws {Error} If the request fails.
  */
-async function deleteExpense(id) {
-    try {
-        const response = await fetch(`../api/router.php/expense/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+async function deleteExpense(id, date, descr, amount) {
+    const userConfirmed = confirm("Are you sure you want to delete this expense?" + "\n" + "Date: " + date + "\n" + "Description: " + descr + "\n" + "Amount: " + amount.toFixed(2)  + "€");
 
-        if (!response.ok) {
-            throw new Error('Failed to delete expense');
+    if (userConfirmed) {
+        try {
+            const response = await fetch(`../api/router.php/expense/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete expense');
+            }
+
+            loadExpenses(currentPage); // Reloads expenses after deletion
+            updateAmounts(); // Updates the amounts of total expenditure
+        } catch (error) {
+            console.error('Error:', error);
         }
-
-        loadExpenses(currentPage); // Ricarica le spese dopo l'eliminazione
-    } catch (error) {
-        console.error('Error:', error);
-    }
+}
 }

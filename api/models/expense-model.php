@@ -97,7 +97,78 @@ class ExpenseModel {
     }
     
 
+    public function fetchAllWithStatistics($house_id) {
+        global $conn;
 
+        $query = "
+            SELECT 
+                U.id,
+                U.name,
+                U.surname, 
+                COALESCE(A.totalAmount, 0) AS weeklyTotal, 
+                COALESCE(B.totalAmount, 0) AS monthlyTotal, 
+                COALESCE(C.totalAmount, 0) AS yearlyTotal
+            FROM 
+                (
+                SELECT * FROM users WHERE house_id = ?
+                ) as U
+            LEFT JOIN
+                (
+                    SELECT U.id, SUM(E.amount) AS totalAmount
+                    FROM expenses E
+                    INNER JOIN users U ON E.user_id = U.id
+                    WHERE E.house_id = ?
+                        AND WEEK(E.date) = WEEK(NOW()) 
+                        AND YEAR(E.date) = YEAR(NOW())
+                    GROUP BY U.id
+                ) AS A ON U.id = A.id
+            LEFT JOIN
+                (
+                    SELECT U.id, SUM(E.amount) AS totalAmount
+                    FROM expenses E
+                    INNER JOIN users U ON E.user_id = U.id
+                    WHERE E.house_id = ?
+                        AND MONTH(E.date) = MONTH(NOW())
+                        AND YEAR(E.date) = YEAR(NOW())
+                    GROUP BY U.id
+                ) AS B ON U.id = B.id
+            LEFT JOIN
+                (
+                    SELECT U.id, SUM(E.amount) AS totalAmount
+                    FROM expenses E
+                    INNER JOIN users U ON E.user_id = U.id
+                    WHERE E.house_id = ?
+                        AND YEAR(E.date) = YEAR(NOW())
+                    GROUP BY U.id
+                ) AS C ON U.id = C.id;
+        ";
+    
+        // Prepara la query
+        $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die('Error in query preparation: ' . $conn->error);
+        }
+    
+        // Assicurati di passare solo house_id
+        $stmt->bind_param('iiii', $house_id, $house_id, $house_id, $house_id);
+        
+        // Esegui la query
+        if (!$stmt->execute()) {
+            die('Error executing the query: ' . $stmt->error);
+        }
+    
+        $result = $stmt->get_result();
+        
+        if ($result === false) {
+            die('Error fetching the result: ' . $stmt->error);
+        }
+    
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+    
+        $stmt->close(); // Chiudi lo statement
+        return $data; // Restituisci i dati
+    }
+    
 
     // Fetch a single expense by ID
     public function fetchById($id) {

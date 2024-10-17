@@ -40,8 +40,9 @@ body::after {       /* Trick to ensure the footer stays at the bottom */
 .container {
     position: absolute;
     background: var(--form-bg);
-    padding: 5rem;
-    border-radius: 5px;
+    padding: 20px 40px;
+    border-radius: 20px;
+    margin-bottom: 50px;
 }
 
 .container h1 {

@@ -192,7 +192,13 @@ body{
     background: var(--secondary);
 }
 
-
+.sidebar .side-menu.housecode-menu li  {
+    text-align: center;
+    font-size: 14px;
+}
+.sidebar .side-menu.housecode-menu li span {
+    color: var(--secondary);
+}
 
 /* NAVBAR */
 .content{
@@ -284,8 +290,7 @@ body{
 .content main .top-data .insights{
     display: grid;
     align-items: center;
-    justify-content: space-arounds;
-    flex-wrap: no wrap;
+    justify-content: space-around; /* TODO: Check */
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     grid-gap: 24px;
 }
@@ -610,57 +615,38 @@ body{
     color: var(--dark);
 }
 
-.content main .bottom-data .user-expense .user-list .amount {
-    color: var(--dark);
+.content main .bottom-data .user-expense .user-list .amounts {
+    display: flex;
+    flex-direction: column;
+}
+
+.content main .bottom-data .user-expense .user-list .amounts .amount-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 20px; /* Spazio tra le etichette e gli importi */
+    padding-right: 20px;
+}
+
+
+
+.content main .bottom-data .user-expense .user-list .amounts .amount-row span.amount-week,
+.content main .bottom-data .user-expense .user-list .amounts .amount-row span.amount-month, 
+.content main .bottom-data .user-expense .user-list .amounts .amount-row span.amount-year {
+    color: var(--primary);
+    font-size: 16px;
     font-weight: bold;
+    width: 80%;
+}
+
+
+.content main .bottom-data .user-expense .user-list .amounts .amount-row .week-value,
+.content main .bottom-data .user-expense .user-list .amounts .amount-row .month-value,
+.content main .bottom-data .user-expense .user-list .amounts .amount-row .year-value {
+    color: var(--dark);
     font-size: 16px;
 }
 
-
-
-
-
-
-@media screen and (max-width: 768px) {
-    .sidebar{
-        width: 200px;
-    }
-
-    .content{
-        width: calc(100% - 60px);
-        left: 200px;
-    }
-
-}
-
-@media screen and (max-width: 576px) {
-    
-    .content nav form .form-input input{
-        display: none;
-    }
-
-    .content nav form .form-input button{
-        width: auto;
-        height: auto;
-        background: transparent;
-        color: var(--dark);
-        border-radius: none;
-    }
-
-    .content nav form.show .form-input input{
-        display: block;
-        width: 100%;
-    }
-
-    .content nav form.show .form-input button{
-        width: 36px;
-        height: 100%;
-        color: var(--light);
-        background: var(--danger);
-        border-radius: 0 36px 36px 0;
-    }
-
-}
 
 
 /* POPUP AND FORM SETTINGS*/
@@ -810,4 +796,49 @@ form button {
 
 form button:hover {
     background-color: var(--secondary);
+}
+
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    .sidebar{
+        width: 200px;
+    }
+
+    .content{
+        width: calc(100% - 60px);
+        left: 200px;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    
+    .content nav form .form-input input{
+        display: none;
+    }
+
+    .content nav form .form-input button{
+        width: auto;
+        height: auto;
+        background: transparent;
+        color: var(--dark);
+    }
+
+    .content nav form.show .form-input input{
+        display: block;
+        width: 100%;
+    }
+
+    .content nav form.show .form-input button{
+        width: 36px;
+        height: 100%;
+        color: var(--light);
+        background: var(--danger);
+        border-radius: 0 36px 36px 0;
+    }
+
 }

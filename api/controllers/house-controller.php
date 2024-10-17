@@ -5,6 +5,7 @@ class HouseController {
     private $model;
 
     public function __construct() {
+        session_start();
         $this->model = new HouseModel(); // Initialize the model
     }
 
@@ -16,6 +17,9 @@ class HouseController {
                     if ($request[1] === 'join_code' && isset($request[2])) {
                         // Passa il house_code
                         $this->getHouseByJoinCode($request[2]); // GET /house/join_code/abc123
+                    } elseif ($request[1] === 'findJoinCode') {
+                        // Passa tutti gli ID
+                        $this->getJoinCode(); // GET /house/findJoinCode
                     } elseif (is_numeric($request[1])) {
                         // Passa l'ID se è numerico
                         $this->getHouseById(intval($request[1])); // GET /user/1
@@ -60,6 +64,18 @@ class HouseController {
         } else {
             header("HTTP/1.0 404 Not Found");
             echo json_encode(['error' => 'House not found']);
+        }
+    }
+
+
+    public function getJoinCode() {
+        $house_id = $_SESSION['house_id'];
+        $data = $this->model->findJoinCode($house_id);
+        if ($data) {
+            echo json_encode($data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+            echo json_encode(['error' => 'getJoinCode: House not found']);
         }
     }
 

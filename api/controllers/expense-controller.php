@@ -12,10 +12,10 @@ class expenseController {
     public function handleRequest($method, $request) {
         switch ($method) {
             case 'GET':
-                if (isset($request[1])) {
-                    $this->getexpenseById(intval($request[1])); // GET /expense/1
-                } else {
-                    $this->getExpensesWithPagination(); // GET /expenses con paginazione
+                if (isset($request[1]) && $request[1] === 'all') {
+                    $this->getExpensesWithPagination(); // GET /expense/pagination?page={page}
+                } else if (isset($request[1]) && $request[1] === 'statistics') {
+                    $this->getExpensesStatistics(); // GET /expense/statistics
                 }
                 break;
 
@@ -50,6 +50,13 @@ class expenseController {
         $data = $this->model->fetchAll($house_id, $limit, $offset);
         echo json_encode($data);
     }
+
+    public function getExpensesStatistics() {
+        $house_id = $_SESSION['house_id'];
+        $data = $this->model->fetchAllWithStatistics($house_id);
+        echo json_encode($data);
+    }
+
 
     // Function to fetch a single expense by ID
     public function getexpenseById($id) {
