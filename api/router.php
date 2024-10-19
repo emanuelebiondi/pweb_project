@@ -12,6 +12,7 @@ require_once 'controllers/user-controller.php';
 require_once 'controllers/auth-controller.php';
 require_once 'controllers/expense-controller.php';
 require_once 'controllers/house-controller.php';
+require_once 'controllers/category-controller.php';
 
 require_once '../config/database.php'; // Include la connessione al database
 
@@ -56,6 +57,11 @@ switch ($request[0]) {
 
     case 'house':
         $controller = new HouseController();
+        $controller->handleRequest($method, $request);
+        break;
+
+    case 'category':
+        $controller = new categoryController();
         $controller->handleRequest($method, $request);
         break;
 

@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cohabitant - Expenses</title>
+    <title>Cohabitant - Payments</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Expenses</h1>
+                    <h1>Payments</h1>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
                 <div class="payments all">
                     <div class="header">
                         <i class='bx bx-cart-alt'></i>
-                        <h3>All Expenses</h3>
+                        <h3>All Payments</h3>
                         <i class='bx bx-filter'></i>
                         <button id="openPopupBtn"><i class='bx bx-plus'></i></button>
                         
@@ -41,18 +41,19 @@
                             <tr>
                                 <th>Date</th>
                                 <th>From</th>
-                                <th>Category</th>
-                                <th>Desc</th>
+                                <th>Arrow</th>
+                                <th>To</th>
                                 <th>Amount</th>
+                                <th>Method</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- php/expenses.php:(loadExpenses) -->
+                            <!-- php/payments.php:(loadExpenses) -->
 
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <!-- php/expenses.php:(updatePagination) -->
+                        <!-- php/payments.php:(updatePagination) -->
                     </div>
                 </div>
 
@@ -71,9 +72,9 @@
 
         </main>
         <!-- Popup Add Payment (Hidden by default)-->
-        <?php include_once 'popupForms\addExpenceForm.php'; ?>
+        <?php include_once 'popupForms\paymetForm.php'; ?>
 
-    <script src="../js/expenses.js"></script>
+    <script src="../js/payments.js"></script>
 </body>
 
 </html>
