@@ -1,5 +1,5 @@
 <?php
-require_once 'models\expense-model.php';
+require_once 'models/expense-model.php';
 
 class expenseController {
     private $model;

@@ -11,6 +11,7 @@
 require_once 'controllers/user-controller.php';
 require_once 'controllers/auth-controller.php';
 require_once 'controllers/expense-controller.php';
+require_once 'controllers/payment-controller.php';
 require_once 'controllers/house-controller.php';
 require_once 'controllers/category-controller.php';
 
@@ -54,6 +55,11 @@ switch ($request[0]) {
         $controller = new expenseController();
         $controller->handleRequest($method, $request);
         break;
+    
+        case 'payment':
+            $controller = new PaymentController();
+            $controller->handleRequest($method, $request);
+            break;
 
     case 'house':
         $controller = new HouseController();

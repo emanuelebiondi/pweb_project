@@ -1,6 +1,3 @@
-
-
-
 <?php
     
     if (!defined('DBHOST')) {
@@ -19,13 +16,15 @@
         define('DBNAME', 'biondi_616596');
     }
 
-    
+    mysqli_report(MYSQLI_REPORT_OFF);
     // Try and connect to database
     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-    if ( mysqli_connect_errno() ) {
-        // If there is an error with the connection, stop the script and display the error.
-        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+    if (mysqli_connect_errno()) {
+        // If there is an error with the connection, display the error and stop the script.
+        die('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
+    
+    //echo "Status: Connected successfully!";
 
     // Rendi la connessione globale
     global $conn;

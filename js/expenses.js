@@ -53,6 +53,13 @@ async function loadUsers() {
         const userSelect = document.getElementById('user');
         userSelect.innerHTML = ''; // Clears the select
 
+        const placeholderOption1 = document.createElement('option');
+        placeholderOption1.value = '';  // Empty value
+        placeholderOption1.textContent = 'Select an user';  // Text to display
+        placeholderOption1.setAttribute('disabled', 'true');  // Disable the option
+        placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
+        userSelect.appendChild(placeholderOption1);  // Append the placeholder option
+
         data.forEach(user => {
             const option = document.createElement('option');
             option.value = user.id;  // Sets the value as user ID
@@ -81,6 +88,15 @@ async function loadCategories() {
         const data = await response.json();
         const categorySelect = document.getElementById('category');
         categorySelect.innerHTML = ''; // Clears the select
+
+        const placeholderOption1 = document.createElement('option');
+        placeholderOption1.value = '';  // Empty value
+        placeholderOption1.textContent = 'Select a category';  // Text to display
+        placeholderOption1.setAttribute('disabled', 'true');  // Disable the option
+        placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
+        categorySelect.appendChild(placeholderOption1);  // Append the placeholder option
+
+
 
         data.forEach(category => {
             const option = document.createElement('option');

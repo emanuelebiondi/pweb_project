@@ -1,5 +1,6 @@
+-- Active: 1728581091269@@127.0.0.1@3306@biondi_616596
 -- Progettazione Web 
-DROP DATABASE if exists biondi_616596; 
+#DROP DATABASE if exists biondi_616596; 
 CREATE DATABASE biondi_616596; 
 USE biondi_616596; 
 -- MySQL dump 10.13  Distrib 5.7.28, for Win64 (x86_64)

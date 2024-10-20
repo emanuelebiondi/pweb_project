@@ -1,5 +1,5 @@
 <?php
-require_once 'models\user-model.php';
+require_once 'models/user-model.php';
 
 class UserController {
     private $model;
@@ -127,7 +127,7 @@ class UserController {
         if ($this->model->delete($id)) {
             echo json_encode(['success' => true]);
         } else {
-            echo json_encode(['success' => false, 'error' => 'Errore durante l\'eliminazione']);
+            echo json_encode(['success' => false, 'error' => 'Errore durante l eliminazione']);
         }
     }
 }

@@ -41,10 +41,9 @@
                             <tr>
                                 <th>Date</th>
                                 <th>From</th>
-                                <th>Arrow</th>
                                 <th>To</th>
-                                <th>Amount</th>
                                 <th>Method</th>
+                                <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,7 +71,7 @@
 
         </main>
         <!-- Popup Add Payment (Hidden by default)-->
-        <?php include_once 'popupForms\paymetForm.php'; ?>
+        <?php include_once 'popupForms/paymentForm.php'; ?>
 
     <script src="../js/payments.js"></script>
 </body>

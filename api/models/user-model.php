@@ -1,6 +1,6 @@
 
 <?php
-    //require_once '..\config\database.php'; // Include la connessione al database
+    //require_once '../config/database.php'; // Include la connessione al database
 
     class UserModel {
 

@@ -2,7 +2,7 @@ let currentPage = 1; // Current page
 const limit = 9; // Number of expenses per page
 
 // Load expenses initially
-loadExpenses(currentPage); // Load expenses for the first open
+LoadPayments(currentPage); // Load expenses for the first open
 updateAmounts(); // Update amounts for the first open
 
 
@@ -48,16 +48,43 @@ async function loadUsers() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
         const data = await response.json();
-        const userSelect = document.getElementById('user');
-        userSelect.innerHTML = ''; // Clears the select
+        const userSelect1 = document.getElementById('user_from');
+        userSelect1.innerHTML = ''; // Clears the select
+        
+        
+        const placeholderOption1 = document.createElement('option');
+        placeholderOption1.value = '';  // Empty value
+        placeholderOption1.textContent = 'Select an user';  // Text to display
+        placeholderOption1.setAttribute('disabled', 'true');  // Disable the option
+        placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
+        userSelect1.appendChild(placeholderOption1);  // Append the placeholder option
+        
+        data.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.id;  // Sets the value as user ID
+            option.textContent = `${user.name} ${user.surname}`;  // Text to display as the user's name
+            option.disabled = false;
+            option.selected = false;
+            userSelect1.appendChild(option);  // Adds the option to the select
+        });
+
+        const userSelect2 = document.getElementById('user_to');
+        userSelect2.innerHTML = ''; // Clears the select
+        
+        const placeholderOption2 = document.createElement('option');
+        placeholderOption2.value = '';  // Empty value
+        placeholderOption2.textContent = 'Select an user';  // Text to display
+        placeholderOption2.setAttribute('disabled', 'true');  // Disable the option
+        placeholderOption2.setAttribute('selected', 'true');  // Make it selected by default
+        userSelect2.appendChild(placeholderOption2);  // Append the placeholder option
+        
 
         data.forEach(user => {
             const option = document.createElement('option');
             option.value = user.id;  // Sets the value as user ID
             option.textContent = `${user.name} ${user.surname}`;  // Text to display as the user's name
-            userSelect.appendChild(option);  // Adds the option to the select
+            userSelect2.appendChild(option);  // Adds the option to the select
         });
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -65,9 +92,10 @@ async function loadUsers() {
 }
 
 
-async function loadCategories() {
+
+async function LoadPayments(page) {
     try {
-        const response = await fetch(`../api/router.php/category`, {
+        const response = await fetch(`../api/router.php/payment/all?page=${page}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,63 +107,28 @@ async function loadCategories() {
         }
 
         const data = await response.json();
-        const categorySelect = document.getElementById('category');
-        categorySelect.innerHTML = ''; // Clears the select
-
-        data.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.name;  // Sets the value as user ID
-            option.textContent = category.name;  // Text to display as the user's name
-            categorySelect.appendChild(option);  // Adds the option to the select
-        });
-    } catch (error) {
-        console.error('Error fetching users:', error);
-    }
-}
-
-
-/**
- * Fetches the expenses from the API and updates the table with the expenses.
- *
- * @param {number} page The page number to fetch.
- * @throws {Error} If the network response is not OK.
- */
-async function loadExpenses(page) {
-    try {
-        const response = await fetch(`../api/router.php/expense/all?page=${page}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-
+        
         // Updates the table body with expenses
         const tableBody = document.querySelector('.payments table tbody');
-        tableBody.innerHTML = ''; // Clears the table body
+        //tableBody.innerHTML = ''; // Clears the table body
 
         // Verifies that expenses exist and is an array
-        data.expenses.forEach(expense => {
+        data.payments.forEach(payment => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${expense.date}</td>
-                <td><p>${expense.name} ${expense.surname}</p></td>
-                <td>${expense.category}</td>
-                <td>${expense.descr}</td>
-                <td>${expense.amount.toFixed(2)}€</td>
-                <td><i class='bx bx-edit' onclick="openEditPopup(${expense.id}, '${expense.date}', '${expense.user_id}', '${expense.category}', '${expense.descr}', ${expense.amount})"></i></td>
-                <td><i class='bx bx-trash' onclick="deleteExpense(${expense.id}, '${expense.date}', '${expense.descr}', ${expense.amount})"></i></td>
+                <td>${payment.date}</td>
+                <td><p>${payment.user_from_name} ${payment.user_from_surname}</p></td>
+                <td><p>${payment.user_to_name} ${payment.user_to_surname}</p></td>
+                <td>${payment.payment_method}</td>
+                <td>${payment.amount.toFixed(2)}€</td>
+                <td><i class='bx bx-edit' onclick="openEditPopup(${payment.id}, '${payment.date}', '${payment.id_user_from}', '${payment.id_user_to}', '${payment.payment_method}', ${payment.amount})"></i></td>
+                <td><i class='bx bx-trash' onclick="deleteExpense(${payment.id}, '${payment.date}')"></i></td>
             `;
             tableBody.appendChild(row);
         });
 
         // Adds empty rows for pages with fewer records than the limit
-        const numRows = data.expenses.length;
+        const numRows = data.payments.length;
         if (numRows < limit) {
             const emptyRows = limit - numRows;
             for (let i = 0; i < emptyRows; i++) {
@@ -159,17 +152,6 @@ async function loadExpenses(page) {
     }
 }
 
-/**
- * Asynchronously fetches expense statistics from the API and updates the user list with the amounts.
- * 
- * Sends a GET request to '../api/router.php/expense/statistics' to retrieve expense statistics data.
- * If the response is successful, clears the existing user list and populates it with new user items.
- * Each user item displays the user's initials, name, and expense totals for the week, month, and year.
- * 
- * Logs an error message to the console in case of a network or fetch error.
- * 
- * @throws {Error} If the network response is not OK.
- */
 async function updateAmounts() {
     try {
         const response = await fetch(`../api/router.php/expense/statistics`, {
@@ -183,7 +165,6 @@ async function updateAmounts() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        
         
         const data = await response.json();
         const userList = document.querySelector('.user-list'); // Assicurati che questo selettore sia corretto
@@ -224,15 +205,6 @@ async function updateAmounts() {
 }
 
 
-
-/**
- * Updates the pagination controls on the page based on the current and total number of pages.
- * Creates and attaches "previous", "next", and individual page number links to the pagination section.
- * Handles click events to load expenses for the selected page.
- *
- * @param {number} currentPage - The current active page number.
- * @param {number} totalPages - The total number of pages available.
- */
 function updatePagination(currentPage, totalPages) {
     const paginationDiv = document.querySelector('.pagination');
     paginationDiv.innerHTML = ''; // Clears the pagination
@@ -248,7 +220,7 @@ function updatePagination(currentPage, totalPages) {
     prevLink.innerText = '«';
     prevLink.addEventListener('click', (e) => {
         e.preventDefault();
-        if (currentPage > 1) loadExpenses(currentPage - 1);
+        if (currentPage > 1) LoadPayments(currentPage - 1);
     });
     paginationDiv.appendChild(prevLink);
 
@@ -265,7 +237,7 @@ function updatePagination(currentPage, totalPages) {
 
         pageLink.addEventListener('click', (e) => {
             e.preventDefault();
-            loadExpenses(i);
+            LoadPayments(i);
         });
 
         paginationDiv.appendChild(pageLink);
@@ -277,7 +249,7 @@ function updatePagination(currentPage, totalPages) {
     nextLink.innerText = '»';
     nextLink.addEventListener('click', (e) => {
         e.preventDefault();
-        if (currentPage < totalPages) loadExpenses(currentPage + 1);
+        if (currentPage < totalPages) LoadPayments(currentPage + 1);
     });
     paginationDiv.appendChild(nextLink);
 }
@@ -290,7 +262,6 @@ function updatePagination(currentPage, totalPages) {
  */
 async function openCreatePopup() {
     await loadUsers(); // Loads users when the popup is opened
-    await loadCategories(); // Loads expenses for the first open
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
 
     // Ensures the form is reset
@@ -304,41 +275,30 @@ async function openCreatePopup() {
         const data = new FormData(formData);
 
         // Creates the data object to send
-        const expenseData = {
+        const paymentData = {
             date: data.get('date'),
-            user_id: data.get('user'),
-            category: data.get('category'),
-            descr: data.get('desc'),
+            id_user_to: data.get('id_user_to'),
+            id_user_from: data.get('id_user_from'),
+            payment_method: data.get('payment_method'),
             amount: parseFloat(data.get('amount')),
         };
 
         //console.log('Submitted data:', expenseData); // Log for debugging
-        await createUpdateExpense('POST', expenseData); // Calls the function to create the expense
+        await createUpdatePayment('POST', paymentData); // Calls the function to create the expense
         document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
     };
 }
 
 
-/**
- * Opens the edit popup with pre-filled data for editing an expense.
- * Loads users when the popup is opened and sets the form fields with existing expense data.
- * Handles the form submission to update the expense.
- * @param {number} id - The ID of the expense to edit.
- * @param {string} date - The date of the expense.
- * @param {number} userId - The user ID associated with the expense.
- * @param {string} category - The category of the expense.
- * @param {string} descr - The description of the expense.
- * @param {number} amount - The amount of the expense.
- */
-async function openEditPopup(id, date, userId, category, descr, amount) {
+async function openEditPopup(id, date, id_user_from, id_user_to, payment_method, amount) {
     await loadUsers(); // Loads users when the popup is opened
     document.querySelector('button[type="submit"]').className = 'edit-button';
     document.querySelector('.popup-title').innerHTML = 'Edit Expense'; // Changes the title
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
     document.getElementById('date').value = date; // Pre-fills the date
-    document.getElementById('user').value = userId; // Pre-fills the user
-    document.getElementById('category').value = category; // Pre-fills the category
-    document.getElementById('desc').value = descr; // Pre-fills the description
+    document.getElementById('user_from').value = id_user_from; // Pre-fills the user
+    document.getElementById('user_to').value = id_user_to; // Pre-fills the user
+    document.getElementById('method').value = payment_method; // Pre-fills the description
     document.getElementById('amount').value = amount; // Pre-fills the amount
 
     // Changes the form behavior for updating
@@ -350,16 +310,16 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
         const expenseData = {
             id: id,
             date: data.get('date'),
-            user_id: data.get('user'),
-            category: data.get('category'),
-            descr: data.get('desc'),
+            id_user_from: data.get('user_from'),
+            id_user_to: data.get('user_to'),
+            payment_method: data.get('method'),
             amount: parseFloat(data.get('amount')),
         };
 
-       // console.log('Submitted data:', expenseData); // Log for debugging
+        console.log('Submitted data:', expenseData); // Log for debugging
 
         try {
-            await createUpdateExpense('PUT', expenseData); // Calls the function to update the expense
+            await createUpdatePayment('PUT', expenseData); // Calls the function to update the expense
             document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
         } catch (error) {
             console.error('Error updating expense:', error);
@@ -368,21 +328,9 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
 }
 
 
-/**
- * Creates or updates an expense, given the HTTP method and the expense data.
- * @param {string} method - The HTTP method to use, either 'POST' or 'PUT'.
- * @param {object} data - The expense data to send. Must contain the following properties:
- *  - id (optional): The ID of the expense to update.
- *  - date: The date of the expense.
- *  - user_id: The ID of the user who made the expense.
- *  - category: The category of the expense.
- *  - descr: The description of the expense.
- *  - amount: The amount of the expense.
- * @throws {Error} If the request fails.
- */
-async function createUpdateExpense(method, data) {
+async function createUpdatePayment(method, data) {
     try {
-        const response = await fetch(`../api/router.php/expense`, {
+        const response = await fetch(`../api/router.php/payment`, {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
@@ -395,7 +343,7 @@ async function createUpdateExpense(method, data) {
         }
 
         // Reloads expenses to reflect the change
-        loadExpenses(currentPage); // Ensures the correct `currentPage` is loaded
+        LoadPayments(currentPage); // Ensures the correct `currentPage` is loaded
         updateAmounts(); // Updates the amounts of total expenditure
     } catch (error) {
         console.error('Error:', error);
@@ -424,7 +372,7 @@ async function deleteExpense(id, date, descr, amount) {
                 throw new Error('Failed to delete expense');
             }
 
-            loadExpenses(currentPage); // Reloads expenses after deletion
+            LoadPayments(currentPage); // Reloads expenses after deletion
             updateAmounts(); // Updates the amounts of total expenditure
         } catch (error) {
             console.error('Error:', error);

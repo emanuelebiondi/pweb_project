@@ -10,15 +10,18 @@
                     <label for="user_from">From:</label>
                     <select name="user_from" id="user_from">
                         <!-- Options will be populated dynamically -->
+                        
                     </select>
 
                     <label for="user_to">To:</label>
                     <select name="user_to" id="user_to">
                         <!-- Options will be populated dynamically -->
+                        
                     </select>
 
                     <label for="method">Method:</label>
                     <select name="method" id="method">
+                        <option value="" disabled selected>Select an option</option>
                         <option value="Cash">Cash</option>
                         <option value="Bank Transfer">Bank Transfer</option>
                         <option value="PayPal">PayPal</option>
@@ -29,7 +32,7 @@
                     </select>
 
 
-                    <label for="desc">Amount:</label>
+                    <label for="amount">Amount:</label>
                     <input type="number" id="amount" name="amount" min="0" step="0.01" placeholder="0.00" required>
 
                     <br>

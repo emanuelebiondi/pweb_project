@@ -8,12 +8,15 @@ class PaymentModel {
     
         // Query per ottenere sia le spese che il numero totale di record
         $query = "
-            SELECT SQL_CALC_FOUND_ROWS E.id, E.date, E.user_id, E.category, E.descr, E.amount, U.name, U.surname
-            FROM payments E
-            INNER JOIN users U ON  E.user_id = U.id
-            WHERE E.house_id = ?
-            ORDER BY E.createdAt DESC
-            LIMIT ? OFFSET ?
+        SELECT SQL_CALC_FOUND_ROWS P.id, P.date, P.id_user_to, P.id_user_from, P.payment_method, P.amount, 
+            U2.name AS user_to_name, U2.surname AS user_to_surname, 
+            U1.name AS user_from_name, U1.surname AS user_from_surname
+        FROM payments P
+            INNER JOIN users U1 ON P.id_user_from = U1.id
+            INNER JOIN users U2 ON P.id_user_to = U2.id
+        WHERE P.house_id = ?
+        ORDER BY P.date DESC
+        LIMIT ? OFFSET ?;
         ";
     
         $stmt = $conn->prepare($query);
@@ -169,7 +172,6 @@ class PaymentModel {
         return $data; // Restituisci i dati
     }
     
-
     // Fetch a single payment by ID
     public function fetchById($id) {
         global $conn;
@@ -183,14 +185,10 @@ class PaymentModel {
     }
 
     // Create a new payment
-    public function create($data) {
+    public function create($data, $house_id) {
         global $conn;
-        $sql = "INSERT INTO payments (user_id, house_id, amount,category, descr, date) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO payments (house_id, id_user_from, id_user_to, date, amount, payment_method) VALUES (?, ?, ?, ?, ?, ?);";
         
-        // Start session only if it's not started
-        if (!isset($_SESSION)) session_start();
-        $house_id = $_SESSION['house_id'];
-    
         // Prepare statement
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
@@ -198,23 +196,39 @@ class PaymentModel {
         }
     
         // Bind parameters
-        $stmt->bind_param('iidsss', $data['user_id'], $house_id, $data['amount'], $data['category'], $data['descr'], $data['date']);
+        $stmt->bind_param('iiisds', $house_id, $data['id_user_from'], $data['id_user_to'], $data['date'], $data['amount'], $data['payment_method']);
     
         // Execute statement and return result
-        return $stmt->execute();
+        if ($stmt->execute()) {
+            return true; // Successfully inserted
+        } else {
+            // Log the error
+            die('Error in query execution: ' . $stmt->error);
+        }
     }
 
     // Update an existing payment
-    public function update($data) {
-        global $conn;
-        $sql = "UPDATE payments SET user_id = ?, category = ?, descr = ?, date = ? WHERE id = ?";
+        public function update($data) {
+            global $conn;
+            $sql = "UPDATE payments SET id_user_from = ?, id_user_to = ?, date = ?, amount = ?, payment_method = ? WHERE id = ?";
 
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) die('Error in query preparation ' . $conn->error);
+            $stmt = $conn->prepare($sql);
+            if ($stmt === false) die('Error in query preparation ' . $conn->error);
 
-        $stmt->bind_param('isssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['id']);
-        return $stmt->execute();
-    }
+            //$stmt->bind_param('isssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['id']);
+            $stmt->bind_param(
+                'iisdsi',                        // Parameter types
+                $data['id_user_from'],            // Integer (id_user_from)
+                $data['id_user_to'],              // Integer (id_user_to)
+                $data['date'],                    // String (date)
+                $data['amount'],                  // Double (amount)
+                $data['payment_method'],          // String (payment_method)
+                $data['id'],                      // Integer (id)
+            );
+
+            
+            return $stmt->execute();
+        }
 
     // Delete an expense
     public function delete($id) {
