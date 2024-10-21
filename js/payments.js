@@ -2,9 +2,8 @@ let currentPage = 1; // Current page
 const limit = 9; // Number of expenses per page
 
 // Load expenses initially
-LoadPayments(currentPage); // Load expenses for the first open
+loadPayments(currentPage); // Load expenses for the first open
 updateAmounts(); // Update amounts for the first open
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,17 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-/**
- * Asynchronously loads users from the API and populates the user select dropdown.
- * 
- * Fetches user data from '../api/router.php/user' using a GET request. If the response 
- * is successful, clears the existing options in the user select dropdown and adds new 
- * options for each user retrieved from the API. Each option's value is set to the user's ID,
- * and the displayed text is a combination of the user's name and surname.
- * 
- * In case of an error during the fetch operation, logs an error message to the console.
- */
 async function loadUsers() {
     try {
         const response = await fetch(`../api/router.php/user`, {
@@ -92,8 +80,7 @@ async function loadUsers() {
 }
 
 
-
-async function LoadPayments(page) {
+async function loadPayments(page) {
     try {
         const response = await fetch(`../api/router.php/payment/all?page=${page}`, {
             method: 'GET',
@@ -110,7 +97,7 @@ async function LoadPayments(page) {
         
         // Updates the table body with expenses
         const tableBody = document.querySelector('.payments table tbody');
-        //tableBody.innerHTML = ''; // Clears the table body
+        tableBody.innerHTML = ''; // Clears the table body (for the reload of table)
 
         // Verifies that expenses exist and is an array
         data.payments.forEach(payment => {
@@ -122,7 +109,7 @@ async function LoadPayments(page) {
                 <td>${payment.payment_method}</td>
                 <td>${payment.amount.toFixed(2)}€</td>
                 <td><i class='bx bx-edit' onclick="openEditPopup(${payment.id}, '${payment.date}', '${payment.id_user_from}', '${payment.id_user_to}', '${payment.payment_method}', ${payment.amount})"></i></td>
-                <td><i class='bx bx-trash' onclick="deleteExpense(${payment.id}, '${payment.date}')"></i></td>
+                <td><i class='bx bx-trash' onclick="deletePayment(${payment.id}, '${payment.date}')"></i></td>
             `;
             tableBody.appendChild(row);
         });
@@ -151,6 +138,7 @@ async function LoadPayments(page) {
         console.error('Error fetching expenses:', error);
     }
 }
+
 
 async function updateAmounts() {
     try {
@@ -220,7 +208,7 @@ function updatePagination(currentPage, totalPages) {
     prevLink.innerText = '«';
     prevLink.addEventListener('click', (e) => {
         e.preventDefault();
-        if (currentPage > 1) LoadPayments(currentPage - 1);
+        if (currentPage > 1) loadPayments(currentPage - 1);
     });
     paginationDiv.appendChild(prevLink);
 
@@ -237,7 +225,7 @@ function updatePagination(currentPage, totalPages) {
 
         pageLink.addEventListener('click', (e) => {
             e.preventDefault();
-            LoadPayments(i);
+            loadPayments(i);
         });
 
         paginationDiv.appendChild(pageLink);
@@ -249,17 +237,12 @@ function updatePagination(currentPage, totalPages) {
     nextLink.innerText = '»';
     nextLink.addEventListener('click', (e) => {
         e.preventDefault();
-        if (currentPage < totalPages) LoadPayments(currentPage + 1);
+        if (currentPage < totalPages) loadPayments(currentPage + 1);
     });
     paginationDiv.appendChild(nextLink);
 }
 
 
-/**
- * Opens the create popup with pre-filled data for creating a new expense.
- * Loads users when the popup is opened and sets the form fields with default values.
- * Handles the form submission to create a new expense.
- */
 async function openCreatePopup() {
     await loadUsers(); // Loads users when the popup is opened
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
@@ -274,15 +257,16 @@ async function openCreatePopup() {
         // Creates an instance of FormData
         const data = new FormData(formData);
 
+        console.log("::DATA0", data);
         // Creates the data object to send
         const paymentData = {
             date: data.get('date'),
-            id_user_to: data.get('id_user_to'),
-            id_user_from: data.get('id_user_from'),
-            payment_method: data.get('payment_method'),
+            id_user_to: data.get('user_to'),
+            id_user_from: data.get('user_from'),
+            payment_method: data.get('method'),
             amount: parseFloat(data.get('amount')),
         };
-
+        console.log("::paymentData", paymentData);
         //console.log('Submitted data:', expenseData); // Log for debugging
         await createUpdatePayment('POST', paymentData); // Calls the function to create the expense
         document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
@@ -307,19 +291,20 @@ async function openEditPopup(id, date, id_user_from, id_user_to, payment_method,
         e.preventDefault(); // Prevents page refresh
 
         const data = new FormData(formData);
-        const expenseData = {
-            id: id,
+
+        const paymentData = {
+            id, 
             date: data.get('date'),
-            id_user_from: data.get('user_from'),
             id_user_to: data.get('user_to'),
+            id_user_from: data.get('user_from'),
             payment_method: data.get('method'),
             amount: parseFloat(data.get('amount')),
         };
 
-        console.log('Submitted data:', expenseData); // Log for debugging
+        console.log('Submitted data:', paymentData); // Log for debugging
 
         try {
-            await createUpdatePayment('PUT', expenseData); // Calls the function to update the expense
+            await createUpdatePayment('PUT', paymentData); // Calls the function to update the expense
             document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
         } catch (error) {
             console.error('Error updating expense:', error);
@@ -330,6 +315,7 @@ async function openEditPopup(id, date, id_user_from, id_user_to, payment_method,
 
 async function createUpdatePayment(method, data) {
     try {
+        console.log("::DATA", data);
         const response = await fetch(`../api/router.php/payment`, {
             method: method,
             headers: {
@@ -337,13 +323,14 @@ async function createUpdatePayment(method, data) {
             },
             body: JSON.stringify(data),
         });
-
+        console.log("::CREATE_PAYMETS", response);
         if (!response.ok) {
             throw new Error('Failed to ' + method + ' expense');
         }
 
         // Reloads expenses to reflect the change
-        LoadPayments(currentPage); // Ensures the correct `currentPage` is loaded
+        loadPayments(currentPage); // Ensures the correct `currentPage` is loaded
+        console.log("Reloaded Payments OK")
         updateAmounts(); // Updates the amounts of total expenditure
     } catch (error) {
         console.error('Error:', error);
@@ -351,17 +338,12 @@ async function createUpdatePayment(method, data) {
 }
 
 
-/**
- * Deletes an expense with the given ID.
- * @param {number} id - The ID of the expense to delete.
- * @throws {Error} If the request fails.
- */
-async function deleteExpense(id, date, descr, amount) {
-    const userConfirmed = confirm("Are you sure you want to delete this expense?" + "\n" + "Date: " + date + "\n" + "Description: " + descr + "\n" + "Amount: " + amount.toFixed(2)  + "€");
+async function deletePayment(id, date) {
+    const userConfirmed = confirm("Are you sure you want to delete this expense?" + "\n" + "Date: " + date + "\n");
 
     if (userConfirmed) {
         try {
-            const response = await fetch(`../api/router.php/expense/${id}`, {
+            const response = await fetch(`../api/router.php/payment/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -372,10 +354,10 @@ async function deleteExpense(id, date, descr, amount) {
                 throw new Error('Failed to delete expense');
             }
 
-            LoadPayments(currentPage); // Reloads expenses after deletion
+            loadPayments(currentPage); // Reloads expenses after deletion
             updateAmounts(); // Updates the amounts of total expenditure
         } catch (error) {
             console.error('Error:', error);
         }
-}
+    }
 }

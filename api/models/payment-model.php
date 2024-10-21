@@ -208,27 +208,27 @@ class PaymentModel {
     }
 
     // Update an existing payment
-        public function update($data) {
-            global $conn;
-            $sql = "UPDATE payments SET id_user_from = ?, id_user_to = ?, date = ?, amount = ?, payment_method = ? WHERE id = ?";
+    public function update($data) {
+        global $conn;
+        $sql = "UPDATE payments SET id_user_from = ?, id_user_to = ?, date = ?, amount = ?, payment_method = ? WHERE id = ?";
 
-            $stmt = $conn->prepare($sql);
-            if ($stmt === false) die('Error in query preparation ' . $conn->error);
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) die('Error in query preparation ' . $conn->error);
 
-            //$stmt->bind_param('isssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['id']);
-            $stmt->bind_param(
-                'iisdsi',                        // Parameter types
-                $data['id_user_from'],            // Integer (id_user_from)
-                $data['id_user_to'],              // Integer (id_user_to)
-                $data['date'],                    // String (date)
-                $data['amount'],                  // Double (amount)
-                $data['payment_method'],          // String (payment_method)
-                $data['id'],                      // Integer (id)
-            );
+        //$stmt->bind_param('isssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['id']);
+        $stmt->bind_param(
+            'iisdsi',                        // Parameter types
+            $data['id_user_from'],            // Integer (id_user_from)
+            $data['id_user_to'],              // Integer (id_user_to)
+            $data['date'],                    // String (date)
+            $data['amount'],                  // Double (amount)
+            $data['payment_method'],          // String (payment_method)
+            $data['id'],                      // Integer (id)
+        );
 
-            
-            return $stmt->execute();
-        }
+        
+        return $stmt->execute();
+    }
 
     // Delete an expense
     public function delete($id) {

@@ -98,7 +98,7 @@ class PaymentController {
     }
 
     // Function to delete an payment
-    public function deletepayment($id) {
+    public function deletePayment($id) {
         if ($this->model->delete($id)) {
             echo json_encode(['success' => true]);
         } else {
