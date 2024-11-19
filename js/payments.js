@@ -37,6 +37,7 @@ async function loadUsers() {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        
         const userSelect1 = document.getElementById('user_from');
         userSelect1.innerHTML = ''; // Clears the select
         
@@ -79,7 +80,6 @@ async function loadUsers() {
     }
 }
 
-
 async function loadPayments(page) {
     try {
         const response = await fetch(`../api/router.php/payment/all?page=${page}`, {
@@ -90,16 +90,18 @@ async function loadPayments(page) {
         });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            const errorText = await response.text(); // Legge la risposta come testo
+            throw new Error(`Network response was not ok: ${errorText}`);
         }
 
-        const data = await response.json();
+        console.log("::RESPONSE", response);
+        const data = await response.json(); // Potrebbe generare un errore se non è un JSON valido
+        console.log("::DATA", data);
         
-        // Updates the table body with expenses
+        // Aggiorna la tabella e gestisce i pagamenti
         const tableBody = document.querySelector('.payments table tbody');
-        tableBody.innerHTML = ''; // Clears the table body (for the reload of table)
+        tableBody.innerHTML = ''; // Pulisce il corpo della tabella
 
-        // Verifies that expenses exist and is an array
         data.payments.forEach(payment => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -114,7 +116,6 @@ async function loadPayments(page) {
             tableBody.appendChild(row);
         });
 
-        // Adds empty rows for pages with fewer records than the limit
         const numRows = data.payments.length;
         if (numRows < limit) {
             const emptyRows = limit - numRows;
@@ -132,12 +133,13 @@ async function loadPayments(page) {
                 tableBody.appendChild(emptyRow);
             }
         }
-        // Updates pagination by passing the current page and total number of pages
+
         updatePagination(data.current_page, data.total_pages);
     } catch (error) {
-        console.error('Error fetching expenses:', error);
+        console.error('Error fetching payments:', error.message || error);
     }
 }
+
 
 
 async function updateAmounts() {
@@ -277,7 +279,7 @@ async function openCreatePopup() {
 async function openEditPopup(id, date, id_user_from, id_user_to, payment_method, amount) {
     await loadUsers(); // Loads users when the popup is opened
     document.querySelector('button[type="submit"]').className = 'edit-button';
-    document.querySelector('.popup-title').innerHTML = 'Edit Expense'; // Changes the title
+    document.querySelector('.popup-title').innerHTML = 'Edit Payment'; // Changes the title
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
     document.getElementById('date').value = date; // Pre-fills the date
     document.getElementById('user_from').value = id_user_from; // Pre-fills the user
@@ -307,7 +309,7 @@ async function openEditPopup(id, date, id_user_from, id_user_to, payment_method,
             await createUpdatePayment('PUT', paymentData); // Calls the function to update the expense
             document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
         } catch (error) {
-            console.error('Error updating expense:', error);
+            console.error('Error updating payments:', error);
         }
     };
 }

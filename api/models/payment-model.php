@@ -14,7 +14,7 @@ class PaymentModel {
         FROM payments P
             INNER JOIN users U1 ON P.id_user_from = U1.id
             INNER JOIN users U2 ON P.id_user_to = U2.id
-        WHERE P.house_id = ?
+        WHERE U1.house_id = ?
         ORDER BY P.date DESC
         LIMIT ? OFFSET ?;
         ";
