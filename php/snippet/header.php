@@ -18,7 +18,7 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
         <a href="dashboard.php" class="logo">
             <div class="logo-name">
                 <span>Co</span>
-                <span class="habitant">Habitat</span>
+                <span class="habitat">Habitat</span>
             </div>
         </a>
         <div class="menu-voices">

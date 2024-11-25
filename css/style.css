@@ -93,7 +93,7 @@ body{
     color: var(--dark);
 }
 
-.sidebar .logo .logo-name .habitant {
+.sidebar .logo .logo-name .habitat {
     color: var(--light);
     background-color: var(--primary); /* Applica lo sfondo solo a "Habitat" */
     padding: 4px 10px; /* Aggiungi del padding se vuoi un po' di spazio attorno al testo */
