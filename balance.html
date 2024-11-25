@@ -29,36 +29,108 @@
 
 
 
-
-const userJoinAt = [
-    { utente: "Alice", joinAt: 10 },
-    { utente: "Bob", joinAt: 1 },
-    { utente: "Charlie", joinAt: 1 },
-    { utente: "Antonio", joinAt: 2 }
+const utenti = [
+    { utente: "Alice", data:0 },
+    { utente: "Bob", data: 1 },
+    { utente: "Charlie", data: 1 },
+    { utente: "Antonio", data: 10 }
 ];
-
 
 const spese = [
-    { utente: "Alice", importo: 100, data: 10 },
-    { utente: "Bob", importo: 80, data: 1 },
-    { utente: "Charlie", importo: 50, data: 1 },
-    { utente: "Antonio", importo: 50, data: 1 }
+    { utente: "Alice", importo: 100, data: 4, for: ["Alice", "Charlie", "Antonio" ]},
+    { utente: "Bob", importo: 80, data: 1, for: ["Alice", "Bob", "Charlie", "Antonio"]},
+    { utente: "Charlie", importo: 50, data: 1, for: ["Alice", "Bob", "Charlie"  ]},
+    { utente: "Antonio", importo: 50, data: 1, for: ["Alice", "Bob", "Charlie" ]},
 ];
-
 
 const pagamenti = [
-    { pagante: "Alice", ricevente: "Bob", importo: 50},
-    { pagante: "Charlie", ricevente: "Alice", importo: 25},
-    { pagante: "Charlie", ricevente: "Alice", importo: 25},
-    { pagante: "Bob", ricevente: "Alice", importo: 25},
-    { pagante: "Bob", ricevente: "Charlie", importo: 25}
+    { pagante: "Alice", ricevente: "Bob", importo: 10 },
+    { pagante: "Charlie", ricevente: "Alice", importo: 15 },
+    { pagante: "Charlie", ricevente: "Alice", importo: 100 },
+    { pagante: "Bob", ricevente: "Alice", importo: 200 },
+    { pagante: "Bob", ricevente: "Charlie", importo: 3 }
 ];
 
+// Calcola la spesa totale e la quota   
+const totaleSpese = spese.reduce((totale, spesa) => totale + spesa.importo, 0);
+const quota = totaleSpese / utenti.length; // Dividi equamente
 
-// Calcola la spesa totale e la quota per ciascun utente:
-userJoinAt.forEach(element => {
-    
+// Inizializza i bilanci e sottrai la quota
+let bilanci = {};
+spese.forEach(spesa => {
+    const quota = spesa.importo / spesa.for.length;
+    bilanci[spesa.utente] = (bilanci[spesa.utente] || 0) + spesa.importo;
+
+    spesa.for.forEach(utente => {
+        bilanci[utente] = (bilanci[utente] || 0) - quota;
+    });
+
 });
+
+
+for (const utente of utenti) {
+    console.log("Utente:", utente.utente, "Bilancio:", bilanci[utente.utente]);
+}
+
+// Applica i pagamenti ai bilanci
+pagamenti.forEach(pagamento => {
+    bilanci[pagamento.pagante] -= pagamento.importo;
+    bilanci[pagamento.ricevente] += pagamento.importo;
+});
+
+
+// Separazione dei creditori e dei debitori
+let creditori = {};
+let debitori = {};
+for (const [utente, saldo] of Object.entries(bilanci)) {
+    if (saldo > 0) {
+        creditori[utente] = saldo;
+    } else if (saldo < 0) {
+        debitori[utente] = -saldo; // Memorizza il valore assoluto del debito
+    }
+}
+
+// Stampa i bilanci
+console.log("Bilanci dopo spese e pagamenti:");
+for (const [utente, saldo] of Object.entries(bilanci)) {
+    console.log(`${utente} ha un saldo di ${saldo}`);
+}
+
+// Stampa i creditori
+console.log("\nCreditori:");
+for (const [utente, importo] of Object.entries(creditori)) {
+    console.log(`${utente} deve ricevere ${importo}`);
+}
+
+// Stampa i debitori
+console.log("\nDebitori:");
+for (const [utente, importo] of Object.entries(debitori)) {
+    console.log(`${utente} deve ${importo}`);
+}
+
+// Minimizzazione delle transazioni
+console.log("\nTransazioni necessarie per azzerare i debiti:");
+while (Object.keys(creditori).length > 0 && Object.keys(debitori).length > 0) {
+    const nome_creditore = Object.keys(creditori)[0];
+    const nome_debitore = Object.keys(debitori)[0];
+    const importo_creditore = creditori[nome_creditore];
+    const importo_debitore = debitori[nome_debitore];
+
+    const transazione = Math.min(importo_creditore, importo_debitore);
+    console.log(`${nome_debitore} paga ${transazione} a ${nome_creditore}`);
+
+    // Aggiorna i bilanci
+    if (importo_creditore > importo_debitore) {
+        creditori[nome_creditore] -= transazione;
+        delete debitori[nome_debitore];
+    } else {
+        debitori[nome_debitore] -= transazione;
+        delete creditori[nome_creditore];
+    }
+}
+
+
+
 
 
 

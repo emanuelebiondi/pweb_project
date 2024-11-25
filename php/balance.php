@@ -1,9 +1,18 @@
 <?php
+
+$utenti = [
+    ["utente" => "Alice", "data" => 4],
+    ["utente" => "Bob", "data" => 1],
+    ["utente" => "Charlie", "data" => 1],
+    ["utente" => "Antonio", "data" => 10]
+];
+
 $spese = [
-    ["utente" => "Alice", "importo" => 100],
-    ["utente" => "Bob", "importo" => 80],
-    ["utente" => "Charlie", "importo" => 50],
-    ["utente" => "Antonio", "importo" => 50]
+    ["utente" => "Alice", "importo" => 100, ["Alice", "Bob", "Charlie"]],
+    ["utente" => "Alice", "importo" => 100, "data" => 4],
+    ["utente" => "Bob", "importo" => 80, "data" => 1],
+    ["utente" => "Charlie", "importo" => 50, "data" => 1],
+    ["utente" => "Antonio", "importo" => 50, "data" => 10]
 ];
 
 $pagamenti = [
@@ -21,11 +30,20 @@ foreach ($spese as $spesa) {
 }
 $quota = $totaleSpese / count($spese);  // Dividi equamente
 
+
+
+
 $bilanci = [];
 // Inizializza i bilanci e sottrai la quota
 foreach ($spese as $spesa) {
     $bilanci[$spesa["utente"]] = $spesa["importo"] - $quota;
 }
+
+var_dump ($bilanci);
+echo ("<br>");
+echo ("<br>");
+echo ("<br>");
+
 
 // Applica i pagamenti ai bilanci
 foreach ($pagamenti as $pagamento) {

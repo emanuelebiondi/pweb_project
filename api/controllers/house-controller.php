@@ -67,7 +67,7 @@ class HouseController {
         }
     }
 
-
+    
     public function getJoinCode() {
         $house_id = $_SESSION['house_id'];
         $data = $this->model->findJoinCode($house_id);
@@ -125,6 +125,7 @@ class HouseController {
         if ($this->model->update($input)) {
             echo json_encode(['success' => true]);
         } else {
+            header("HTTP/1.0 500 Internal Server Error");
             echo json_encode(['success' => false, 'error' => 'Error while updating']);
         }
     }

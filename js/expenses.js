@@ -26,16 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/**
- * Asynchronously loads users from the API and populates the user select dropdown.
- * 
- * Fetches user data from '../api/router.php/user' using a GET request. If the response 
- * is successful, clears the existing options in the user select dropdown and adds new 
- * options for each user retrieved from the API. Each option's value is set to the user's ID,
- * and the displayed text is a combination of the user's name and surname.
- * 
- * In case of an error during the fetch operation, logs an error message to the console.
- */
 async function loadUsers() {
     try {
         const response = await fetch(`../api/router.php/user`, {
@@ -95,7 +85,6 @@ async function loadUsers() {
             option.appendChild(span); // Aggiungi il testo al label
 
             foruserSelect.appendChild(option); // Aggiungi il label (con checkbox e testo) al div
-            
         });
 
     } catch (error) {
@@ -128,7 +117,6 @@ async function loadCategories() {
         placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
         categorySelect.appendChild(placeholderOption1);  // Append the placeholder option
 
-
         data.forEach(category => {
             const option = document.createElement('option');
             option.value = category.name;  // Sets the value as user ID
@@ -141,12 +129,6 @@ async function loadCategories() {
 }
 
 
-/**
- * Fetches the expenses from the API and updates the table with the expenses.
- *
- * @param {number} page The page number to fetch.
- * @throws {Error} If the network response is not OK.
- */
 async function loadExpenses(page) {
     try {
         const response = await fetch(`../api/router.php/expense/all?page=${page}`, {
@@ -206,17 +188,7 @@ async function loadExpenses(page) {
     }
 }
 
-/**
- * Asynchronously fetches expense statistics from the API and updates the user list with the amounts.
- * 
- * Sends a GET request to '../api/router.php/expense/statistics' to retrieve expense statistics data.
- * If the response is successful, clears the existing user list and populates it with new user items.
- * Each user item displays the user's initials, name, and expense totals for the week, month, and year.
- * 
- * Logs an error message to the console in case of a network or fetch error.
- * 
- * @throws {Error} If the network response is not OK.
- */
+
 async function updateAmounts() {
     try {
         const response = await fetch(`../api/router.php/expense/statistics`, {
@@ -230,7 +202,6 @@ async function updateAmounts() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        
         
         const data = await response.json();
         const userList = document.querySelector('.user-list'); // Assicurati che questo selettore sia corretto
@@ -271,15 +242,6 @@ async function updateAmounts() {
 }
 
 
-
-/**
- * Updates the pagination controls on the page based on the current and total number of pages.
- * Creates and attaches "previous", "next", and individual page number links to the pagination section.
- * Handles click events to load expenses for the selected page.
- *
- * @param {number} currentPage - The current active page number.
- * @param {number} totalPages - The total number of pages available.
- */
 function updatePagination(currentPage, totalPages) {
     const paginationDiv = document.querySelector('.pagination');
     paginationDiv.innerHTML = ''; // Clears the pagination
@@ -330,11 +292,6 @@ function updatePagination(currentPage, totalPages) {
 }
 
 
-/**
- * Opens the create popup with pre-filled data for creating a new expense.
- * Loads users when the popup is opened and sets the form fields with default values.
- * Handles the form submission to create a new expense.
- */
 async function openCreatePopup() {
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
     // Ensures the form is reset
@@ -360,15 +317,14 @@ async function openCreatePopup() {
             category: data.get('category'),
             descr: data.get('desc'),
             amount: parseFloat(data.get('amount')),
-            selectedUsers: selectedUsers
+            forusers: JSON.stringify({ users: selectedUsers })
         };
 
         console.log('Submitted data:', expenseData); // Log for debugging
-        //await createUpdateExpense('POST', expenseData); // Calls the function to create the expense
+        await createUpdateExpense('POST', expenseData); // Calls the function to create the expense
         document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
     };
 }
-
 
 
 async function openEditPopup(id, date, userId, category, descr, amount) {
@@ -383,7 +339,33 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
     document.getElementById('desc').value = descr; // Pre-fills the description
     document.getElementById('amount').value = amount; // Pre-fills the amount
 
-    
+    // Get the forusers from the API
+    try {
+        const response = await fetch(`../api/router.php/expense/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        const forusers = JSON.parse(data.forusers).users;
+        console.log(forusers);
+        
+        // Activate the checkboxes based on the forusers
+        const checkboxes = document.querySelectorAll('input[name="foruser"]');
+        checkboxes.forEach((checkbox) => {
+           if (!forusers.includes(checkbox.value)) {
+                checkbox.checked = false;
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching forusers:', error);
+    }
 
 
     // Changes the form behavior for updating
@@ -394,6 +376,8 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
         // Raccogli gli ID degli utenti selezionati dai checkbox
         const selectedUsers = Array.from(document.querySelectorAll('input[name="foruser"]:checked'))
         .map(input => input.value); // Ottieni i valori dei checkbox selezionati
+        // Converto l'array in JSON
+        const jsonData = JSON.stringify({ users: selectedUsers });
 
         const data = new FormData(formData);
         const expenseData = {
@@ -403,14 +387,13 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
             category: data.get('category'),
             descr: data.get('desc'),
             amount: parseFloat(data.get('amount')),
-            selectedUsers: selectedUsers
+            forusers: JSON.stringify({ users: selectedUsers })
         };
-
 
         try {
             console.log('Submitted data:', expenseData); // Log for debugging
-            //await createUpdateExpense('PUT', expenseData); // Calls the function to update the expense
-            //document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
+            await createUpdateExpense('PUT', expenseData); // Calls the function to update the expense
+            document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
         } catch (error) {
             console.error('Error updating expense:', error);
         }
@@ -418,18 +401,6 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
 }
 
 
-/**
- * Creates or updates an expense, given the HTTP method and the expense data.
- * @param {string} method - The HTTP method to use, either 'POST' or 'PUT'.
- * @param {object} data - The expense data to send. Must contain the following properties:
- *  - id (optional): The ID of the expense to update.
- *  - date: The date of the expense.
- *  - user_id: The ID of the user who made the expense.
- *  - category: The category of the expense.
- *  - descr: The description of the expense.
- *  - amount: The amount of the expense.
- * @throws {Error} If the request fails.
- */
 async function createUpdateExpense(method, data) {
     try {
         const response = await fetch(`../api/router.php/expense`, {
@@ -453,11 +424,6 @@ async function createUpdateExpense(method, data) {
 }
 
 
-/**
- * Deletes an expense with the given ID.
- * @param {number} id - The ID of the expense to delete.
- * @throws {Error} If the request fails.
- */
 async function deleteExpense(id, date, descr, amount) {
     const userConfirmed = confirm("Are you sure you want to delete this expense?" + "\n" + "Date: " + date + "\n" + "Description: " + descr + "\n" + "Amount: " + amount.toFixed(2)  + "€");
 

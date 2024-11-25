@@ -16,6 +16,8 @@ class expenseController {
                     $this->getExpensesWithPagination(); // GET /expense/pagination?page={page}
                 } else if (isset($request[1]) && $request[1] === 'statistics') {
                     $this->getExpensesStatistics(); // GET /expense/statistics
+                } else {
+                    $this->getexpenseById(intval($request[1])); // GET /expense/1
                 }
                 break;
 
@@ -79,6 +81,7 @@ class expenseController {
         if ($data) {
             echo json_encode($data);
         } else {
+            header("HTTP/1.0 500 Internal Server Error");
             echo json_encode(['success' => false, 'error' => 'Error while creating']);
         }
     }
@@ -89,6 +92,7 @@ class expenseController {
         if ($this->model->update($input)) {
             echo json_encode(['success' => true]);
         } else {
+            header("HTTP/1.0 500 Internal Server Error");
             echo json_encode(['success' => false, 'error' => 'Error while updating']);
         }
     }
@@ -98,6 +102,7 @@ class expenseController {
         if ($this->model->delete($id)) {
             echo json_encode(['success' => true]);
         } else {
+            header("HTTP/1.0 500 Internal Server Error");
             echo json_encode(['success' => false, 'error' => 'Error while deleting']);
         }
     }
