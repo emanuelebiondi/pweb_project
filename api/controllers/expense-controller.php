@@ -24,7 +24,7 @@ class expenseController {
                 break;
 
             case 'PUT':
-                $this->updateexpense(); // PUT /expense
+                $this->updateExpense(); // PUT /expense
                 break;
 
             case 'DELETE':
@@ -84,7 +84,7 @@ class expenseController {
     }
 
     // Function to update an expense
-    public function updateexpense() {
+    public function updateExpense() {
         $input = json_decode(file_get_contents("php://input"), true);
         if ($this->model->update($input)) {
             echo json_encode(['success' => true]);

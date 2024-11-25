@@ -207,12 +207,12 @@ class ExpenseModel {
     // Update an existing expense
     public function update($data) {
         global $conn;
-        $sql = "UPDATE expenses SET user_id = ?, category = ?, descr = ?, date = ? WHERE id = ?";
+        $sql = "UPDATE expenses SET user_id = ?, category = ?, descr = ?, date = ?, amount = ? WHERE id = ?";
 
         $stmt = $conn->prepare($sql);
         if ($stmt === false) die('Error in query preparation ' . $conn->error);
 
-        $stmt->bind_param('isssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['id']);
+        $stmt->bind_param('issssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['amount'], $data['id']);
         return $stmt->execute();
     }
 
