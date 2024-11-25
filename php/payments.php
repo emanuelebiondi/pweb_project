@@ -60,7 +60,7 @@
                 <div class="user-expense">
                     <div class="header">
                         <i class='bx bx-money-withdraw'></i>
-                        <h3>Total Expenditure</h3>
+                        <h3>Balance</h3>
                     </div>
                     <ul class="user-list">
                     </ul>

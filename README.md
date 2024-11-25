@@ -15,3 +15,12 @@
 ![#F2CC8F](https://placehold.co/15x15/F2CC8F/F2CC8F.png) `#F2CC8F` <br>
 ![#1F5270](https://placehold.co/15x15/1F5270/1F5270.png) `#1F5270` <br>
 [text](https://coolors.co/f4f1de-e07a5f-3d405b-81b29a-f2cc8f)
+
+
+
+# USERS, PASSWORDS, HOUSES
+    emanuele@cohabitat.it       Cambiami!123        53
+    antonio@cohabitat.it        Cambiami!123        53
+    luca@cohabitat.com          Cambiami!123        53
+    franco@cohabitat.it         Cambiami!123        59
+    gennaro@cohabitat.it        Cambiami!123        60

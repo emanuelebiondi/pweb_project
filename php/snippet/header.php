@@ -58,12 +58,11 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
                             });
 
                             if (!response.ok) {
-                                throw new Error('Network response was not ok');
+                                //throw new Error('Network response was not ok');
                             }
 
                             const data = await response.json();  // Usa 'await' qui
                             document.getElementById("house-code").innerText = data.join_code;   
-                            //console.log(":::DATA", data);
                         } catch (error) {
                             console.error('Error:', error);
                         }

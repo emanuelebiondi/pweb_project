@@ -21,6 +21,7 @@ class PaymentModel {
     
         $stmt = $conn->prepare($query);
         if ($stmt === false) {
+            http_response_code(500); // Return 500 Internal Server Error
             die('Error in query preparation ' . $conn->error);
         }
         
@@ -84,6 +85,7 @@ class PaymentModel {
     
         $stmt = $conn->prepare($query);
         if ($stmt === false) {
+            http_response_code(500); // Return 500 Internal Server Error
             die('Error in query preparation ' . $conn->error);
         }
     
@@ -149,6 +151,7 @@ class PaymentModel {
         // Prepara la query
         $stmt = $conn->prepare($query);
         if ($stmt === false) {
+            http_response_code(500); // Return 500 Internal Server Error
             die('Error in query preparation: ' . $conn->error);
         }
     
@@ -157,12 +160,14 @@ class PaymentModel {
         
         // Esegui la query
         if (!$stmt->execute()) {
+            http_response_code(500);
             die('Error executing the query: ' . $stmt->error);
         }
     
         $result = $stmt->get_result();
         
         if ($result === false) {
+            http_response_code(500);
             die('Error fetching the result: ' . $stmt->error);
         }
     
@@ -177,7 +182,11 @@ class PaymentModel {
         global $conn;
         $sql = "SELECT * FROM payments WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) die('Error in query preparation ' . $conn->error);
+        
+        if ($stmt === false) {
+            http_response_code(500);
+            die('Error in query preparation ' . $conn->error);
+        }
 
         $stmt->bind_param('i', $id);
         $stmt->execute();
@@ -192,6 +201,7 @@ class PaymentModel {
         // Prepare statement
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
+            http_response_code(500);
             die('Error in query preparation: ' . $conn->error);
         }
     
@@ -203,6 +213,7 @@ class PaymentModel {
             return true; // Successfully inserted
         } else {
             // Log the error
+            http_response_code(500);
             die('Error in query execution: ' . $stmt->error);
         }
     }
@@ -213,7 +224,10 @@ class PaymentModel {
         $sql = "UPDATE payments SET id_user_from = ?, id_user_to = ?, date = ?, amount = ?, payment_method = ? WHERE id = ?";
 
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) die('Error in query preparation ' . $conn->error);
+        if ($stmt === false) {
+            http_response_code(500);
+            die('Error in query preparation ' . $conn->error);
+        }
 
         //$stmt->bind_param('isssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['id']);
         $stmt->bind_param(
@@ -226,7 +240,6 @@ class PaymentModel {
             $data['id'],                      // Integer (id)
         );
 
-        
         return $stmt->execute();
     }
 
@@ -234,8 +247,12 @@ class PaymentModel {
     public function delete($id) {
         global $conn;
         $sql = "DELETE FROM payments WHERE id = ?";
+        
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) die('Error in query preparation ' . $conn->error);
+        if ($stmt === false) {
+            http_response_code(500);
+            die('Error in query preparation ' . $conn->error);
+        }
 
         $stmt->bind_param('i', $id);
         return $stmt->execute();

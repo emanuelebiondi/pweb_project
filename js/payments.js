@@ -325,9 +325,9 @@ async function createUpdatePayment(method, data) {
             },
             body: JSON.stringify(data),
         });
-        console.log("::CREATE_PAYMETS", response);
+        console.log("::CREATE_PAYMET", response);
         if (!response.ok) {
-            throw new Error('Failed to ' + method + ' expense');
+            throw new Error('Failed to ' + method + ' payment');
         }
 
         // Reloads expenses to reflect the change
@@ -341,7 +341,7 @@ async function createUpdatePayment(method, data) {
 
 
 async function deletePayment(id, date) {
-    const userConfirmed = confirm("Are you sure you want to delete this expense?" + "\n" + "Date: " + date + "\n");
+    const userConfirmed = confirm("Are you sure you want to delete this payment?" + "\n" + "Date: " + date + "\n");
 
     if (userConfirmed) {
         try {
@@ -353,7 +353,7 @@ async function deletePayment(id, date) {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to delete expense');
+                throw new Error('Failed to delete payment');
             }
 
             loadPayments(currentPage); // Reloads expenses after deletion

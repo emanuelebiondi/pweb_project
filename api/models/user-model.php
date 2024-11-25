@@ -86,22 +86,31 @@
         
             $userId = $_SESSION['id'];  // Recupera l'user_id dalla sessione
         
-            // Costruire la clausola SET dinamicamente
+            // Costruire la clausola SET dinamicamente con i dati della richiesta
+            // ATTENZIONE! ATTENZIONE!
+            // Qui bisogna controllare che i parametri della richiesta siano effettivamente validi
+            // per evitare SQL injection. Mentre i valori vengono validati piu avanti da mysqli tramite bind_param...
+
+            $allowedColumns = ['house_id', 'joinedAt', 'password', 'name', 'surname']; // Colonne valide
             $setClause = '';
             $params = [];
-            $types = '';  // Questo servirà per i tipi di dati per il bind_param
-        
+            $types = '';
+            
             foreach ($data as $key => $value) {
-                $setClause .= "$key = ?, ";  // Segnaposto per ogni campo
-                $params[] = $value;          // Aggiungere il valore
-                $types .= $this->getType($value);  // Determinare il tipo di dato (i - intero, s - stringa, etc.)
+                if (!in_array($key, $allowedColumns)) {
+                    throw new Exception("Invalid column name: $key");
+                }
+                $setClause .= "$key = ?, ";
+                $params[] = $value;
+                $types .= $this->getType($value);   // GetType determia il tipo di dato (lookdown the code)
             }
         
-            $setClause = rtrim($setClause, ', ');  // Rimuovere l'ultima virgola
+            $setClause = rtrim($setClause, ', ');  // Rimuovere l'ultima virgola inserita dal ciclo
         
             // Query di aggiornamento
             $sql = "UPDATE users SET $setClause WHERE id = ?";
-        
+            
+            
             // Preparare lo statement
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
