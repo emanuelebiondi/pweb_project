@@ -799,6 +799,42 @@ form button:hover {
 }
 
 
+/* Nascondi il checkbox originale */
+form .foruser-checkbox input {
+    display: none;
+  }
+  
+/* Stile del cerchio */
+form .foruser-checkbox .checkmark {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;  /* Cerchio */
+    border: 2px solid var(--secondary);  /* Colore di bordo quando non selezionato */
+    text-align: center;
+    line-height: 38px;  /* Allineare il testo verticalmente */
+    color: var(--secondary);  /* Colore del testo */
+    transition: all 0.3s ease;  /* Transizione per il cambio di colore */
+    margin-right: 10px;
+}
+  
+/* Quando il checkbox è selezionato */
+
+/* Ema ricorda: + in CSS è un selettore di fratelli adiacenti (Adjacent Sibling Combinator).
+Questo selettore seleziona un elemento che è immediatamente successivo a un altro 
+elemento, che deve trovarsi nello stesso livello nella gerarchia del DOM.*/
+form .foruser-checkbox input:checked + .checkmark {
+    border-color: var(--secondary);  /* Bordo verde quando selezionato */
+    color: white;  /* Colore del testo verde */
+    background-color: var(--secondary);  /* Sfondo verde quando selezionato */
+}
+  
+/* Aggiungere un effetto quando il mouse passa sopra il checkbox */
+form .foruser-checkbox .checkmark:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+  
 
 
 

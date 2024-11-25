@@ -19,8 +19,8 @@
 
 
 # USERS, PASSWORDS, HOUSES
-    emanuele@cohabitat.it       Cambiami!123        53
-    antonio@cohabitat.it        Cambiami!123        53
-    luca@cohabitat.com          Cambiami!123        53
-    franco@cohabitat.it         Cambiami!123        59
-    gennaro@cohabitat.it        Cambiami!123        60
+    emanuele@Cohabitat.it       Cambiami!123        53
+    antonio@Cohabitat.it        Cambiami!123        53
+    luca@Cohabitat.com          Cambiami!123        53
+    franco@Cohabitat.it         Cambiami!123        59
+    gennaro@Cohabitat.it        Cambiami!123        60

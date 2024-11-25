@@ -1,4 +1,10 @@
 <?php
+
+
+
+
+
+
 $spese = [
     ["utente" => "Alice", "importo" => 100],
     ["utente" => "Bob", "importo" => 80],

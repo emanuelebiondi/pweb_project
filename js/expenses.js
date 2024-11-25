@@ -49,10 +49,12 @@ async function loadUsers() {
             throw new Error('Network response was not ok');
         }
 
-        const data = await response.json();
+        // Get data from DB
+        const users = await response.json();
+        
+        // Generate the select user that made the expanse
         const userSelect = document.getElementById('user');
         userSelect.innerHTML = ''; // Clears the select
-
         const placeholderOption1 = document.createElement('option');
         placeholderOption1.value = '';  // Empty value
         placeholderOption1.textContent = 'Select an user';  // Text to display
@@ -60,12 +62,42 @@ async function loadUsers() {
         placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
         userSelect.appendChild(placeholderOption1);  // Append the placeholder option
 
-        data.forEach(user => {
+        users.forEach(user => {
             const option = document.createElement('option');
             option.value = user.id;  // Sets the value as user ID
             option.textContent = `${user.name} ${user.surname}`;  // Text to display as the user's name
             userSelect.appendChild(option);  // Adds the option to the select
         });
+
+        // Genera i checkbox per selezionare gli utenti
+        const foruserSelect = document.getElementById('foruser');
+        foruserSelect.innerHTML = ''; // Pulisce prima il contenuto
+
+
+        // Crea dinamicamente i checkbox
+        users.forEach(user => {
+            const option = document.createElement('label'); // Crea il nuovo label
+            option.classList.add('foruser-checkbox'); // Aggiungi la classe
+
+            const input = document.createElement('input'); // Crea l'input checkbox
+            input.id = `foruser-${user.id}`;
+            input.type = 'checkbox';
+            input.name = 'foruser';
+            input.value = user.id;
+            input.checked = true; // Checkbox selezionato per default
+            option.appendChild(input); // Aggiungi l'input al label
+
+            const span = document.createElement('span'); // Crea il testo da visualizzare accanto al checkbox
+            span.classList.add('checkmark'); // Classe per il checkmark
+            
+            const initials = user.name.charAt(0).toUpperCase() + user.surname.charAt(0).toUpperCase();
+            span.textContent = initials; // Nome dell'utente
+            option.appendChild(span); // Aggiungi il testo al label
+
+            foruserSelect.appendChild(option); // Aggiungi il label (con checkbox e testo) al div
+            
+        });
+
     } catch (error) {
         console.error('Error fetching users:', error);
     }
@@ -95,7 +127,6 @@ async function loadCategories() {
         placeholderOption1.setAttribute('disabled', 'true');  // Disable the option
         placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
         categorySelect.appendChild(placeholderOption1);  // Append the placeholder option
-
 
 
         data.forEach(category => {
@@ -305,19 +336,22 @@ function updatePagination(currentPage, totalPages) {
  * Handles the form submission to create a new expense.
  */
 async function openCreatePopup() {
-    await loadUsers(); // Loads users when the popup is opened
-    await loadCategories(); // Loads expenses for the first open
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
-
     // Ensures the form is reset
     const formData = document.getElementById('formData');
+    await loadCategories(); // Loads expenses for the first open
     formData.reset(); // Resets the form
-
+    
+    await loadUsers(); // Loads users when the popup is opened
     formData.onsubmit = async (e) => {
         e.preventDefault(); // Prevents page refresh
 
         // Creates an instance of FormData
         const data = new FormData(formData);
+
+         // Raccogli gli ID degli utenti selezionati dai checkbox
+         const selectedUsers = Array.from(document.querySelectorAll('input[name="foruser"]:checked'))
+         .map(input => input.value); // Ottieni i valori dei checkbox selezionati
 
         // Creates the data object to send
         const expenseData = {
@@ -326,28 +360,20 @@ async function openCreatePopup() {
             category: data.get('category'),
             descr: data.get('desc'),
             amount: parseFloat(data.get('amount')),
+            selectedUsers: selectedUsers
         };
 
-        //console.log('Submitted data:', expenseData); // Log for debugging
-        await createUpdateExpense('POST', expenseData); // Calls the function to create the expense
+        console.log('Submitted data:', expenseData); // Log for debugging
+        //await createUpdateExpense('POST', expenseData); // Calls the function to create the expense
         document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
     };
 }
 
 
-/**
- * Opens the edit popup with pre-filled data for editing an expense.
- * Loads users when the popup is opened and sets the form fields with existing expense data.
- * Handles the form submission to update the expense.
- * @param {number} id - The ID of the expense to edit.
- * @param {string} date - The date of the expense.
- * @param {number} userId - The user ID associated with the expense.
- * @param {string} category - The category of the expense.
- * @param {string} descr - The description of the expense.
- * @param {number} amount - The amount of the expense.
- */
+
 async function openEditPopup(id, date, userId, category, descr, amount) {
     await loadUsers(); // Loads users when the popup is opened
+    
     document.querySelector('button[type="submit"]').className = 'edit-button';
     document.querySelector('.popup-title').innerHTML = 'Edit Expense'; // Changes the title
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
@@ -357,10 +383,17 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
     document.getElementById('desc').value = descr; // Pre-fills the description
     document.getElementById('amount').value = amount; // Pre-fills the amount
 
+    
+
+
     // Changes the form behavior for updating
     const formData = document.getElementById('formData');
     formData.onsubmit = async (e) => {
         e.preventDefault(); // Prevents page refresh
+
+        // Raccogli gli ID degli utenti selezionati dai checkbox
+        const selectedUsers = Array.from(document.querySelectorAll('input[name="foruser"]:checked'))
+        .map(input => input.value); // Ottieni i valori dei checkbox selezionati
 
         const data = new FormData(formData);
         const expenseData = {
@@ -370,13 +403,14 @@ async function openEditPopup(id, date, userId, category, descr, amount) {
             category: data.get('category'),
             descr: data.get('desc'),
             amount: parseFloat(data.get('amount')),
+            selectedUsers: selectedUsers
         };
 
-       // console.log('Submitted data:', expenseData); // Log for debugging
 
         try {
-            await createUpdateExpense('PUT', expenseData); // Calls the function to update the expense
-            document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
+            console.log('Submitted data:', expenseData); // Log for debugging
+            //await createUpdateExpense('PUT', expenseData); // Calls the function to update the expense
+            //document.getElementById('popupForm').style.display = 'none'; // Closes the popup after updating
         } catch (error) {
             console.error('Error updating expense:', error);
         }
