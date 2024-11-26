@@ -32,7 +32,6 @@
                     <div class="header">
                         <i class='bx bx-cart-alt'></i>
                         <h3>All Expenses</h3>
-                        <i class='bx bx-filter'></i>
                         <button id="openPopupBtn"><i class='bx bx-plus'></i></button>
                         
                     </div>

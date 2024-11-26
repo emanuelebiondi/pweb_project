@@ -535,43 +535,64 @@ body{
 
 .content main .bottom-data .reminders .task-list{
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
 }
 
-.content main .bottom-data .reminders .task-list li{
-    width: 100%;
+.content main .bottom-data .reminders .task-list .task-element{
+    width: 25%;
     margin-bottom: 16px;
     background: var(--grey);
-    padding: 14px 10px;
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
 
-.content main .bottom-data .reminders .task-list li .task-title{
+.content main .bottom-data .reminders .task-list .task-element .task-text{
     display: flex;
     align-items: center;
 }
 
-.content main .bottom-data .reminders .task-list li .task-title p{
-    margin-left: 6px;
+.content main .bottom-data .reminders .task-list .task-element .task-text p{
+    padding: 30px 30px 0 30px;
+    text-justify: auto
 }
 
-.content main .bottom-data .reminders .task-list li .bx{
-  cursor: pointer;  
+.content main .bottom-data .reminders .task-list .task-element span{
+    margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;  
+    transition: all 0.3s ease;
+    color: var(--light);
+    border-radius: 0 0 20px 20px ;
+    text-align: center;
+    background-color: var(--primary);
+    width: 100%;
 }
 
-.content main .bottom-data .reminders .task-list li.completed{
-    border-left: 10px solid var(--success);
+
+.content main .bottom-data .reminders .task-list .task-new {
+    background: var(--grey);
+    border-radius: 80px;
+    padding: 20px;
+    font-weight: bold;
+    color: var(--light);
+    background-color: var(--primary);
 }
 
-.content main .bottom-data .reminders .task-list li.not-completed{
-    border-left: 10px solid var(--danger);
+.content main .bottom-data .reminders .task-list .task-new p{
+    height: 20px;
+    width: 20px;
+    text-align: center;
 }
 
-.content main .bottom-data .reminders .task-list li:last-child{
-   margin-bottom: 0;
-}
+
+
 
 
 
@@ -650,7 +671,7 @@ body{
 
 .content main .bottom-data .settle-up {
     flex-grow: 1;
-    min-width: 450px;
+    min-width: 470px;
     background-color: var(--light);
     border-radius: 20px;
     padding: 20px;
@@ -676,28 +697,34 @@ body{
     font-weight: bold;
 }
 
+.content main .bottom-data .setteup-element .right {
+    display: flex;
+    flex-direction: row;
+}
+
+
 .content main .bottom-data .setteup-element .amount {
-    padding: 10px 10px;
-    border-radius: 20px;
-    min-width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     text-align: center;
-    justify-content: center ;
+    align-items: center;
+    border-radius: 20px 0 0 20px;
+    min-width: 100px;
     background-color: var(--light);
     color: var(--dark);
-    display: flex;
-    align-items: center;
 }
 
 .content main .bottom-data .setteup-element button {
     padding: 15px;
-    border-radius: 50px;
+    border-radius: 0 20px 20px 0;
     background-color: var(--primary);
     color: var(--light);
     border: none;
 } 
 
 .content main .bottom-data .setteup-element button:hover {
-    border-radius: 50px;
+    border-radius: 0 20px 20px 0;
     background-color: var(--secondary);
     color: var(--light);
 } 

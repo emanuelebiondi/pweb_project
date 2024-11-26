@@ -166,13 +166,14 @@ async function updateSettleUp() {
 
             settleupItem.innerHTML = `
                 <div class="users">    
-                    <div><span>From</span> ${expense.name_user_from}  ${expense.surname_user_from}</div>
-                    <div><span>To</span> ${expense.name_user_to}  ${expense.surname_user_to}</div>
+                    <div><span>From: </span> ${expense.name_user_from}  ${expense.surname_user_from}</div>
+                    <div><span>To: </span> ${expense.name_user_to}  ${expense.surname_user_to}</div>
                 </div>
-                <div class="amount">
-                    <div>${expense.amount.toFixed(2)}€</div>
+                <div class="right">
+                    <span class="amount">${expense.amount.toFixed(2)}€</span>
+                    <button type="submit" onclick="openCreatePopup(${expense.id_user_from}, '${expense.id_user_to}', ${expense.amount})">Settle</button>
                 </div>
-                <button type="submit" onclick="openCreatePopup(${expense.id_user_from}, '${expense.id_user_to}', ${expense.amount})">Settle</button>
+                
                 `;
             userList.appendChild(settleupItem);
         });
