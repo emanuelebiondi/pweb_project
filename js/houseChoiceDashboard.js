@@ -65,14 +65,14 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     //const joinedAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 
-    console.log("::DATA2", { house_id, joinedAt });
+    //console.log("::DATA2", { house_id, joinedAt });
     // Aggiungi house_id all'utente
     const response2 = await fetch('../api/router.php/user', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ house_id, joinedAt }),  // TODO: recheck
+        body: JSON.stringify({ house_id, joinedAt }),  
     });
     
     const data2 = await response2.json();
