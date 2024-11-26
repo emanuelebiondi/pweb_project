@@ -67,12 +67,14 @@
 
                 <!-- End of User Expense-->
             </div>
-
         </main>
         <!-- Popup Add Payment (Hidden by default)-->
         <?php include_once 'popupForms/expenseForm.php'; ?>
 
     <script src="../js/expenses.js"></script>
+   
 </body>
+<!-- Footer inserted by snippet/footer.html -->
+
 
 </html>

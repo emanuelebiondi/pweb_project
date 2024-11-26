@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/boxicons.css" >
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cohabitat - Dashboard</title>
+    <title>Cohabitat - Reminders</title>
 </head>
 
 <body>

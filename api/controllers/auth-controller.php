@@ -107,7 +107,7 @@ class AuthController {
     
             // Prepara la query per prevenire SQL injection
             $query = "
-                SELECT  U.*, H.name as house_name
+                SELECT  U.*, H.name as house_name, H.join_code as house_code
                 FROM
                     users U
                     left join
@@ -140,6 +140,7 @@ class AuthController {
                 $_SESSION['surname'] = $row['surname'];
                 $_SESSION['house_id'] = $row['house_id'];
                 $_SESSION['house_name'] = $row['house_name'];
+                $_SESSION['house_code'] = $row['house_code'];
     
                 // Rispondi con successo
                 echo json_encode(['success' => 'Login successful']);

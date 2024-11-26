@@ -45,29 +45,8 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
             <ul class="side-menu housecode-menu">
                     <li>
                     Share this code to join the house:
-                    <b><span class="house-code" id ="house-code">cambiami</span></b>
+                    <b><span class="house-code" id ="house-code"><?php echo $_SESSION['house_code'] ?></span></b>
                 </li>
-                <script>
-                     (async function() {
-                        try {
-                            const response = await fetch(`../api/router.php/house/findJoinCode`, {  // Usa 'await' qui
-                                method: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                            });
-
-                            if (!response.ok) {
-                                //throw new Error('Network response was not ok');
-                            }
-
-                            const data = await response.json();  // Usa 'await' qui
-                            document.getElementById("house-code").innerText = data.join_code;   
-                        } catch (error) {
-                            console.error('Error:', error);
-                        }
-                    })();
-                </script>
             </ul>
             <br>
             <ul class="side-menu logout-menu">

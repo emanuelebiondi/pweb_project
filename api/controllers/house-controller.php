@@ -22,7 +22,7 @@ class HouseController {
                         $this->getJoinCode(); // GET /house/findJoinCode
                     } elseif (is_numeric($request[1])) {
                         // Passa l'ID se è numerico
-                        $this->getHouseById(intval($request[1])); // GET /user/1
+                        $this->getHouseById(intval($request[1])); // GET /house/1
                     } else {
                         header("HTTP/1.0 400 Bad Request");
                         echo json_encode(['error' => 'Format not valid']);
@@ -60,6 +60,9 @@ class HouseController {
     public function getHouseByJoinCode($join_code) {
         $data = $this->model->fetchByJoinCode($join_code);
         if ($data) {
+            header("HTTP/1.0 200 OK");
+            // Temporany set the session variable for the house_code (only first time)
+            $_SESSION['house_code'] = $data['join_code'];
             echo json_encode($data);
         } else {
             header("HTTP/1.0 404 Not Found");
@@ -85,12 +88,13 @@ class HouseController {
             // Read input from HTTP request
             $input = json_decode(file_get_contents("php://input"), true);
     
-            // Verifica se i dati sono stati decodificati correttamente
+            /* Verifica se i dati sono stati decodificati correttamente
             if (json_last_error() !== JSON_ERROR_NONE) {
                 header("HTTP/1.0 400 Bad Request");
                 echo json_encode(['error' => 'Invalid JSON']);
                 return; // Esci dalla funzione
             }
+            */
     
             // Chiamata al modello per creare la casa e recuperare l'ID
             $houseId = $this->model->create($input);
@@ -99,6 +103,8 @@ class HouseController {
                 // Recupera il record completo della casa appena creata
                 $newHouse = $this->model->fetchById($houseId);
                 if ($newHouse) {
+                    // Temporany set the session variable for the house_code (only first time)
+                    $_SESSION['house_code'] = $newHouse['join_code'];
                     header("HTTP/1.0 201 Created"); // Usa 201 Created se la risorsa è stata creata con successo
                     echo json_encode($newHouse); // Restituisci i dati della casa appena creata
                 } else {

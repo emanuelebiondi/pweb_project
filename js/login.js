@@ -1,7 +1,7 @@
 
 
 document.getElementById('loginform').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Previeni il comportamento predefinito del form
+    event.preventDefault(); // Previeni il comportamento predefinito del form (invio dei dati e il ricaricamento della pagina)
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -18,7 +18,7 @@ document.getElementById('loginform').addEventListener('submit', async function(e
 
     // If responese is beween 200 and 299
     if (response.ok) {
-        // Registrazione avvenuta con successo
+        // login avvenuto con successo
         window.location.href = 'dashboard.php'; // Redirect to login
     } else {
         // Mostra l'errore
