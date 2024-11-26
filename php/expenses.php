@@ -70,7 +70,7 @@
 
         </main>
         <!-- Popup Add Payment (Hidden by default)-->
-        <?php include_once 'popupForms/addExpenceForm.php'; ?>
+        <?php include_once 'popupForms/expenseForm.php'; ?>
 
     <script src="../js/expenses.js"></script>
 </body>
