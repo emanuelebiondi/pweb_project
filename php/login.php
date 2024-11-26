@@ -47,7 +47,7 @@
             <p class="errormsg" id="errorMessage"></p>
         </form>
         
-        <p class="elseregister">If you are not registered, <a href="register.php">sign up here!</a></p>
+        <p class="elseregister">If you are not registered, <a href="register.php">signup here!</a></p>
     </main>
     <script src="../js/login.js"></script>
 </body>

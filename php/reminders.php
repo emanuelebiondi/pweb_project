@@ -32,15 +32,10 @@
                 <!-- Reminders -->
                 <div class="reminders">
 
-                    <ul class="task-list">
-                        <li class = "task-element">
-                            <div class="task-text">
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis repellendus vitae, fuga praesentium totam explicabo dolores tempore obcaecati? Nam, et distinctio harum nulla laborum omnis adipisci temporibus aliquam? Eligendi, totam?</p>
-                            </div>
-                            <span>Delete</span>
-                        </li>
-                        <li class="task-new">
-                            <p>+</p>
+                    <ul class="task-list" id="task-list">
+                        <!-- Task elements will be dynamically added here -->
+                        <li class="task-new" id="task-new">
+                            <button>+</button>
                         </li>
 
                     </ul>
@@ -55,7 +50,7 @@
         </main>
     </div>
 
-    <script src="../js/dashboard.js"></script>
+    <script src="../js/reminder.js"></script>
     <script src="../js/houseChoiceDashboard.js"></script>
 </body>
 

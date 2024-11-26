@@ -34,12 +34,10 @@
 
     list-style: none;
 }
-.bx-ul > li
-{
+.bx-ul > li{
     position: relative;
 }
-.bx-ul .bx
-{
+.bx-ul .bx{
     font-size: inherit;
     line-height: inherit;
 

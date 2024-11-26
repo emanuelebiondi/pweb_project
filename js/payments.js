@@ -159,24 +159,41 @@ async function updateSettleUp() {
         const userList = document.querySelector('.settleup-list'); 
         userList.innerHTML = ''; // Svuota la lista prima di aggiungere nuovi dati
         
+        let check_if_something_is_printed = false;
         // Itera attraverso l'array di dati
         data.forEach(expense => {  
+            if (expense.amount >= 0.01){    // Prevengo che stampi 0.00 per gli arrotondamenti
             const settleupItem = document.createElement('li');
             settleupItem.className = 'setteup-element';
 
+                console.log(expense);
+                settleupItem.innerHTML = `
+                    <div class="users">    
+                        <div><span>From: </span> ${expense.name_user_from}  ${expense.surname_user_from}</div>
+                        <div><span>To: </span> ${expense.name_user_to}  ${expense.surname_user_to}</div>
+                    </div>
+                    <div class="right">
+                        <span class="amount">${expense.amount.toFixed(2)}€</span>
+                        <button type="submit" onclick="openCreatePopup(${expense.id_user_from}, '${expense.id_user_to}', ${expense.amount})">Settle</button>
+                    </div>
+                    `;
+
+                check_if_something_is_printed = true;
+                
+                userList.appendChild(settleupItem);
+            }
+        });
+
+        if (!check_if_something_is_printed) {
+            const settleupItem = document.createElement('li');
+            settleupItem.className = 'setteup-element';
             settleupItem.innerHTML = `
                 <div class="users">    
-                    <div><span>From: </span> ${expense.name_user_from}  ${expense.surname_user_from}</div>
-                    <div><span>To: </span> ${expense.name_user_to}  ${expense.surname_user_to}</div>
+                    <div>"Ooh, lucky us! <br>Looks like we're all squared away for now!</div>
                 </div>
-                <div class="right">
-                    <span class="amount">${expense.amount.toFixed(2)}€</span>
-                    <button type="submit" onclick="openCreatePopup(${expense.id_user_from}, '${expense.id_user_to}', ${expense.amount})">Settle</button>
-                </div>
-                
                 `;
             userList.appendChild(settleupItem);
-        });
+        }
 
     } catch (error) {
         console.error('Error updateSettleUp:', error);

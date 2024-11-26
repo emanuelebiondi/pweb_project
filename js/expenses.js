@@ -1,10 +1,13 @@
 let currentPage = 1; // Current page
 const limit = 9; // Number of expenses per page
 
-// Load expenses initially
-loadExpenses(currentPage); // Load expenses for the first open
-updateAmounts(); // Update amounts for the first open
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Load expenses initially
+    loadExpenses(currentPage); // Load expenses for the first open
+    updateAmounts(); // Update amounts for the first open
+});
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -294,11 +297,12 @@ function updatePagination(currentPage, totalPages) {
 
 async function openCreatePopup() {
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
+    document.querySelector('.popup-title').innerHTML = 'New Expense'; // Changes the title
     // Ensures the form is reset
     const formData = document.getElementById('formData');
-    await loadCategories(); // Loads expenses for the first open
     formData.reset(); // Resets the form
-    
+
+    await loadCategories(); // Loads expenses for the first open
     await loadUsers(); // Loads users when the popup is opened
     formData.onsubmit = async (e) => {
         e.preventDefault(); // Prevents page refresh
@@ -329,6 +333,8 @@ async function openCreatePopup() {
 
 async function openEditPopup(id, date, userId, category, descr, amount) {
     await loadUsers(); // Loads users when the popup is opened
+    await loadCategories(); // Loads categories when the popup is opened
+
     
     document.querySelector('button[type="submit"]').className = 'edit-button';
     document.querySelector('.popup-title').innerHTML = 'Edit Expense'; // Changes the title
