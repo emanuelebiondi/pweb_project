@@ -33,7 +33,7 @@
         
         <form id="loginform">
             <div class="form-control">
-                <input type="email" id="email" name="email" placeholder=" " required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
+                <input type="email" id="email" name="email" placeholder=" "  required>
                 <label for="email"> Email </label>
             </div>
 

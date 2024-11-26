@@ -14,12 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cohabitat - Payments</title>
+    <title>Cohabitant - Payments</title>
 </head>
 
 <body>
     <!-- Header + topbar inserted by snippet/header.php -->
-    <?php include "snippet/header.php"?>
+    <?php include "./snippet/header.php"?>
         <main>
             <div class="header">
                 <div class="left">
