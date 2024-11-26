@@ -8,7 +8,7 @@ class ExpenseModel {
     
         // Query per ottenere sia le spese che il numero totale di record
         $query = "
-            SELECT SQL_CALC_FOUND_ROWS E.id, E.date, E.user_id, E.category, E.descr, E.amount, U.name, U.surname
+            SELECT SQL_CALC_FOUND_ROWS E.id, E.date, E.user_id, E.category, E.descr, E.amount, E.forusers, U.name, U.surname
             FROM expenses E
             INNER JOIN users U ON  E.user_id = U.id
             WHERE E.house_id = ?
@@ -48,6 +48,26 @@ class ExpenseModel {
             'current_page' => ($offset / $limit) + 1,
             'total_pages' => $totalPages,
         ];
+    }
+
+    public function getAll($house_id) {
+        global $conn;
+    
+        // Query per ottenere sia le spese che il numero totale di record
+        $query = "
+            SELECT *
+            FROM expenses
+            WHERE house_id = ?
+        ";
+    
+        $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die('Error in query preparation ' . $conn->error);
+        }
+        
+        $stmt->bind_param('i', $house_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function fetchTotalByTime($house_id, $filter) {

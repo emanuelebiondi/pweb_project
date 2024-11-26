@@ -3,7 +3,7 @@ const limit = 9; // Number of expenses per page
 
 // Load expenses initially
 loadPayments(currentPage); // Load expenses for the first open
-updateAmounts(); // Update amounts for the first open
+updateSettleUp(); // Update amounts for the first open
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -141,10 +141,9 @@ async function loadPayments(page) {
 }
 
 
-
-async function updateAmounts() {
+async function updateSettleUp() {
     try {
-        const response = await fetch(`../api/router.php/expense/statistics`, {
+        const response = await fetch(`../api/router.php/payment/settleup`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -157,40 +156,29 @@ async function updateAmounts() {
         }
         
         const data = await response.json();
-        const userList = document.querySelector('.user-list'); // Assicurati che questo selettore sia corretto
+        const userList = document.querySelector('.settleup-list'); 
         userList.innerHTML = ''; // Svuota la lista prima di aggiungere nuovi dati
         
         // Itera attraverso l'array di dati
-        data.forEach(expense => {  // Cambia data.expenses con data
-            const userItem = document.createElement('li');
-            userItem.className = 'user';
+        data.forEach(expense => {  
+            const settleupItem = document.createElement('li');
+            settleupItem.className = 'setteup-element';
 
-            // Crea un cerchio con l'iniziale del nome
-            const firstLetter = expense.name.charAt(0).toUpperCase(); // Prendi la prima lettera del nome
-            userItem.innerHTML = `
-                <div class="circle">${firstLetter}</div>
-                <span class="name">${expense.name} <br> ${expense.surname}</span>
-                <div class="amounts">
-                    <div class="amount-row">
-                        <span class="amount-week">W:</span>
-                        <span class="week-value">${expense.weeklyTotal !== null ? expense.weeklyTotal.toFixed(2) : '0.00'}€</span>
-                    </div>
-                    <div class="amount-row">
-                        <span class="amount-month">M:</span>
-                        <span class="month-value">${expense.monthlyTotal !== null ? expense.monthlyTotal.toFixed(2) : '0.00'}€</span>
-                    </div>
-                    <div class="amount-row">
-                        <span class="amount-year">Y:</span>
-                        <span class="year-value">${expense.yearlyTotal !== null ? expense.yearlyTotal.toFixed(2) : '0.00'}€</span>
-                    </div>
-
+            settleupItem.innerHTML = `
+                <div class="users">    
+                    <div><span>From</span> ${expense.name_user_from}  ${expense.surname_user_from}</div>
+                    <div><span>To</span> ${expense.name_user_to}  ${expense.surname_user_to}</div>
                 </div>
-            `;
-            userList.appendChild(userItem);
+                <div class="amount">
+                    <div>${expense.amount.toFixed(2)}€</div>
+                </div>
+                <button type="submit" onclick="openCreatePopup(${expense.id_user_from}, '${expense.id_user_to}', ${expense.amount})">Settle</button>
+                `;
+            userList.appendChild(settleupItem);
         });
 
     } catch (error) {
-        console.error('Error updateAmounts:', error);
+        console.error('Error updateSettleUp:', error);
     }
 }
 
@@ -245,13 +233,27 @@ function updatePagination(currentPage, totalPages) {
 }
 
 
-async function openCreatePopup() {
+async function openCreatePopup(id_user_from, id_user_to, amount) {
     await loadUsers(); // Loads users when the popup is opened
     document.getElementById('popupForm').style.display = 'flex'; // Displays the popup
-
+    document.querySelector('.popup-title').innerHTML = 'New Payment'; // Changes the title
+    
     // Ensures the form is reset
     const formData = document.getElementById('formData');
     formData.reset(); // Resets the form
+
+    // Pre-fills the form with settleup data
+    if (id_user_from && id_user_to && amount) {
+        document.getElementById('date').value = new Date().toISOString().split('T')[0]; // Pre-fills the date
+        // Nota:
+        // new Date(): Crea un oggetto data con la data corrente.
+        // .toISOString(): Converte la data in formato ISO 8601 completo (es: 2024-11-26T14:30:00.000Z).
+        // .split('T')[0]: Estrae solo la parte relativa alla data (YYYY-MM-DD), eliminando l'ora
+        
+        document.getElementById('user_from').value = id_user_from; // Pre-fills the user
+        document.getElementById('user_to').value = id_user_to; // Pre-fills the user
+        document.getElementById('amount').value = parseFloat(amount).toFixed(2); // Pre-fills the amount
+    }
 
     formData.onsubmit = async (e) => {
         e.preventDefault(); // Prevents page refresh
@@ -259,17 +261,16 @@ async function openCreatePopup() {
         // Creates an instance of FormData
         const data = new FormData(formData);
 
-        console.log("::DATA0", data);
+        //console.log("::DATA0", data);
         // Creates the data object to send
         const paymentData = {
             date: data.get('date'),
-            id_user_to: data.get('user_to'),
             id_user_from: data.get('user_from'),
+            id_user_to: data.get('user_to'),
             payment_method: data.get('method'),
             amount: parseFloat(data.get('amount')),
         };
         console.log("::paymentData", paymentData);
-        //console.log('Submitted data:', expenseData); // Log for debugging
         await createUpdatePayment('POST', paymentData); // Calls the function to create the expense
         document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
     };
@@ -333,7 +334,7 @@ async function createUpdatePayment(method, data) {
         // Reloads expenses to reflect the change
         loadPayments(currentPage); // Ensures the correct `currentPage` is loaded
         console.log("Reloaded Payments OK")
-        updateAmounts(); // Updates the amounts of total expenditure
+        updateSettleUp(); // Updates the amounts of total expenditure
     } catch (error) {
         console.error('Error:', error);
     }
@@ -357,7 +358,7 @@ async function deletePayment(id, date) {
             }
 
             loadPayments(currentPage); // Reloads expenses after deletion
-            updateAmounts(); // Updates the amounts of total expenditure
+            updateSettleUp(); // Updates the amounts of total expenditure
         } catch (error) {
             console.error('Error:', error);
         }

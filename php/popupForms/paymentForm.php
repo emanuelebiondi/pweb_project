@@ -8,19 +8,19 @@
                     <input type="date" id="date" name="date" required>
 
                     <label for="user_from">From:</label>
-                    <select name="user_from" id="user_from">
+                    <select name="user_from" id="user_from" required>
                         <!-- Options will be populated dynamically -->
                         
                     </select>
 
                     <label for="user_to">To:</label>
-                    <select name="user_to" id="user_to">
+                    <select name="user_to" id="user_to" required>
                         <!-- Options will be populated dynamically -->
                         
                     </select>
 
                     <label for="method">Method:</label>
-                    <select name="method" id="method">
+                    <select name="method" id="method" required>
                         <option value="" disabled selected>Select an option</option>
                         <option value="Cash">Cash</option>
                         <option value="Bank Transfer">Bank Transfer</option>

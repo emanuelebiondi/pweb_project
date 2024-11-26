@@ -56,17 +56,18 @@
                     </div>
                 </div>
 
-                <!-- User Expense -->
-                <div class="user-expense">
+                <!-- Settle Up -->
+                <div class="settle-up">
                     <div class="header">
                         <i class='bx bx-money-withdraw'></i>
-                        <h3>Balance</h3>
+                        <h3>Settle Up</h3>
                     </div>
-                    <ul class="user-list">
+                    <ul class="settleup-list">
+                        <!-- php/payments.php:(loadSettleUp) -->
                     </ul>
                 </div>
 
-                <!-- End of User Expense-->
+                <!-- End of Settle Up-->
             </div>
 
         </main>
