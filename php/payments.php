@@ -14,12 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cohabitat - Payments</title>
+    <title>Cohabitant - Payments</title>
 </head>
 
 <body>
     <!-- Header + topbar inserted by snippet/header.php -->
-    <?php include "snippet/header.php"?>
+    <?php include "./snippet/header.php"?>
         <main>
             <div class="header">
                 <div class="left">
@@ -32,7 +32,6 @@
                     <div class="header">
                         <i class='bx bx-cart-alt'></i>
                         <h3>All Payments</h3>
-                        <i class='bx bx-filter'></i>
                         <button id="openPopupBtn"><i class='bx bx-plus'></i></button>
                         
                     </div>
@@ -56,17 +55,18 @@
                     </div>
                 </div>
 
-                <!-- User Expense -->
-                <div class="user-expense">
+                <!-- Settle Up -->
+                <div class="settle-up">
                     <div class="header">
                         <i class='bx bx-money-withdraw'></i>
-                        <h3>Balance</h3>
+                        <h3>Settle Up</h3>
                     </div>
-                    <ul class="user-list">
+                    <ul class="settleup-list">
+                        <!-- php/payments.php:(loadSettleUp) -->
                     </ul>
                 </div>
 
-                <!-- End of User Expense-->
+                <!-- End of Settle Up-->
             </div>
 
         </main>

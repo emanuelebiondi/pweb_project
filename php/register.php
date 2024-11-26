@@ -59,7 +59,7 @@
                 <input class="btn" type="submit" value="Send">
                 <p class="errormsg" id="errorMessage"></p>
             </form>
-            <p class="elseregister">If you are already registered, <a href="login.php">log in here!</a></p>
+            <p class="elseregister">If you are already registered, <a href="login.php">login here!</a></p>
         </main>
     
         <script src="../js/register.js"></script>

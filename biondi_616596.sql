@@ -154,7 +154,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (15,'antonio.colona@cohabitat.it','$2y$10$LYvIs41u8hp1j8.200gNhOTaRHIUuV0/O7K.C/HaDw7DrDKylRpDu','Antonio','Colona',53),(16,'emanuele@cohabitat.it','$2y$10$r7ne2ramAVCMHzBaMmwPwOfaRcBvYUBYWy0oPgWGAdGES6YuhVw6y','Emanuele','Biondi',53),(17,'luca@cohabitat.com','$2y$10$qF7iGuQpNqI3xUGYrCDNOOGkY4zV5y7BtwwwXWfbw97vNZExBe8yG','Luca','Bellini',53),(18,'franco@cohabitat.it','$2y$10$EUJ6ppFLl8ZlAG2yx4wW5eK3rM7bSOqbFHGjjqVaXp8FG1lmP.YES','Franco','Vittori',59);
+INSERT INTO `users` VALUES (15,'antonio.colona@Cohabitat.it','$2y$10$LYvIs41u8hp1j8.200gNhOTaRHIUuV0/O7K.C/HaDw7DrDKylRpDu','Antonio','Colona',53),(16,'emanuele@Cohabitat.it','$2y$10$r7ne2ramAVCMHzBaMmwPwOfaRcBvYUBYWy0oPgWGAdGES6YuhVw6y','Emanuele','Biondi',53),(17,'luca@Cohabitat.com','$2y$10$qF7iGuQpNqI3xUGYrCDNOOGkY4zV5y7BtwwwXWfbw97vNZExBe8yG','Luca','Bellini',53),(18,'franco@Cohabitat.it','$2y$10$EUJ6ppFLl8ZlAG2yx4wW5eK3rM7bSOqbFHGjjqVaXp8FG1lmP.YES','Franco','Vittori',59);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -14,6 +14,7 @@ require_once 'controllers/expense-controller.php';
 require_once 'controllers/payment-controller.php';
 require_once 'controllers/house-controller.php';
 require_once 'controllers/category-controller.php';
+require_once 'controllers/reminder-controller.php';
 
 require_once '../config/database.php'; // Include la connessione al database
 
@@ -56,10 +57,10 @@ switch ($request[0]) {
         $controller->handleRequest($method, $request);
         break;
     
-        case 'payment':
-            $controller = new PaymentController();
-            $controller->handleRequest($method, $request);
-            break;
+    case 'payment':
+        $controller = new PaymentController();
+        $controller->handleRequest($method, $request);
+        break;
 
     case 'house':
         $controller = new HouseController();
@@ -67,7 +68,12 @@ switch ($request[0]) {
         break;
 
     case 'category':
-        $controller = new categoryController();
+        $controller = new CategoryController();
+        $controller->handleRequest($method, $request);
+        break;
+
+    case 'reminder':
+        $controller = new ReminderController();
         $controller->handleRequest($method, $request);
         break;
 

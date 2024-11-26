@@ -54,6 +54,32 @@ class PaymentModel {
         ];
     }
 
+    public function getAll($house_id) {
+        global $conn;
+    
+        // Query per ottenere sia le spese che il numero totale di record
+        $query = "
+            SELECT P.id, P.date, P.id_user_to, P.id_user_from, P.payment_method, P.amount, 
+                U2.name AS user_to_name, U2.surname AS user_to_surname, 
+                U1.name AS user_from_name, U1.surname AS user_from_surname
+            FROM payments P
+                INNER JOIN users U1 ON P.id_user_from = U1.id
+                INNER JOIN users U2 ON P.id_user_to = U2.id
+            WHERE U1.house_id = ?
+        ";
+    
+        $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die('Error in query preparation ' . $conn->error);
+        }
+        
+        $stmt->bind_param('i', $house_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+
     public function fetchTotalByTime($house_id, $filter) {
         global $conn;
     

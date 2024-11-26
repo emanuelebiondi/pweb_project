@@ -9,6 +9,8 @@
 
 * {
     box-sizing: border-box;
+    font-family: monospace;
+    font-size: large;
 }
 
 body {
@@ -19,8 +21,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: sans-serif;
     position: relative;
+    
 }
 
 body::after {       /* Trick to ensure the footer stays at the bottom */
@@ -48,12 +50,14 @@ body::after {       /* Trick to ensure the footer stays at the bottom */
 .container h1 {
     text-align: center;
     margin-bottom: 40px;
+    font-size: xx-large;
 }
 
 .special {
     background: var(--special-bg-color);
     padding: 5px 20px;
     color: var(--form-bg);
+    font-size: xx-large;
 }
 
 .form-control {

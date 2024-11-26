@@ -8,7 +8,7 @@ class ExpenseModel {
     
         // Query per ottenere sia le spese che il numero totale di record
         $query = "
-            SELECT SQL_CALC_FOUND_ROWS E.id, E.date, E.user_id, E.category, E.descr, E.amount, U.name, U.surname
+            SELECT SQL_CALC_FOUND_ROWS E.id, E.date, E.user_id, E.category, E.descr, E.amount, E.forusers, U.name, U.surname
             FROM expenses E
             INNER JOIN users U ON  E.user_id = U.id
             WHERE E.house_id = ?
@@ -48,6 +48,26 @@ class ExpenseModel {
             'current_page' => ($offset / $limit) + 1,
             'total_pages' => $totalPages,
         ];
+    }
+
+    public function getAll($house_id) {
+        global $conn;
+    
+        // Query per ottenere sia le spese che il numero totale di record
+        $query = "
+            SELECT *
+            FROM expenses
+            WHERE house_id = ?
+        ";
+    
+        $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die('Error in query preparation ' . $conn->error);
+        }
+        
+        $stmt->bind_param('i', $house_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function fetchTotalByTime($house_id, $filter) {
@@ -185,7 +205,7 @@ class ExpenseModel {
     // Create a new expense
     public function create($data) {
         global $conn;
-        $sql = "INSERT INTO expenses (user_id, house_id, amount,category, descr, date) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO expenses (user_id, house_id, amount, category, descr, date, forusers) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         // Start session only if it's not started
         if (!isset($_SESSION)) session_start();
@@ -198,7 +218,7 @@ class ExpenseModel {
         }
     
         // Bind parameters
-        $stmt->bind_param('iidsss', $data['user_id'], $house_id, $data['amount'], $data['category'], $data['descr'], $data['date']);
+        $stmt->bind_param('iidssss', $data['user_id'], $house_id, $data['amount'], $data['category'], $data['descr'], $data['date'], $data['forusers']);
     
         // Execute statement and return result
         return $stmt->execute();
@@ -207,12 +227,12 @@ class ExpenseModel {
     // Update an existing expense
     public function update($data) {
         global $conn;
-        $sql = "UPDATE expenses SET user_id = ?, category = ?, descr = ?, date = ?, amount = ? WHERE id = ?";
+        $sql = "UPDATE expenses SET user_id = ?, category = ?, descr = ?, date = ?, amount = ?, forusers = ? WHERE id = ?";
 
         $stmt = $conn->prepare($sql);
         if ($stmt === false) die('Error in query preparation ' . $conn->error);
 
-        $stmt->bind_param('issssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['amount'], $data['id']);
+        $stmt->bind_param('isssssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['amount'], $data['forusers'], $data['id']);
         return $stmt->execute();
     }
 

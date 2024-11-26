@@ -33,7 +33,7 @@
         
         <form id="loginform">
             <div class="form-control">
-                <input type="email" id="email" name="email" placeholder=" " required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
+                <input type="email" id="email" name="email" placeholder=" "  required>
                 <label for="email"> Email </label>
             </div>
 
@@ -47,7 +47,7 @@
             <p class="errormsg" id="errorMessage"></p>
         </form>
         
-        <p class="elseregister">If you are not registered, <a href="register.php">sign up here!</a></p>
+        <p class="elseregister">If you are not registered, <a href="register.php">signup here!</a></p>
     </main>
     <script src="../js/login.js"></script>
 </body>

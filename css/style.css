@@ -28,7 +28,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: monospace;
 }
 
 .bx{
@@ -228,6 +228,7 @@ body{
     width: 100%;
     padding: 36px 24px;
     max-height: calc(100vh - 56px);
+    font-size: large;
 }
 
 .content main .header{
@@ -535,43 +536,92 @@ body{
 
 .content main .bottom-data .reminders .task-list{
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
 }
 
-.content main .bottom-data .reminders .task-list li{
-    width: 100%;
+.content main .bottom-data .reminders .task-list .task-element{
+    width: 20%;
+    height: 200px;
     margin-bottom: 16px;
     background: var(--grey);
-    padding: 14px 10px;
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch; 
     justify-content: space-between;
 }
 
-.content main .bottom-data .reminders .task-list li .task-title{
+.content main .bottom-data .reminders .task-list .task-element .task-text{
     display: flex;
     align-items: center;
+    flex-grow: 1; /* Permette a .task-text di occupare spazio disponibile */
 }
 
-.content main .bottom-data .reminders .task-list li .task-title p{
-    margin-left: 6px;
+.content main .bottom-data .reminders .task-list .task-element .task-text textarea{
+    font-style: var(--dark);
+    padding: 10px;
+    border-radius: 20px 20px 0 0 ;
+    background-color: var(--grey);
+    padding: 12px 20px;
+    font-size: inherit;
+    resize: none;
+    width: 100%;
+    height: 100%; 
+    box-sizing: border-box;
+    border: none;
 }
 
-.content main .bottom-data .reminders .task-list li .bx{
-  cursor: pointer;  
+.content main .bottom-data .reminders .task-list .task-element .task-text textarea:focus{
+    border: 2px solid var(--primary);
+    outline: none;
 }
 
-.content main .bottom-data .reminders .task-list li.completed{
-    border-left: 10px solid var(--success);
+.content main .bottom-data .reminders .task-list .task-element span{
+    padding: 10px;
+    cursor: pointer;  
+    transition: all 0.3s ease;
+    color: var(--light);
+    border-radius: 0 0 20px 20px ;
+    text-align: center;
+    background-color: var(--primary);
+    width: 100%;
 }
 
-.content main .bottom-data .reminders .task-list li.not-completed{
-    border-left: 10px solid var(--danger);
+
+
+
+.content main .bottom-data .reminders .task-list .task-new button:hover{
+    background-color: var(--secondary);
+    color: var(--light);
 }
 
-.content main .bottom-data .reminders .task-list li:last-child{
-   margin-bottom: 0;
+
+.content main .bottom-data .reminders .task-list .task-new button{
+    text-align: center;
+    all: unset; 
+    background: none; 
+    border: none; 
+    outline: none; 
+    font: inherit; 
+    cursor: pointer; 
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    background-color: var(--primary);
 }
+
+
+
+
 
 
 
@@ -647,6 +697,66 @@ body{
     font-size: 16px;
 }
 
+
+.content main .bottom-data .settle-up {
+    flex-grow: 1;
+    min-width: 470px;
+    background-color: var(--light);
+    border-radius: 20px;
+    padding: 20px;
+    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.content main .bottom-data .setteup-element {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background: var(--light-primary);
+    border-radius: 20px;
+    padding: 20px;
+    gap: 20px;
+    margin-bottom: 20px;
+    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.content main .bottom-data .setteup-element .users span {
+    color: var(--primary);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.content main .bottom-data .setteup-element .right {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.content main .bottom-data .setteup-element .amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 20px 0 0 20px;
+    min-width: 100px;
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.content main .bottom-data .setteup-element button {
+    padding: 15px;
+    border-radius: 0 20px 20px 0;
+    background-color: var(--primary);
+    color: var(--light);
+    border: none;
+} 
+
+.content main .bottom-data .setteup-element button:hover {
+    border-radius: 0 20px 20px 0;
+    background-color: var(--secondary);
+    color: var(--light);
+} 
 
 
 /* POPUP AND FORM SETTINGS*/
@@ -799,6 +909,42 @@ form button:hover {
 }
 
 
+/* Nascondi il checkbox originale */
+form .foruser-checkbox input {
+    display: none;
+  }
+  
+/* Stile del cerchio */
+form .foruser-checkbox .checkmark {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;  /* Cerchio */
+    border: 2px solid var(--secondary);  /* Colore di bordo quando non selezionato */
+    text-align: center;
+    line-height: 38px;  /* Allineare il testo verticalmente */
+    color: var(--secondary);  /* Colore del testo */
+    transition: all 0.3s ease;  /* Transizione per il cambio di colore */
+    margin-right: 10px;
+}
+  
+/* Quando il checkbox è selezionato */
+
+/* Ema ricorda: + in CSS è un selettore di fratelli adiacenti (Adjacent Sibling Combinator).
+Questo selettore seleziona un elemento che è immediatamente successivo a un altro 
+elemento, che deve trovarsi nello stesso livello nella gerarchia del DOM.*/
+form .foruser-checkbox input:checked + .checkmark {
+    border-color: var(--secondary);  /* Bordo verde quando selezionato */
+    color: white;  /* Colore del testo verde */
+    background-color: var(--secondary);  /* Sfondo verde quando selezionato */
+}
+  
+/* Aggiungere un effetto quando il mouse passa sopra il checkbox */
+form .foruser-checkbox .checkmark:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+  
 
 
 
