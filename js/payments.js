@@ -94,9 +94,8 @@ async function loadPayments(page) {
             throw new Error(`Network response was not ok: ${errorText}`);
         }
 
-        console.log("::RESPONSE", response);
         const data = await response.json(); // Potrebbe generare un errore se non è un JSON valido
-        console.log("::DATA", data);
+
         
         // Aggiorna la tabella e gestisce i pagamenti
         const tableBody = document.querySelector('.payments table tbody');
@@ -150,7 +149,6 @@ async function updateSettleUp() {
             },
         });
 
-        //console.log(':::RESPONSE', response);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -279,7 +277,6 @@ async function openCreatePopup(id_user_from, id_user_to, amount) {
         // Creates an instance of FormData
         const data = new FormData(formData);
 
-        //console.log("::DATA0", data);
         // Creates the data object to send
         const paymentData = {
             date: data.get('date'),
@@ -288,7 +285,7 @@ async function openCreatePopup(id_user_from, id_user_to, amount) {
             payment_method: data.get('method'),
             amount: parseFloat(data.get('amount')),
         };
-        console.log("::paymentData", paymentData);
+        
         await createUpdatePayment('POST', paymentData); // Calls the function to create the expense
         document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
     };
@@ -336,7 +333,7 @@ async function openEditPopup(id, date, id_user_from, id_user_to, payment_method,
 
 async function createUpdatePayment(method, data) {
     try {
-        console.log("::DATA", data);
+        
         const response = await fetch(`../api/router.php/payment`, {
             method: method,
             headers: {
@@ -344,14 +341,14 @@ async function createUpdatePayment(method, data) {
             },
             body: JSON.stringify(data),
         });
-        console.log("::CREATE_PAYMET", response);
+        
         if (!response.ok) {
             throw new Error('Failed to ' + method + ' payment');
         }
 
         // Reloads expenses to reflect the change
         loadPayments(currentPage); // Ensures the correct `currentPage` is loaded
-        console.log("Reloaded Payments OK")
+        
         updateSettleUp(); // Updates the amounts of total expenditure
     } catch (error) {
         console.error('Error:', error);

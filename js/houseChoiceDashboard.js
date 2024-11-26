@@ -53,7 +53,6 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     }
 
     const data1 = await response1.json(); // Usa response1 per ottenere i dati
-    console.log("::DATA1",  data1);
 
     // Assumendo che data1 contenga house_id
     const house_id = data1.id; 
@@ -62,10 +61,6 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     date.setHours(date.getHours() + 2); // Aggiungi 2 ore
     const joinedAt = date.toISOString().slice(0, 19).replace('T', ' ');
 
-    //const joinedAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-
-    console.log("::DATA2", { house_id, joinedAt });
     // Aggiungi house_id all'utente
     const response2 = await fetch('../api/router.php/user', {
         method: 'PUT',
