@@ -1,0 +1,193 @@
+:root {
+    --light: #f6f6f9;
+
+    --primary: #E07A5F;
+    --light-bg: #F4F1DE;
+    --light-primary: #ffe8e0;
+    
+    --secondary: #008080;
+    --light-secondary: #63b6b6;
+
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #363949;
+    
+    --danger: #D32F2F;
+	--light-danger: #FECDD3;
+    
+    --warning: #FBC02D;
+    --light-warning: #FFF2C6;
+    
+    --success: #388E3C;
+    --light-success: #BBF7D0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+li{
+    list-style: none;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+body{
+    background: var(--grey);
+    overflow-x: hidden;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;  
+    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: hidden;
+    gap: 80px;
+}
+
+
+main .logo{
+    width: 100%;
+    font-size: 60px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .logo .logo-name span{
+    color: var(--dark);
+}
+
+main .logo .logo-name .habitat {
+    color: var(--light);
+    background-color: var(--primary); /* Applica lo sfondo solo a "Habitat" */
+    padding: 4px 10px; 
+}
+
+main .container-left {
+    width: 80vh;  
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--light-primary);
+    border-radius: 50%; /* Make it a circle */
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 80px;
+}
+    
+main .container-left .content-button {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+main .container-left .content-button a {
+    font-size: large;
+    padding: 20px;
+    border-radius: 40px;
+    color: var(--light);
+    transition: all 0.5s ease;
+    
+}
+
+main .container-left .content-button .btn-register{
+    background-color: var(--primary);
+}
+
+main .container-left .content-button .btn-login{
+    background-color: var(--secondary);
+}
+
+main .container-left .content-title h1 {
+    text-align: center;
+    color: var(--primary);
+}
+main .container-left .content-title h2 {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--dark);
+}
+
+main .container-right {
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-right: 80px;
+    gap: 120px;
+}
+
+main .container-right .content-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+main .container-right .content-text .elem{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    
+}
+
+main .container-right .content-text .arrow{
+    font-size: 30px;
+    width: 50%;
+    font-weight: bolder;
+    color: var(--primary);
+    text-align: center;
+}
+
+
+main .container-right .content-text .elem span{
+    font-size: 30px;
+    font-weight: bolder;
+    color: var(--dark);
+    margin: auto;
+
+}
+
+main .container-right .content-text .elem .bold{
+    color: var(--dark);
+    font-size: 22px;
+    font-weight: bolder;
+    color: var(--primary);
+    width: 50%;
+
+}
+
+main .container-right .content-text .elem p{
+    color: var(--dark);
+    font-size: 15px;
+    width: 50%;
+    margin: auto;
+}
+
+.authorfooter {
+    color: var(--dark);
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}

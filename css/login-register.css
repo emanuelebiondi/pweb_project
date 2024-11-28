@@ -57,7 +57,7 @@ body::after {       /* Trick to ensure the footer stays at the bottom */
     background: var(--special-bg-color);
     padding: 5px 20px;
     color: var(--form-bg);
-    font-size: xx-large;
+        font-size: xx-large;
 }
 
 .form-control {

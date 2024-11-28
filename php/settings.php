@@ -12,7 +12,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/boxicons.css" >
     <link rel="stylesheet" href="../css/style.css">
     <title>Cohabitat - Settings</title>
 </head>
@@ -25,140 +24,37 @@
                 <div class="left">
                     <h1>Settings</h1>
                 </div>
-            </div>
 
-            <div class="top-data">
-                <!-- Insights -->
-                <ul class="insights">
-                    <li>
-                        <i class='bx bx-calendar-check'></i>
-                        <span class="info">
-                            <h3>1000,00 €</h3>
-                            <p>This Month</p>
-                        </span>
-                    </li>
-                    <li><i class='bx bx-show-alt'></i>
-                        <span class="info">
-                            <h3>500,00€</h3>
-                            <p>This Week</p>
-                        </span>
-                    </li>
-                    <li><i class='bx bx-show-alt'></i>
-                        <span class="info">
-                            <h3>5000,00€</h3>
-                            <p>This Year</p>
-                        </span>
-                    </li>
-                </ul>
-                <!-- End of Insights -->
-
-                <!-- Payments Status -->
-                <div class="payments-status">
-                    <div class="header">
-                        <i class='bx bx-receipt'></i>
-                        <h3>User Payments Status</h3>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><p>John Doe</p></td>
-                                <td><span class="status send">+20€</span></td>
-                            </tr>
-                            <tr>
-                                <td><p>Pinco Palla</p></td>
-                                <td><span class="status recive">-200,00€</span></td>
-                            </tr>
-                            <tr>
-                                <td><p>Emanuele Biondi</p></td>
-                                <td><span class="status send">+20€</span></td>
-                            </tr>
-                            <tr>
-                                <td><p>John Doe</p></td>
-                                <td><span class="status recive">-200,00€</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- End of Payments Status -->
-
-            </div>
 
             <div class="bottom-data">
-                <div class="payments last">
-                    <div class="header">
-                        <i class='bx bx-receipt'></i>
-                        <h3>Recent Payments</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-search'></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Desc</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><p>John Doe</p></td>
-                                <td>Sapone Piatti</td>
-                                <td>200,00€</td>
-
-                            </tr>
-                            <tr>
-                                <td><p>John Doe</p></td>
-                                <td>Bolletta Enel</td>
-                                <td>200,00€</td>
-
-                            </tr>
-                            <tr>
-                                <td><p>John Doe</p></td>
-                                <td>Tovaglia</td>
-                                <td>200,00€</td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
                 <!-- Reminders -->
-                <div class="reminders">
-                    <div class="header">
-                        <i class='bx bx-note'></i>
-                        <h3>Remiders</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-plus'></i>
+                <div class="settings">
+
+                <div class="header">
+                        <h3>Password Change</h3>
                     </div>
-                    <ul class="task-list">
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Start Our Meeting</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Analyse Our Site</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="not-completed">
-                            <div class="task-title">
-                                <i class='bx bx-x-circle'></i>
-                                <p>Play Footbal</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                    </ul>
+
+                    <div class="password-form">
+                        
+                        <label for="old_password">Insert the old password: </label>
+                        <input type="password" id="old_password" name="old_password">
+                        <p id="formDataError"></p>
+                        
+                        <label for="new_password1">Insert the new password: </label>
+                        <input type="password" id="new_password1" name="new_password1">
+                        <p id="formDataError"></p>
+
+                        <label for="new_password2">Reinsert the new password: </label>
+                        <input type="password" id="new_password2" name="new_password2">
+                        <p id="formDataError"></p>
+                        
+                    </div>
+                    <div class="password-button">
+                        <button type="submit">Send</button>
+                    </div>
+                    
+                </div>
                 </div>
 
                 <!-- End of Reminders-->
@@ -170,7 +66,6 @@
         </main>
     </div>
 
-    <script src="../js/dashboard.js"></script>
     <script src="../js/houseChoiceDashboard.js"></script>
 </body>
 
