@@ -790,6 +790,93 @@ body{
 }
 
 
+.content main .bottom-data .categories{ 
+    flex-grow: 1;
+    max-width: 600px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+}
+
+.content main .bottom-data .categories .category-space {
+    margin-top: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.content main .bottom-data .categories .category-space .category-element{
+    border-radius: 40px;
+    padding-right: 10px;
+    border: 2px solid var(--primary);
+    display:flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--primary);
+    flex-grow: 1;
+    max-width: 49%;
+    height: 40px;
+
+}
+
+
+.content main .bottom-data .categories .category-space .category-element textarea{
+    border-radius: 40px 0 0 40px;
+    width: fit-content;
+    height: fit-content;
+    background-color: inherit;
+    color: var(--dark);
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    padding-top: 10px;
+    text-align: left;
+    margin-left: 20px;
+
+}
+
+.content main .bottom-data .categories .category-space .category-element  textarea:focus{
+    outline: none;
+}
+
+.content main .bottom-data .categories .category-space .category-element .delete-btn { 
+    margin-left : 6px;
+    color: var(--primary);
+    cursor: pointer;
+    border: none;
+}
+
+.content main .bottom-data .categories .password-button  {
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: var(--primary);
+    border-radius: 40px;
+    width: fit-content;
+}
+
+.content main .bottom-data .categories .password-button button {
+    padding: 10px;
+    font-size: 14px;
+    background-color: inherit;
+    border: none;
+    color: var(--light);
+    border-radius: 40px;
+    width: fit-content;
+}
+
+.content main .bottom-data .categories .password-button:hover {
+    background-color: var(--secondary);
+    cursor: pointer;
+
+}
 
 
 
@@ -981,42 +1068,6 @@ form .foruser-checkbox .checkmark:hover {
 }
   
 
-/* SETTINGS PAGE */
-
-.user-setting-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    width: 100%;
-    gap:40px;
-    background-color: var(--light);
-    border: 1px solid black;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-
-.user-setting-container .password-setting {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap:40px;
-    background-color: var(--grey);
-    padding: 20px;
-    border-radius: 20px;
-    border: 1px solid black;
-}
-
-.user-setting-container .password-form {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-
-    gap:10px;
-    padding: 20px;
-}
 
 
 

@@ -37,7 +37,7 @@ class CategoryModel {
     // TODO
     public function update($data) {
         global $conn;
-        $sql = "UPDATE houses SET name = ? WHERE id = ?";
+        $sql = "UPDATE categories SET name = ? WHERE id = ?";
 
         $stmt = $conn->prepare($sql);
         if ($stmt === false) die('Error in query preparation ' . $conn->error);
@@ -45,6 +45,7 @@ class CategoryModel {
         $stmt->bind_param('si', $data['name'], $data['id'],);
         return $stmt->execute();
     }
+
 
 
     public function delete($id) {
