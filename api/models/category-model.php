@@ -2,7 +2,6 @@
 
 class CategoryModel {
 
-
     public function fetchAll($house_id) {
         global $conn;
 
