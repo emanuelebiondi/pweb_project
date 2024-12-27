@@ -11,7 +11,7 @@
 
     // Check if exist the session, so redirect to dashboard
     if (isset($_SESSION['id'])) {
-        header('Location: dashboard.php');
+        header('Location: home.php');
         exit();
     }
 

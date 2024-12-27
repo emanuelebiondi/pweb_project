@@ -77,7 +77,7 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     if (response2.ok) {
         // Registrazione avvenuta con successo
         document.getElementById('popupFormJoinHouse').style.display = 'none';
-        window.location.href = 'dashboard.php'; // Redirect to dashboard
+        window.location.href = 'home.php'; // Redirect to home
     } else {
         alert(data2.error || 'Error updating user');
     }

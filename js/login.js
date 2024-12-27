@@ -19,7 +19,7 @@ document.getElementById('loginform').addEventListener('submit', async function(e
     // If responese is beween 200 and 299
     if (response.ok) {
         // login avvenuto con successo
-        window.location.href = 'dashboard.php'; // Redirect to login
+        window.location.href = 'home.php'; // Redirect to login
     } else {
         // Mostra l'errore
         document.getElementById('errorMessage').innerText = data.error;

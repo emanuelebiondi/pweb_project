@@ -58,7 +58,7 @@ $page_name = basename($_SERVER['PHP_SELF'], '.php');
             <div class="categories">
                 <div class="header">
                     <h3>Manage Expense Category</h3>
-                    <div class="password-button">
+                    <div class="addCategoryBtn">
                         <button type="submit" id="addCategoryBtn">+</button>
                     </div>
                 </div>

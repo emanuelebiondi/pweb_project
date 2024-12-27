@@ -278,145 +278,6 @@ body{
     font-weight: 500;
 }
 
-.content main .top-data{
-    display: flex;
-    flex-wrap: wrap;
-    grid-gap: 24px;
-    margin-top: 24px;
-    width: 100%;
-    color: var(--dark);
-}
-
-.content main .top-data .insights{
-    display: grid;
-    align-items: center;
-    justify-content: space-around; /* TODO: Check */
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    grid-gap: 24px;
-}
-
-.content main .insights li{
-    padding: 24px;
-    background: var(--light);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    grid-gap: 24px;
-    cursor: pointer;
-}
-
-.content main .insights li .bx{
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.content main .insights li:nth-child(1) .bx{
-    background: var(--light-primary);
-    color: var(--primary);
-}
-
-.content main .insights li:nth-child(2) .bx{
-    background: var(--light-secondary);
-    color: var(--secondary);
-}
-
-.content main .insights li:nth-child(3) .bx{
-    background: var(--light-warning);
-    color: var(--warning);
-}
-
-.content main .insights li .info h3{
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--dark);
-}
-
-.content main .insights li .info p{
-    color: var(--dark);
-}
-
-.content main .top-data .payments-status{
-    border-radius: 20px;
-    background: var(--light);
-    padding: 24px;
-}
-
-
-.content main .top-data .header{
-    display: flex;
-    align-items: center;
-    grid-gap: 16px;
-    margin-bottom: 24px;
-}
-
-.content main .top-data .header h3{
-    margin-right: auto;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.content main .top-data .header .bx{
-    cursor: pointer;
-}
-
-.content main .top-data .payments-status{
-    flex-basis: 400px;
-}
-
-.content main .top-data .payments-status table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.content main .top-data .payments-status table th{
-    padding-bottom: 12px;
-    font-size: 13px;
-    text-align: left;
-    border-bottom: 1px solid var(--grey);
-}
-
-.content main .top-data .payments-status table td{
-    padding: 16px 0;
-}
-
-.content main .top-data .payments-status table tr td:first-child{
-    display: flex;
-    align-items: center;
-    grid-gap: 12px;
-    padding-left: 6px;
-}
-
-
-.content main .top-data .payments-status table tbody tr{
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.content main .top-data .payments-status table tbody tr:hover{
-    background: var(--grey);
-}
-
-.content main .top-data .payments-status table tr td .status{
-    font-size: 10px;
-    padding: 6px 16px;
-    color: var(--light);
-    border-radius: 20px;
-    font-weight: 700;
-}
-
-.content main .top-data .payments-status table tr td .status.send{
-    background: var(--primary);
-}
-
-
-.content main .top-data .payments-status table tr td .status.recive{
-    background: var(--secondary);
-}
 
 .content main .bottom-data{
     display: flex;
@@ -498,7 +359,6 @@ body{
 .content main .bottom-data .payments table tbody tr:hover{
     background: var(--light-primary);
 }
-
 
 .content main .bottom-data .payments .pagination{
     display: flex;
@@ -772,11 +632,14 @@ body{
     border-radius: 5px;
 }
 
+
 .content main .bottom-data .settings .password-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
+
+
 
 .content main .bottom-data .settings button {
     margin-top: 15px;
@@ -787,6 +650,11 @@ body{
     color: var(--light);
     border-radius: 20px;
     width: fit-content;
+}
+
+.content main .bottom-data .settings button:hover {
+    background-color: var(--secondary);
+    cursor: pointer;
 }
 
 
@@ -839,7 +707,6 @@ body{
     padding-top: 10px;
     text-align: left;
     margin-left: 20px;
-
 }
 
 .content main .bottom-data .categories .category-space .category-element  textarea:focus{
@@ -853,7 +720,7 @@ body{
     border: none;
 }
 
-.content main .bottom-data .categories .password-button  {
+.content main .bottom-data .categories .addCategoryBtn  {
     font-size: 14px;
     padding-left: 5px;
     padding-right: 5px;
@@ -862,7 +729,7 @@ body{
     width: fit-content;
 }
 
-.content main .bottom-data .categories .password-button button {
+.content main .bottom-data .categories .addCategoryBtn button {
     padding: 10px;
     font-size: 14px;
     background-color: inherit;
@@ -872,10 +739,9 @@ body{
     width: fit-content;
 }
 
-.content main .bottom-data .categories .password-button:hover {
+.content main .bottom-data .categories .addCategoryBtn:hover {
     background-color: var(--secondary);
     cursor: pointer;
-
 }
 
 
@@ -1067,12 +933,6 @@ form .foruser-checkbox .checkmark:hover {
     opacity: 0.8;
 }
   
-
-
-
-
-
-
 
 
 

@@ -15,7 +15,7 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
 ?>
 
     <div class="sidebar">
-        <a href="dashboard.php" class="logo">
+        <a href="home.php" class="logo">
             <div class="logo-name">
                 <span>Co</span>
                 <span class="habitat">Habitat</span>
@@ -23,12 +23,6 @@ $active_page = $page_name; // Modifica questo valore per testare diverse pagine
         </a>
         <div class="menu-voices">
             <ul class="side-menu main-menu">
-                <li class="<?= $active_page === 'dashboard' ? 'active' : '' ?>">
-                    <a href="dashboard.php">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.6em" viewBox="0 0 24 24"><path fill="currentColor" d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.99 1.99 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921M17.307 15h-6.64l-2.5-6h11.39z"/><circle cx="10.5" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.5" fill="currentColor"/></svg>    
-                        &nbsp Dashboard
-                    </a>
-                </li>
                 <li class="<?= $active_page === 'payments' ? 'active' : '' ?>">
                     <a href="payments.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2m0 18a8 8 0 1 1 8-8a8 8 0 0 1-8 8"/><path fill="currentColor" d="M12 11c-2 0-2-.63-2-1s.7-1 2-1s1.39.64 1.4 1h2A3 3 0 0 0 13 7.12V6h-2v1.09C9 7.42 8 8.71 8 10c0 1.12.52 3 4 3c2 0 2 .68 2 1s-.62 1-2 1c-1.84 0-2-.86-2-1H8c0 .92.66 2.55 3 2.92V18h2v-1.08c2-.34 3-1.63 3-2.92c0-1.12-.52-3-4-3"/></svg>
