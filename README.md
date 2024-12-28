@@ -9,4 +9,9 @@
 
 
 
-# USERS, PASSWORDS, HOUSES
+# NAME        SURNAME     EMAIL                           HOUSE_ID      HOUSE_NAME               PASSWORD
+  Gianluca    Berni       gianluca.berni@gmail.com        67            House of Gabriela        Password!123
+  Luca        Rovazzi     luca.rovazzi@gmail.com          67            House of Gabriela        Password!123
+  Franco      De Lucia    franco.de.lucia@gmail.com       NULL          ND                       Password!123
+  Giuseppe    Francini    giuseppino190@gmail.com         68            Via Roma 19              Password!123
+  Emanuele    Biondi      emanuelebiondi@hotmail.com      67            House of Gabriela        Password!123    

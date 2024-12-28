@@ -1,3 +1,4 @@
+         <!-- Popup Create or Modify a Payment (included in Payments.php)-->
         <div id="popupForm" class="popup">
             <div class="popup-content">
                 <h2 class="popup-title">New Payment</h2>

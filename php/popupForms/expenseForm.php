@@ -1,3 +1,4 @@
+        <!-- Popup Create or Modify a Expense (included in Expenses.php)-->
         <div id="popupForm" class="popup">
             <div class="popup-content">
                 <h2 class="popup-title">New Expense</h2>
