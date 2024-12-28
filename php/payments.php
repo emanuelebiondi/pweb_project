@@ -44,6 +44,9 @@
                                 <th>To</th>
                                 <th>Method</th>
                                 <th>Amount</th>
+                                <th></th>
+                                <th></th>
+                                
                             </tr>
                         </thead>
                         <tbody>

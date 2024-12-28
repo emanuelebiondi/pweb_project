@@ -45,8 +45,8 @@ async function loadUsers() {
         const placeholderOption1 = document.createElement('option');
         placeholderOption1.value = '';  // Empty value
         placeholderOption1.textContent = 'Select an user';  // Text to display
-        placeholderOption1.setAttribute('disabled', 'true');  // Disable the option
-        placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
+        placeholderOption1.disabled = true;  // Disable the option
+        placeholderOption1.selected= true;  // Make it selected by default
         userSelect1.appendChild(placeholderOption1);  // Append the placeholder option
         
         data.forEach(user => {
@@ -64,8 +64,8 @@ async function loadUsers() {
         const placeholderOption2 = document.createElement('option');
         placeholderOption2.value = '';  // Empty value
         placeholderOption2.textContent = 'Select an user';  // Text to display
-        placeholderOption2.setAttribute('disabled', 'true');  // Disable the option
-        placeholderOption2.setAttribute('selected', 'true');  // Make it selected by default
+        placeholderOption2.disabled = true;  // Disable the option
+        placeholderOption2.selected= true;  // Make it selected by default
         userSelect2.appendChild(placeholderOption2);  // Append the placeholder option
         
 

@@ -8,12 +8,14 @@
                     <input type="date" id="date" name="date" required>
 
                     <label for="user">From:</label>
-                    <select name="user" id="user" required>
+                        <select name="user" id="user" required>
+                    <option value="" disabled selected>Select an user</option>
                         <!-- Options will be populated dynamically -->
                     </select>
 
                     <label for="category">Category:</label>
                     <select name="category" id="category" required>
+                        <option value="" disabled selected>Select a category</option>
                         <!-- Options will be populated dynamically -->
                     </select>
 

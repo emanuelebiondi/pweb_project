@@ -45,6 +45,8 @@
                                 <th>Category</th>
                                 <th>Desc</th>
                                 <th>Amount</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

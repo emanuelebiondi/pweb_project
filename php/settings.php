@@ -38,15 +38,12 @@ $page_name = basename($_SERVER['PHP_SELF'], '.php');
                 <div class="password-form">
                     <label for="old_password">Insert the old password: </label>
                     <input type="password" id="old_password" name="old_password">
-                    <p id="formDataError"></p>
 
                     <label for="new_password1">Insert the new password: </label>
                     <input type="password" id="new_password1" name="new_password1">
-                    <p id="formDataError"></p>
 
                     <label for="new_password2">Reinsert the new password: </label>
                     <input type="password" id="new_password2" name="new_password2">
-                    <p id="formDataError"></p>
                     <p id="message"></p>
                 </div>
                 <div class="password-button">

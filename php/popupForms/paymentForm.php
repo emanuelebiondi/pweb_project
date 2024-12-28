@@ -9,12 +9,14 @@
 
                     <label for="user_from">From:</label>
                     <select name="user_from" id="user_from" required>
+                        <option value="" disabled selected>Select an user</option>
                         <!-- Options will be populated dynamically -->
                         
                     </select>
 
                     <label for="user_to">To:</label>
                     <select name="user_to" id="user_to" required>
+                        <option value="" disabled selected>Select an user</option>
                         <!-- Options will be populated dynamically -->
                         
                     </select>

@@ -24,7 +24,7 @@ function createPostit(data) {
     task.setAttribute("id", data.id); // Imposta l'ID del post-it
     task.innerHTML = `
         <div class="task-text">
-            <textarea maxlength="240" id="${data.id}">${data.text}</textarea>
+            <textarea maxlength="240" id="tx${data.id}">${data.text}</textarea>
         </div>
         <span class="delete-btn">Delete</span>
     `;
@@ -118,7 +118,7 @@ function loadReminders() {
                     };
                     createPostit(data); // Crea il post-it
                 } else {
-                    console.warn("Reminder manca di id o text", reminder);
+                    //console.warn("Reminder manca di id o text", reminder);
                 }
             });
         } else {
@@ -132,7 +132,7 @@ function loadReminders() {
             taskNew.setAttribute("id", "task-new");
             taskNew.innerHTML = `<button>+</button>`;
             taskNew.addEventListener('click', () => {
-                createUpdateReminder('POST', { text: "Write something cool!" }).then(() => {
+                createUpdateReminder('POST', { text: "Ehy I'm a Post-It. Write something on me!" }).then(() => {
                     loadReminders();  // Ricarica i post-it dopo aver aggiunto un nuovo post-it
                 });
             });
@@ -156,7 +156,7 @@ async function deleteReminder(id) {
         }
 
         // Successo nell'eliminazione del post-it
-        console.log(`Post-it con ID ${id} eliminato`);
+        //console.log(`Post-it con ID ${id} eliminato`);
     } catch (error) {
         console.error('Error:', error);
     }
