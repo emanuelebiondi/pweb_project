@@ -10,8 +10,8 @@
     }
 
 
-// Supponiamo che $active_page contenga il nome della pagina attuale
-$active_page = $page_name; // Modifica questo valore per testare diverse pagine
+// $active_page contiene il nome della pagina attiva
+$active_page = $page_name;
 ?>
 
     <div class="sidebar">

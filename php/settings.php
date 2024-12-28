@@ -13,6 +13,7 @@ $page_name = basename($_SERVER['PHP_SELF'], '.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+    <?php include "snippet/head-meta.html"?>
     <title>Cohabitat - Settings</title>
 </head>
 
@@ -84,8 +85,8 @@ $page_name = basename($_SERVER['PHP_SELF'], '.php');
 
     <script src="../js/houseChoiceDashboard.js"></script>
     <script src="../js/settings.js"></script>
-</body>
 
+</body>
 
 
 </html>

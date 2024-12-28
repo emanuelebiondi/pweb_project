@@ -103,19 +103,21 @@ async function loadPayments(page) {
 
         data.payments.forEach(payment => {
             const row = document.createElement('tr');
+            const user_from_name_surname = payment.user_from_name + ' ' + payment.user_from_surname;
+            const user_to_name_surname = payment.user_to_name + ' ' + payment.user_to_surname;
             row.innerHTML = `
                 <td>${payment.date}</td>
-                <td><p>${payment.user_from_name} ${payment.user_from_surname}</p></td>
-                <td><p>${payment.user_to_name} ${payment.user_to_surname}</p></td>
+                <td><p>${user_from_name_surname}</p></td>
+                <td><p>${user_to_name_surname}</p></td>
                 <td>${payment.payment_method}</td>
                 <td>${payment.amount.toFixed(2)}€</td>
                 <td>
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" onclick="openEditPopup(${payment.id}, '${payment.date}', '${payment.id_user_from}', '${payment.id_user_to}', '${payment.payment_method}', ${payment.amount})">
                         <path fill="currentColor" d="m7 17.013l4.413-.015l9.632-9.54c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.756-.756-2.075-.752-2.825-.003L7 12.583zM18.045 4.458l1.589 1.583l-1.597 1.582l-1.586-1.585zM9 13.417l6.03-5.973l1.586 1.586l-6.029 5.971L9 15.006z"/><path fill="currentColor" d="M5 21h14c1.103 0 2-.897 2-2v-8.668l-2 2V19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2"/>
                     </svg>
-                
+                </td>
                 <td>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" onclick="deletePayment(${payment.id}, '${payment.date}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" onclick="deletePayment(${payment.id}, '${payment.date}', '${user_from_name_surname}', '${user_to_name_surname}', '${payment.payment_method}', ${payment.amount})">
                         <path fill="currentColor" d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"/>
                         <path fill="currentColor" d="M9 10h2v8H9zm4 0h2v8h-2z"/>
                     </svg>
@@ -367,8 +369,13 @@ async function createUpdatePayment(method, data) {
 }
 
 
-async function deletePayment(id, date) {
-    const userConfirmed = confirm("Are you sure you want to delete this payment?" + "\n" + "Date: " + date + "\n");
+async function deletePayment(id, date, id_user_from, id_user_to, payment_method, amount) {
+    const userConfirmed = confirm("Are you sure you want to delete this payment?" + "\n" +
+                                  "DATE: " + date + "\n" +
+                                  "From: " + id_user_from + "\n" +
+                                  "To: " + id_user_to + "\n" +
+                                  "Method: " + payment_method + "\n" +
+                                  "Amount: " + amount.toFixed(2) + "€");
 
     if (userConfirmed) {
         try {

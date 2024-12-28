@@ -1,24 +1,17 @@
 
 :root {
     --light: #f6f6f9;
-
     --primary: #E07A5F;
-    
     --light-primary: #ffe8e0;
-    
     --secondary: #008080;
     --light-secondary: #63b6b6;
-
     --grey: #eee;
     --dark-grey: #AAAAAA;
     --dark: #363949;
-    
     --danger: #D32F2F;
 	--light-danger: #FECDD3;
-    
     --warning: #FBC02D;
     --light-warning: #FFF2C6;
-    
     --success: #388E3C;
     --light-success: #BBF7D0;
 }
@@ -65,8 +58,6 @@ body{
 }
 
 
-
-
 .sidebar{
     position: fixed;
     background: var(--light);
@@ -96,7 +87,6 @@ body{
     color: var(--light);
     background-color: var(--primary); /* Applica lo sfondo solo a "Habitat" */
     padding: 4px 10px; 
-    
 }
 
 /* SIDEBAR - MENU */
@@ -245,26 +235,6 @@ body{
     color: var(--dark);
 }
 
-.content main .header .left .breadcrumb{
-    display: flex;
-    align-items: center;
-    grid-gap: 16px;
-}
-
-.content main .header .left .breadcrumb li{
-    color: var(--dark);
-}
-
-.content main .header .left .breadcrumb li a{
-    color: var(--dark-grey);
-    pointer-events: none;
-}
-
-.content main .header .left .breadcrumb li a.active{
-    color: var(--primary);
-    pointer-events: none;
-}
-
 .content nav .profile {
     height: 36px;
     padding: 0 16px;
@@ -276,6 +246,27 @@ body{
     justify-content: center;
     grid-gap: 10px;
     font-weight: 500;
+}
+
+.content main .top-data h3 {
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: normal;
+    color: var(--dark);
+}
+
+.content main .top-data p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: normal;
+    color: var(--dark);
+}
+
+.content main .top-data a {
+    color: var(--primary);
+    font-size: 1.2rem;
+    font-style: underline;
 }
 
 
@@ -325,7 +316,7 @@ body{
 }
 
 .content main .bottom-data .payments td:nth-last-child(-n + 2) {
-    color: var(--primary); /* Change fill color */
+    color: var(--primary); 
 }
 
 .content main .bottom-data .payments table{
@@ -415,7 +406,7 @@ body{
 .content main .bottom-data .reminders .task-list .task-element .task-text{
     display: flex;
     align-items: center;
-    flex-grow: 1; /* Permette a .task-text di occupare spazio disponibile */
+    flex-grow: 1; 
 }
 
 .content main .bottom-data .reminders .task-list .task-element .task-text textarea{
@@ -473,7 +464,6 @@ body{
     background-color: var(--primary);
 }
 
-
 .content main .bottom-data .user-expense {
     flex-grow: 1;
     background: var(--light);
@@ -521,7 +511,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    gap: 20px; /* Spazio tra le etichette e gli importi */
+    gap: 20px;
     padding-right: 20px;
 }
 
@@ -540,7 +530,6 @@ body{
     color: var(--dark);
     font-size: 16px;
 }
-
 
 .content main .bottom-data .settle-up {
     flex-grow: 1;
@@ -600,8 +589,6 @@ body{
     color: var(--light);
 } 
 
-
-
 .content main .bottom-data .settings{
     flex-grow: 1;
     max-width: 400px;
@@ -619,7 +606,6 @@ body{
     justify-content: space-around;
 }
 
-
 .content main .bottom-data .settings .password-form label{
     margin-top: 20px;
 }
@@ -628,18 +614,15 @@ body{
     margin-bottom: 15px;
     padding: 10px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--grey);
     border-radius: 5px;
 }
-
 
 .content main .bottom-data .settings .password-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-
-
 
 .content main .bottom-data .settings button {
     margin-top: 15px;
@@ -656,7 +639,6 @@ body{
     background-color: var(--secondary);
     cursor: pointer;
 }
-
 
 .content main .bottom-data .categories{ 
     flex-grow: 1;
@@ -690,9 +672,7 @@ body{
     flex-grow: 1;
     max-width: 49%;
     height: 40px;
-
 }
-
 
 .content main .bottom-data .categories .category-space .category-element textarea{
     border-radius: 40px 0 0 40px;
@@ -742,78 +722,6 @@ body{
 .content main .bottom-data .categories .addCategoryBtn:hover {
     background-color: var(--secondary);
     cursor: pointer;
-}
-
-
-
-/* POPUP AND FORM SETTINGS*/
-
-/* Button used to open the contact form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
-}
-
-/* The popup form - hidden by default */
-.form-popup {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
-
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-}
-
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-}
-
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
 }
 
 
@@ -934,6 +842,14 @@ form .foruser-checkbox .checkmark:hover {
 }
   
 
+.authorfooter {
+    color: var(--dark);
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
 
 
 

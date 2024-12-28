@@ -133,7 +133,14 @@ main .container-right {
     flex-direction: column;
     justify-content: space-evenly;
     margin-right: 80px;
-    gap: 120px;
+    gap: 80px;
+}
+
+main .container-right .content-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-style: normal;
 }
 
 main .container-right .content-text {
@@ -147,7 +154,9 @@ main .container-right .content-text .elem{
     flex-direction: row;
     gap: 20px;
     width: 100%;
-    
+    background-color: var(--light-primary);
+    padding: 20px;
+    border-radius: 40px;
 }
 
 main .container-right .content-text .arrow{
@@ -182,6 +191,19 @@ main .container-right .content-text .elem p{
     width: 50%;
     margin: auto;
 }
+
+main .container-right .content-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-style: normal;
+}
+
+main .container-right .content-footer a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
 
 .authorfooter {
     color: var(--dark);

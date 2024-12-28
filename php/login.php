@@ -32,12 +32,12 @@
         
         <form id="loginform">
             <div class="form-control">
-                <input type="email" id="email" name="email" placeholder=" "  required>
+                <input type="email" id="email" name="email" placeholder=" "  required autocomplete="on">
                 <label for="email"> Email </label>
             </div>
 
             <div class="form-control">
-                <input type="password" id="password" name="password" placeholder=" " required>
+                <input type="password" id="password" name="password" placeholder=" " required autocomplete="on">
                 <label for="password"> Password </label>
             </div>
 

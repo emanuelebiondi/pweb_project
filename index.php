@@ -31,9 +31,6 @@
         </div>
 
         <div class="container-right">
-            <div class="content-title">
-                <h1>Effortlessly Manage Expenses with Your Roommates</h1>
-            </div>
             <div class="content-text">
                 <div class="elem">
                     <span>1</span>
@@ -43,7 +40,7 @@
                 <span class="arrow">&#11206;</span>
                 <div class="elem">
                     <span>2</span>
-                    <span class="bold">Add expenses and transactions</span>
+                    <p class="bold">Add expenses and transactions</p>
                     <p>Keep track of all shared expenses and transactions between roommates.</p>
                 </div>
                 <span class="arrow">&#11206;</span>
@@ -58,8 +55,10 @@
                     <p class="bold">Do the settle-up</p>
                     <p>Settle up easily and clearly, with the final balance between roommates.</p>
                 </div>
-
             </div>
+            <div class="content-footer">
+                    <h3>For more info, visit the <a href="/doc.html">documentation page</a></h3>
+            </div>  
         </div>
 
     </main>
