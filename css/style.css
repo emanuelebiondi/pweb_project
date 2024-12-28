@@ -260,6 +260,12 @@ body{
     font-size: 1.2rem;
 }
 
+.content main .top-data a:hover {
+    color: var(--secondary);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 
 .content main .bottom-data{
     display: flex;

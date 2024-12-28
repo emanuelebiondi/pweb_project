@@ -201,6 +201,10 @@ main .container-right .content-footer {
 
 main .container-right .content-footer a {
     color: var(--primary);
+}
+main .container-right .content-footer a:hover {
+    color: var(--secondary);
+    cursor: pointer;
     text-decoration: underline;
 }
 

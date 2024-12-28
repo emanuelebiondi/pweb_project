@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="content-footer">
-                    <h3>For more info, visit the <a href="/doc.html">documentation page</a></h3>
+                    <h3>For more info, visit the <a href="/doc.html">documentation</a>.</h3>
             </div>  
         </div>
 
