@@ -53,7 +53,6 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     }
 
     const data1 = await response1.json(); // Usa response1 per ottenere i dati
-    console.log("::DATA1",  data1);
 
     // Assumendo che data1 contenga house_id
     const house_id = data1.id; 
@@ -62,17 +61,13 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     date.setHours(date.getHours() + 2); // Aggiungi 2 ore
     const joinedAt = date.toISOString().slice(0, 19).replace('T', ' ');
 
-    //const joinedAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-
-    //console.log("::DATA2", { house_id, joinedAt });
     // Aggiungi house_id all'utente
     const response2 = await fetch('../api/router.php/user', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ house_id, joinedAt }),  
+        body: JSON.stringify({ house_id, joinedAt }),  // TODO: recheck
     });
     
     const data2 = await response2.json();
@@ -82,7 +77,7 @@ document.getElementById('formData').addEventListener('submit', async function(ev
     if (response2.ok) {
         // Registrazione avvenuta con successo
         document.getElementById('popupFormJoinHouse').style.display = 'none';
-        window.location.href = 'dashboard.php'; // Redirect to dashboard
+        window.location.href = 'home.php'; // Redirect to home
     } else {
         alert(data2.error || 'Error updating user');
     }

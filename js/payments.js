@@ -45,8 +45,8 @@ async function loadUsers() {
         const placeholderOption1 = document.createElement('option');
         placeholderOption1.value = '';  // Empty value
         placeholderOption1.textContent = 'Select an user';  // Text to display
-        placeholderOption1.setAttribute('disabled', 'true');  // Disable the option
-        placeholderOption1.setAttribute('selected', 'true');  // Make it selected by default
+        placeholderOption1.disabled = true;  // Disable the option
+        placeholderOption1.selected= true;  // Make it selected by default
         userSelect1.appendChild(placeholderOption1);  // Append the placeholder option
         
         data.forEach(user => {
@@ -64,8 +64,8 @@ async function loadUsers() {
         const placeholderOption2 = document.createElement('option');
         placeholderOption2.value = '';  // Empty value
         placeholderOption2.textContent = 'Select an user';  // Text to display
-        placeholderOption2.setAttribute('disabled', 'true');  // Disable the option
-        placeholderOption2.setAttribute('selected', 'true');  // Make it selected by default
+        placeholderOption2.disabled = true;  // Disable the option
+        placeholderOption2.selected= true;  // Make it selected by default
         userSelect2.appendChild(placeholderOption2);  // Append the placeholder option
         
 
@@ -94,9 +94,8 @@ async function loadPayments(page) {
             throw new Error(`Network response was not ok: ${errorText}`);
         }
 
-        console.log("::RESPONSE", response);
         const data = await response.json(); // Potrebbe generare un errore se non è un JSON valido
-        console.log("::DATA", data);
+
         
         // Aggiorna la tabella e gestisce i pagamenti
         const tableBody = document.querySelector('.payments table tbody');
@@ -104,15 +103,28 @@ async function loadPayments(page) {
 
         data.payments.forEach(payment => {
             const row = document.createElement('tr');
+            const user_from_name_surname = payment.user_from_name + ' ' + payment.user_from_surname;
+            const user_to_name_surname = payment.user_to_name + ' ' + payment.user_to_surname;
             row.innerHTML = `
                 <td>${payment.date}</td>
-                <td><p>${payment.user_from_name} ${payment.user_from_surname}</p></td>
-                <td><p>${payment.user_to_name} ${payment.user_to_surname}</p></td>
+                <td><p>${user_from_name_surname}</p></td>
+                <td><p>${user_to_name_surname}</p></td>
                 <td>${payment.payment_method}</td>
                 <td>${payment.amount.toFixed(2)}€</td>
-                <td><i class='bx bx-edit' onclick="openEditPopup(${payment.id}, '${payment.date}', '${payment.id_user_from}', '${payment.id_user_to}', '${payment.payment_method}', ${payment.amount})"></i></td>
-                <td><i class='bx bx-trash' onclick="deletePayment(${payment.id}, '${payment.date}')"></i></td>
-            `;
+                <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" onclick="openEditPopup(${payment.id}, '${payment.date}', '${payment.id_user_from}', '${payment.id_user_to}', '${payment.payment_method}', ${payment.amount})">
+                        <path fill="currentColor" d="m7 17.013l4.413-.015l9.632-9.54c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.756-.756-2.075-.752-2.825-.003L7 12.583zM18.045 4.458l1.589 1.583l-1.597 1.582l-1.586-1.585zM9 13.417l6.03-5.973l1.586 1.586l-6.029 5.971L9 15.006z"/><path fill="currentColor" d="M5 21h14c1.103 0 2-.897 2-2v-8.668l-2 2V19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2"/>
+                    </svg>
+                </td>
+                <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" onclick="deletePayment(${payment.id}, '${payment.date}', '${user_from_name_surname}', '${user_to_name_surname}', '${payment.payment_method}', ${payment.amount})">
+                        <path fill="currentColor" d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"/>
+                        <path fill="currentColor" d="M9 10h2v8H9zm4 0h2v8h-2z"/>
+                    </svg>
+                </td>
+            
+            
+                `;
             tableBody.appendChild(row);
         });
 
@@ -150,7 +162,6 @@ async function updateSettleUp() {
             },
         });
 
-        //console.log(':::RESPONSE', response);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -166,7 +177,7 @@ async function updateSettleUp() {
             const settleupItem = document.createElement('li');
             settleupItem.className = 'setteup-element';
 
-                console.log(expense);
+                //console.log(expense);
                 settleupItem.innerHTML = `
                     <div class="users">    
                         <div><span>From: </span> ${expense.name_user_from}  ${expense.surname_user_from}</div>
@@ -279,7 +290,6 @@ async function openCreatePopup(id_user_from, id_user_to, amount) {
         // Creates an instance of FormData
         const data = new FormData(formData);
 
-        //console.log("::DATA0", data);
         // Creates the data object to send
         const paymentData = {
             date: data.get('date'),
@@ -288,7 +298,7 @@ async function openCreatePopup(id_user_from, id_user_to, amount) {
             payment_method: data.get('method'),
             amount: parseFloat(data.get('amount')),
         };
-        console.log("::paymentData", paymentData);
+        
         await createUpdatePayment('POST', paymentData); // Calls the function to create the expense
         document.getElementById('popupForm').style.display = 'none'; // Hides the popup after submission
     };
@@ -336,7 +346,7 @@ async function openEditPopup(id, date, id_user_from, id_user_to, payment_method,
 
 async function createUpdatePayment(method, data) {
     try {
-        console.log("::DATA", data);
+        
         const response = await fetch(`../api/router.php/payment`, {
             method: method,
             headers: {
@@ -344,14 +354,14 @@ async function createUpdatePayment(method, data) {
             },
             body: JSON.stringify(data),
         });
-        console.log("::CREATE_PAYMET", response);
+        
         if (!response.ok) {
             throw new Error('Failed to ' + method + ' payment');
         }
 
         // Reloads expenses to reflect the change
         loadPayments(currentPage); // Ensures the correct `currentPage` is loaded
-        console.log("Reloaded Payments OK")
+        
         updateSettleUp(); // Updates the amounts of total expenditure
     } catch (error) {
         console.error('Error:', error);
@@ -359,8 +369,13 @@ async function createUpdatePayment(method, data) {
 }
 
 
-async function deletePayment(id, date) {
-    const userConfirmed = confirm("Are you sure you want to delete this payment?" + "\n" + "Date: " + date + "\n");
+async function deletePayment(id, date, id_user_from, id_user_to, payment_method, amount) {
+    const userConfirmed = confirm("Are you sure you want to delete this payment?" + "\n" +
+                                  "DATE: " + date + "\n" +
+                                  "From: " + id_user_from + "\n" +
+                                  "To: " + id_user_to + "\n" +
+                                  "Method: " + payment_method + "\n" +
+                                  "Amount: " + amount.toFixed(2) + "€");
 
     if (userConfirmed) {
         try {

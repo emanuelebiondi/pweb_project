@@ -23,6 +23,13 @@ class CategoryController {
                 $this->updateCategory(); // PUT /house
                 break;
 
+            case 'DELETE':
+                if (isset($request[1])) {
+                    $id = $request[1]; // Supponendo che l'ID venga passato come parte della URL
+                    $this->deleteCategory($id); // DELETE /Reminder/{id}
+                }
+                break;
+
             default:
                 header("HTTP/1.0 405 Method Not Allowed");
                 echo json_encode(['error' => 'Method not supported']);
@@ -55,8 +62,6 @@ class CategoryController {
                 echo json_encode(['error' => 'Invalid JSON']);
                 return; // Esci dalla funzione
             }
-    
-            // Chiamata al modello per creare la casa e recuperare l'ID
             $houseId = $_SESSION['house_id'];
             
             $data = $this->model->create($input, $houseId);
@@ -79,6 +84,17 @@ class CategoryController {
         else
             echo json_encode(['success' => false, 'error' => 'Error while updating category']);
     }
+
+
+    public function deleteCategory($id) {
+        if ($this->model->delete($id))
+            echo json_encode(['success' => true]);
+        else{
+                header("HTTP/1.0 500 Internal Server Error");
+                echo json_encode(['success' => false, 'error' => 'Error while deleting category']);
+            }
+    }
+
 
 }
 

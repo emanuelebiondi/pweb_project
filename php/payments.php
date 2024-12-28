@@ -12,9 +12,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cohabitant - Payments</title>
+    <?php include "snippet/head-meta.html"?>
+    <title>Cohabitat - Payments</title>
 </head>
 
 <body>
@@ -30,9 +30,10 @@
             <div class="bottom-data">
                 <div class="payments all">
                     <div class="header">
-                        <i class='bx bx-cart-alt'></i>
                         <h3>All Payments</h3>
-                        <button id="openPopupBtn"><i class='bx bx-plus'></i></button>
+                        <button id="openPopupBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/></svg>
+                        </button>
                         
                     </div>
                     <table>
@@ -43,6 +44,9 @@
                                 <th>To</th>
                                 <th>Method</th>
                                 <th>Amount</th>
+                                <th></th>
+                                <th></th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +62,6 @@
                 <!-- Settle Up -->
                 <div class="settle-up">
                     <div class="header">
-                        <i class='bx bx-money-withdraw'></i>
                         <h3>Settle Up</h3>
                     </div>
                     <ul class="settleup-list">

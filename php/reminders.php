@@ -12,9 +12,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/boxicons.css" >
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cohabitat - Dashboard</title>
+    <?php include "snippet/head-meta.html"?>
+    <title>Cohabitat - Reminders</title>
 </head>
 
 <body>
@@ -52,8 +52,8 @@
 
     <script src="../js/reminder.js"></script>
     <script src="../js/houseChoiceDashboard.js"></script>
-</body>
 
+</body>
 
 
 </html>

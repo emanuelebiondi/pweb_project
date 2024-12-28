@@ -19,10 +19,6 @@ class UserController {
                 }
                 break;
 
-            case 'POST':
-                $this->createUser(); // POST /user
-                break;
-
             case 'PUT':
                 $this->updateUser(); // PUT /user
                 break;

@@ -1,0 +1,108 @@
+:root {
+  --light: #f6f6f9;
+
+  --primary: #E07A5F;
+  --light-bg: #F4F1DE;
+  --light-primary: #ffe8e0;
+
+  --secondary: #008080;
+  --light-secondary: #63b6b6;
+
+  --grey: #eee;
+  --dark-grey: #AAAAAA;
+  --dark: #363949;
+
+  --danger: #D32F2F;
+  --light-danger: #FECDD3;
+
+  --warning: #FBC02D;
+  --light-warning: #FFF2C6;
+
+  --success: #388E3C;
+  --light-success: #BBF7D0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: var(--light);
+  margin-top: 40px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin: 10px 0;
+  padding: 5px 20px;
+  border-radius: 20px;
+  background-color: var(--light);
+  border: 2px solid var(--primary);
+}
+
+h2 {
+  font-size: 1.3rem;
+  color: var(--primary);
+  width: fit-content;
+}
+
+
+p {
+  font-size: 1.2rem;
+  color: var(--dark);
+  margin: 20px 0;
+}
+
+ul {
+  margin: 10px 0 10px 40px; /* Sposta l'intera lista */
+  list-style-type: disc;
+}
+
+li {
+  margin: 5px 0; /* Spaziatura tra gli elementi della lista */
+  font-size: 1.2rem;
+  color: var(--dark);
+}
+
+.section{
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: var(--light-primary);
+  border: 1px solid var(--grey);
+  border-radius: 40px;
+}
+
+
+
+.logo{
+  font-size: 60px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo .logo-name {
+  background-color: var(--light);
+  border-radius: 60px;
+  padding: 30px;
+}
+
+.logo .logo-name span{
+  color: var(--dark);
+}
+
+.logo .logo-name .habitat {
+  color: var(--light);
+  background-color: var(--primary); /* Applica lo sfondo solo a "Habitat" */
+  padding: 4px 10px; 
+}

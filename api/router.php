@@ -47,6 +47,14 @@ switch ($request[0]) {
         }
         break;
 
+    case 'passwordChange':
+        if ($method === 'POST') {
+            $authController = new AuthController();
+            $authController->passwordChange(); // Chiama il metodo di registrazione
+        }
+        break;
+        
+    
     case 'user':
         $controller = new UserController();
         $controller->handleRequest($method, $request);

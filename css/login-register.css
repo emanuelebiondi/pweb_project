@@ -4,13 +4,14 @@
     --special-bg-color: #E07A5F;
     --form-border-bottom-color: #E07A5F;
     --errormsg-color: #E07A5F;
-    --form-bg: #F4F1DE;
+    --form-bg: #f6f6f9;
 }
+
+
 
 * {
     box-sizing: border-box;
     font-family: monospace;
-    font-size: large;
 }
 
 body {
@@ -57,12 +58,12 @@ body::after {       /* Trick to ensure the footer stays at the bottom */
     background: var(--special-bg-color);
     padding: 5px 20px;
     color: var(--form-bg);
-    font-size: xx-large;
+        font-size: xx-large;
 }
 
 .form-control {
     position: relative;
-    margin: 20px 0 40px;
+    margin: 20px 0 30px;
     width: 300px;
 }
 
@@ -81,7 +82,7 @@ body::after {       /* Trick to ensure the footer stays at the bottom */
     display: block;
     width: 100%;
     font-size: 12px;
-    color: #1F5270;
+    color: #008080;
 }
 
 .form-control input:focus,  /* Remove text box border and change color when active */
@@ -89,6 +90,9 @@ body::after {       /* Trick to ensure the footer stays at the bottom */
     outline: 0;
     border-bottom-color: var(--form-border-bottom-color);
 }
+
+
+
 
 .btn:focus {
     outline: 0;

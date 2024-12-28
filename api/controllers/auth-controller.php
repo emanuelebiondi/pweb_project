@@ -1,15 +1,17 @@
 <?php
 
-class AuthController {
-    public function register() {
+class AuthController
+{
+    public function register()
+    {
         header('Content-Type: application/json');
-    
+
         // Regex per la validazione
-        $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
-        $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/"; 
-        $regex_name = "/^[A-Za-z]{2,12}$/";
-        $regex_surname = "/^[A-Za-z]{2,12}$/";
-    
+        $regex_email = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+        $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/";
+        $regex_name = "/^[A-Za-z ]{2,12}$/";
+        $regex_surname = "/^[A-Za-z ]{2,12}$/";
+
         // Ricevi i dati dalla richiesta
         $data = json_decode(file_get_contents("php://input"), true);
         $usr_email = strtolower($data['email']);
@@ -17,38 +19,40 @@ class AuthController {
         $usr_surname = ucfirst(strtolower($data['surname']));
         $usr_password1 = $data['password1'];
         $usr_password2 = $data['password2'];
-    
+
         try {
             // Validazione dei dati
-            if (!preg_match($regex_email, $usr_email) || !preg_match($regex_name, $usr_name) || 
-                !preg_match($regex_surname, $usr_surname) || !preg_match($regex_password, $usr_password1)) {
+            if (
+                !preg_match($regex_email, $usr_email) || !preg_match($regex_name, $usr_name) ||
+                !preg_match($regex_surname, $usr_surname) || !preg_match($regex_password, $usr_password1)
+            ) {
                 throw new Exception('Check the inputs format');
             }
-    
+
             // Controllo delle password
-            if (strcmp($usr_password1, $usr_password2) !== 0) { 
+            if (strcmp($usr_password1, $usr_password2) !== 0) {
                 throw new Exception('The passwords do not match');
             }
-    
+
             // Connessione al database
-            require "../config/database.php"; 
-    
+            require "../config/database.php";
+
             if (!$connection) {
                 throw new Exception('Database connection error');
             }
-    
+
             // Prepara la query per prevenire SQL injection
             $query = "SELECT * FROM users WHERE email = ?";
             if ($statement = mysqli_prepare($connection, $query)) {
                 mysqli_stmt_bind_param($statement, 's', $usr_email);
                 mysqli_stmt_execute($statement);
-                $result = mysqli_stmt_get_result($statement); 
-    
+                $result = mysqli_stmt_get_result($statement);
+
                 // Controlla se l'email è già registrata
-                if (mysqli_num_rows($result) !== 0) { 
+                if (mysqli_num_rows($result) !== 0) {
                     throw new Exception('Email already registered');
                 }
-    
+
                 // Inserisce il nuovo utente nel database
                 $query = "INSERT INTO users (email, password, name, surname) VALUES (?, ?, ?, ?)";
                 if ($statement = mysqli_prepare($connection, $query)) {
@@ -62,12 +66,12 @@ class AuthController {
                 } else {
                     throw new Exception('Database query preparation error');
                 }
-    
+
                 mysqli_stmt_close($statement);
             } else {
                 throw new Exception('Database connection error');
             }
-    
+
         } catch (Exception $e) {
             // Gestione degli errori
             header("HTTP/1.0 409 Conflict");
@@ -75,39 +79,40 @@ class AuthController {
         } finally {
             // Chiudi la connessione al database
             if (isset($connection)) {
-                mysqli_close($connection); 
+                mysqli_close($connection);
             }
         }
     }
 
 
-    public function login() {
+    public function login()
+    {
         header('Content-Type: application/json');
-    
-            // Regex per la validazione
-            $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
-        
+
+        // Regex per la validazione
+        $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
+
         // Ricevi i dati dalla richiesta
         $data = json_decode(file_get_contents("php://input"), true);
         $usr_email = strtolower($data['email']);
         $usr_password = $data['password'];
-    
+
         try {
             // Validazione dei dati
             if (!preg_match($regex_email, $usr_email)) {
                 throw new Exception('Invalid email format');
             }
-    
+
             // Connessione al database
             require "../config/database.php";
-    
+
             if (!$connection) {
                 throw new Exception('Database connection error');
             }
-    
+
             // Prepara la query per prevenire SQL injection
             $query = "
-                SELECT  U.*, H.name as house_name
+                SELECT  U.*, H.name as house_name, H.join_code as house_code
                 FROM
                     users U
                     left join
@@ -118,20 +123,20 @@ class AuthController {
                 mysqli_stmt_bind_param($statement, 's', $usr_email);
                 mysqli_stmt_execute($statement);
                 $result = mysqli_stmt_get_result($statement);
-    
+
                 // Controlla se l'email è presente
                 if (mysqli_num_rows($result) === 0) {
                     throw new Exception('No user found with this email');
                 }
-    
+
                 $row = mysqli_fetch_assoc($result);
                 $hash = $row['password'];
-    
+
                 // Controlla la password
                 if (!password_verify($usr_password, $hash)) {
                     throw new Exception('Incorrect password');
                 }
-    
+
                 // Imposta le variabili di sessione
                 session_start();
                 $_SESSION['id'] = $row['id'];
@@ -140,13 +145,14 @@ class AuthController {
                 $_SESSION['surname'] = $row['surname'];
                 $_SESSION['house_id'] = $row['house_id'];
                 $_SESSION['house_name'] = $row['house_name'];
-    
+                $_SESSION['house_code'] = $row['house_code'];
+
                 // Rispondi con successo
                 echo json_encode(['success' => 'Login successful']);
             } else {
                 throw new Exception('Database query preparation error');
             }
-    
+
             mysqli_stmt_close($statement);
         } catch (Exception $e) {
             // Gestione degli errori
@@ -159,7 +165,95 @@ class AuthController {
             }
         }
     }
+
+
+
+    public function passwordChange() {
+        header('Content-Type: application/json');
+
+        // Regex per la validazione
+        $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/";
+
+        // Ricevi i dati dalla richiesta
+        $data = json_decode(file_get_contents("php://input"), true);
+        $oldPwd = $data['oldPwd'];
+        $newPwd = $data['newPwd'];
+        $confPwd = $data['confPwd'];
+
+        try {
+            // Validazione dei dati
+            if (
+                !preg_match($regex_password, $oldPwd) || !preg_match($regex_password, $newPwd) ||
+                !preg_match($regex_password, $confPwd)
+            ) {
+                throw new Exception('Check the password format');
+            }
+
+            // Controllo delle password
+            if (strcmp($newPwd, $confPwd) !== 0) {
+                throw new Exception('The passwords do not match');
+            }
+
+            // Connessione al database
+            require "../config/database.php";
+
+            if (!$connection) {
+                throw new Exception('Database connection error');
+            }
+
+            // Prepara la query per prevenire SQL injection
+            $query = "SELECT * FROM users WHERE id = ?";
+
+            if ($statement = mysqli_prepare($connection, $query)) {
+                
+                if (!isset($_SESSION)) session_start();
+                if (!isset($_SESSION['id'])) {
+                    throw new Exception('User not logged in');
+                }
+                
+                mysqli_stmt_bind_param($statement, 'd', $_SESSION['id']);
+                mysqli_stmt_execute($statement);
+                $result = mysqli_stmt_get_result($statement);
+
+                $row = mysqli_fetch_assoc($result);
+                $hash = $row['password'];
+
+                // Controlla la password
+                if (!password_verify($oldPwd, $hash)) {
+                    throw new Exception('Incorrect password');
+                }
+
+                // Aggiorna la password
+                $newHash = password_hash($newPwd, PASSWORD_BCRYPT);
+                $updateQuery = "UPDATE users SET password = ? WHERE id = ?";
+                if ($updateStatement = mysqli_prepare($connection, $updateQuery)) {
+                    mysqli_stmt_bind_param($updateStatement, 'd', $newHash, $_SESSION['id']);
+                    if (mysqli_stmt_execute($updateStatement)) {
+                        echo json_encode(['success' => 'Password updated successfully']);
+                    } else {
+                        throw new Exception('Query execution error: ' . mysqli_error($connection));
+                    }
+                    mysqli_stmt_close($updateStatement);
+                } else {
+                    throw new Exception('Database query preparation error');
+                }
+
+                mysqli_stmt_close($statement);
+            } else {
+                throw new Exception('Database connection error');
+            }
+
+        } catch (Exception $e) {
+            // Gestione degli errori
+            header("HTTP/1.0 409 Conflict");
+            echo json_encode(['error' => $e->getMessage()]);
+        } finally {
+            // Chiudi la connessione al database
+            if (isset($connection)) {
+                mysqli_close($connection);
+            }
+        }
+    }
 }
-    
 
 ?>

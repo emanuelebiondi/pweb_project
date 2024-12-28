@@ -11,12 +11,11 @@
 
     // Check if exist the session, so redirect to dashboard
     if (isset($_SESSION['id'])) {
-        header('Location: dashboard.php');
+        header('Location: home.php');
         exit();
     }
 
 ?>
-
 
 
 
@@ -33,12 +32,12 @@
         
         <form id="loginform">
             <div class="form-control">
-                <input type="email" id="email" name="email" placeholder=" "  required>
+                <input type="email" id="email" name="email" placeholder=" "  required autocomplete="on">
                 <label for="email"> Email </label>
             </div>
 
             <div class="form-control">
-                <input type="password" id="password" name="password" placeholder=" " required>
+                <input type="password" id="password" name="password" placeholder=" " required autocomplete="on">
                 <label for="password"> Password </label>
             </div>
 

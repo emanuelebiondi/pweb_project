@@ -1,25 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
     --light: #f6f6f9;
-
     --primary: #E07A5F;
-    
     --light-primary: #ffe8e0;
-    
     --secondary: #008080;
     --light-secondary: #63b6b6;
-
     --grey: #eee;
     --dark-grey: #AAAAAA;
     --dark: #363949;
-    
     --danger: #D32F2F;
 	--light-danger: #FECDD3;
-    
     --warning: #FBC02D;
     --light-warning: #FFF2C6;
-    
     --success: #388E3C;
     --light-success: #BBF7D0;
 }
@@ -31,8 +23,9 @@
     font-family: monospace;
 }
 
-.bx{
-    font-size: 1.7rem;
+svg{
+    width: 1.7rem;
+    height: 1.7rem
 }
 
 a{
@@ -65,8 +58,6 @@ body{
 }
 
 
-
-
 .sidebar{
     position: fixed;
     background: var(--light);
@@ -83,7 +74,6 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--warning);
     z-index: 500;
     padding-bottom: 20px;
     box-sizing: content-box;
@@ -96,8 +86,7 @@ body{
 .sidebar .logo .logo-name .habitat {
     color: var(--light);
     background-color: var(--primary); /* Applica lo sfondo solo a "Habitat" */
-    padding: 4px 10px; /* Aggiungi del padding se vuoi un po' di spazio attorno al testo */
-    
+    padding: 4px 10px; 
 }
 
 /* SIDEBAR - MENU */
@@ -116,7 +105,7 @@ body{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    justify-content: space-between; /* Aggiungi questo per distribuire le voci */
+    justify-content: space-between; /* per distribuire le voci */
 }
 
 .sidebar .side-menu {
@@ -143,18 +132,7 @@ body{
     padding: 2px;
 }
 
-.sidebar .side-menu li a {
-    width: 100%;
-    height: 100%;
-    background: var(--light);
-    display: flex;
-    align-items: center;
-    border-radius: 48px;
-    font-size: 16px;
-    color: var(--dark);
-    white-space: nowrap;
-    overflow-x: hidden;
-}
+
 
 .sidebar .side-menu li.active a {
     color: var(--light-primary);
@@ -169,12 +147,17 @@ body{
     color: var(--primary);
 }
 
-.sidebar .side-menu li a .bx {
-    padding-left: 20px;
+.sidebar .side-menu li a {
+    width: 100%;
+    height: 100%;
+    background: var(--light);
     display: flex;
-    font-size: 1.6rem;
-    justify-content: center;
     align-items: center;
+    border-radius: 48px;
+    font-size: 16px;
+    color: var(--dark);
+    gap: 10px;
+    padding-left: 20px;
 }
 
 .sidebar .side-menu li a.logout {
@@ -186,8 +169,6 @@ body{
     border-radius: 48px;
     font-size: 16px;
     color: var(--dark);
-    white-space: nowrap;
-    overflow-x: hidden;
     color: var(--light);
     background: var(--secondary);
 }
@@ -246,26 +227,6 @@ body{
     color: var(--dark);
 }
 
-.content main .header .left .breadcrumb{
-    display: flex;
-    align-items: center;
-    grid-gap: 16px;
-}
-
-.content main .header .left .breadcrumb li{
-    color: var(--dark);
-}
-
-.content main .header .left .breadcrumb li a{
-    color: var(--dark-grey);
-    pointer-events: none;
-}
-
-.content main .header .left .breadcrumb li a.active{
-    color: var(--primary);
-    pointer-events: none;
-}
-
 .content nav .profile {
     height: 36px;
     padding: 0 16px;
@@ -279,145 +240,32 @@ body{
     font-weight: 500;
 }
 
-.content main .top-data{
-    display: flex;
-    flex-wrap: wrap;
-    grid-gap: 24px;
-    margin-top: 24px;
-    width: 100%;
+.content main .top-data h3 {
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: normal;
     color: var(--dark);
 }
 
-.content main .top-data .insights{
-    display: grid;
-    align-items: center;
-    justify-content: space-around; /* TODO: Check */
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    grid-gap: 24px;
+.content main .top-data p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: normal;
+    color: var(--dark);
 }
 
-.content main .insights li{
-    padding: 24px;
-    background: var(--light);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    grid-gap: 24px;
-    cursor: pointer;
-}
-
-.content main .insights li .bx{
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.content main .insights li:nth-child(1) .bx{
-    background: var(--light-primary);
+.content main .top-data a {
     color: var(--primary);
+    font-size: 1.2rem;
 }
 
-.content main .insights li:nth-child(2) .bx{
-    background: var(--light-secondary);
+.content main .top-data a:hover {
     color: var(--secondary);
-}
-
-.content main .insights li:nth-child(3) .bx{
-    background: var(--light-warning);
-    color: var(--warning);
-}
-
-.content main .insights li .info h3{
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--dark);
-}
-
-.content main .insights li .info p{
-    color: var(--dark);
-}
-
-.content main .top-data .payments-status{
-    border-radius: 20px;
-    background: var(--light);
-    padding: 24px;
-}
-
-
-.content main .top-data .header{
-    display: flex;
-    align-items: center;
-    grid-gap: 16px;
-    margin-bottom: 24px;
-}
-
-.content main .top-data .header h3{
-    margin-right: auto;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.content main .top-data .header .bx{
     cursor: pointer;
+    text-decoration: underline;
 }
 
-.content main .top-data .payments-status{
-    flex-basis: 400px;
-}
-
-.content main .top-data .payments-status table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.content main .top-data .payments-status table th{
-    padding-bottom: 12px;
-    font-size: 13px;
-    text-align: left;
-    border-bottom: 1px solid var(--grey);
-}
-
-.content main .top-data .payments-status table td{
-    padding: 16px 0;
-}
-
-.content main .top-data .payments-status table tr td:first-child{
-    display: flex;
-    align-items: center;
-    grid-gap: 12px;
-    padding-left: 6px;
-}
-
-
-.content main .top-data .payments-status table tbody tr{
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.content main .top-data .payments-status table tbody tr:hover{
-    background: var(--grey);
-}
-
-.content main .top-data .payments-status table tr td .status{
-    font-size: 10px;
-    padding: 6px 16px;
-    color: var(--light);
-    border-radius: 20px;
-    font-weight: 700;
-}
-
-.content main .top-data .payments-status table tr td .status.send{
-    background: var(--primary);
-}
-
-
-.content main .top-data .payments-status table tr td .status.recive{
-    background: var(--secondary);
-}
 
 .content main .bottom-data{
     display: flex;
@@ -464,10 +312,8 @@ body{
     flex-grow: 10;
 }
 
-.content main .bottom-data .payments td i {
-    width: 24px; /* Change width */
-    height: 24px; /* Change height */
-    color: var(--primary); /* Change fill color */
+.content main .bottom-data .payments td:nth-last-child(-n + 2) {
+    color: var(--primary); 
 }
 
 .content main .bottom-data .payments table{
@@ -501,7 +347,6 @@ body{
 .content main .bottom-data .payments table tbody tr:hover{
     background: var(--light-primary);
 }
-
 
 .content main .bottom-data .payments .pagination{
     display: flex;
@@ -558,11 +403,10 @@ body{
 .content main .bottom-data .reminders .task-list .task-element .task-text{
     display: flex;
     align-items: center;
-    flex-grow: 1; /* Permette a .task-text di occupare spazio disponibile */
+    flex-grow: 1; 
 }
 
 .content main .bottom-data .reminders .task-list .task-element .task-text textarea{
-    font-style: var(--dark);
     padding: 10px;
     border-radius: 20px 20px 0 0 ;
     background-color: var(--grey);
@@ -592,13 +436,10 @@ body{
 }
 
 
-
-
 .content main .bottom-data .reminders .task-list .task-new button:hover{
     background-color: var(--secondary);
     color: var(--light);
 }
-
 
 .content main .bottom-data .reminders .task-list .task-new button{
     text-align: center;
@@ -619,19 +460,11 @@ body{
     background-color: var(--primary);
 }
 
-
-
-
-
-
-
-
 .content main .bottom-data .user-expense {
     flex-grow: 1;
     background: var(--light);
     border-radius: 20px;
     padding: 20px;
-    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .content main .bottom-data .user-expense .user-list {
@@ -674,11 +507,9 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    gap: 20px; /* Spazio tra le etichette e gli importi */
+    gap: 20px;
     padding-right: 20px;
 }
-
-
 
 .content main .bottom-data .user-expense .user-list .amounts .amount-row span.amount-week,
 .content main .bottom-data .user-expense .user-list .amounts .amount-row span.amount-month, 
@@ -689,7 +520,6 @@ body{
     width: 80%;
 }
 
-
 .content main .bottom-data .user-expense .user-list .amounts .amount-row .week-value,
 .content main .bottom-data .user-expense .user-list .amounts .amount-row .month-value,
 .content main .bottom-data .user-expense .user-list .amounts .amount-row .year-value {
@@ -697,27 +527,24 @@ body{
     font-size: 16px;
 }
 
-
 .content main .bottom-data .settle-up {
     flex-grow: 1;
     min-width: 470px;
     background-color: var(--light);
     border-radius: 20px;
     padding: 20px;
-    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .content main .bottom-data .setteup-element {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background: var(--light-primary);
     border-radius: 20px;
     padding: 20px;
     gap: 20px;
     margin-bottom: 20px;
-    /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .content main .bottom-data .setteup-element .users span {
@@ -758,75 +585,140 @@ body{
     color: var(--light);
 } 
 
-
-/* POPUP AND FORM SETTINGS*/
-
-/* Button used to open the contact form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
+.content main .bottom-data .settings{
+    flex-grow: 1;
+    max-width: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
 }
 
-/* The popup form - hidden by default */
-.form-popup {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
+.content main .bottom-data .settings .password-form{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+.content main .bottom-data .settings .password-form label{
+    margin-top: 20px;
 }
 
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
+.content main .bottom-data .settings .password-form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
 }
 
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
+.content main .bottom-data .settings .password-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-/* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
+.content main .bottom-data .settings button {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: var(--primary);
+    border: none;
+    color: var(--light);
+    border-radius: 20px;
+    width: fit-content;
 }
 
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
+.content main .bottom-data .settings button:hover {
+    background-color: var(--secondary);
+    cursor: pointer;
 }
 
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
+.content main .bottom-data .categories{ 
+    flex-grow: 1;
+    max-width: 600px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+}
+
+.content main .bottom-data .categories .category-space {
+    margin-top: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.content main .bottom-data .categories .category-space .category-element{
+    border-radius: 40px;
+    padding-right: 10px;
+    border: 2px solid var(--primary);
+    display:flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--primary);
+    flex-grow: 1;
+    max-width: 49%;
+    height: 40px;
+}
+
+.content main .bottom-data .categories .category-space .category-element textarea{
+    border-radius: 40px 0 0 40px;
+    width: fit-content;
+    height: fit-content;
+    background-color: inherit;
+    color: var(--dark);
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    padding-top: 10px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.content main .bottom-data .categories .category-space .category-element  textarea:focus{
+    outline: none;
+}
+
+.content main .bottom-data .categories .category-space .category-element .delete-btn { 
+    margin-left : 6px;
+    color: var(--primary);
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.content main .bottom-data .categories .addCategoryBtn  {
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: var(--primary);
+    border-radius: 40px;
+    width: fit-content;
+}
+
+.content main .bottom-data .categories .addCategoryBtn button {
+    padding: 10px;
+    font-size: 14px;
+    background-color: inherit;
+    border: none;
+    color: var(--light);
+    border-radius: 40px;
+    width: fit-content;
+}
+
+.content main .bottom-data .categories .addCategoryBtn:hover {
+    background-color: var(--secondary);
+    cursor: pointer;
 }
 
 
@@ -887,6 +779,7 @@ form input {
     border-radius: 5px;
 }
 
+
 form select {
     margin-bottom: 15px;
     padding: 10px;
@@ -927,7 +820,8 @@ form .foruser-checkbox .checkmark {
     transition: all 0.3s ease;  /* Transizione per il cambio di colore */
     margin-right: 10px;
 }
-  
+
+
 /* Quando il checkbox è selezionato */
 
 /* Ema ricorda: + in CSS è un selettore di fratelli adiacenti (Adjacent Sibling Combinator).
@@ -946,6 +840,14 @@ form .foruser-checkbox .checkmark:hover {
 }
   
 
+.authorfooter {
+    color: var(--dark);
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
 
 
 

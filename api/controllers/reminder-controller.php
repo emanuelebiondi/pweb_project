@@ -60,7 +60,7 @@ class ReminderController {
             if($data)
                 echo json_encode($data);
             else 
-                echo json_encode(['success' => false, 'error' => 'Error while creating new category']);
+                echo json_encode(['success' => false, 'error' => 'Error while creating new reminder']);
         } catch (Exception $e) {
             header("HTTP/1.0 500 Internal Server Error");
             echo json_encode(['error' => $e->getMessage()]);
@@ -75,7 +75,7 @@ class ReminderController {
             echo json_encode(['success' => true]);
         else{
             header("HTTP/1.0 500 Internal Server Error");
-            echo json_encode(['success' => false, 'error' => 'Error while updating category']);
+            echo json_encode(['success' => false, 'error' => 'Error while updating reminder']);
             }
         }
 
@@ -85,7 +85,7 @@ class ReminderController {
             echo json_encode(['success' => true]);
         else{
                 header("HTTP/1.0 500 Internal Server Error");
-                echo json_encode(['success' => false, 'error' => 'Error while deleting category']);
+                echo json_encode(['success' => false, 'error' => 'Error while deleting reminder']);
             }
     }
 

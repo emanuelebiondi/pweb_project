@@ -1,3 +1,4 @@
+         <!-- Popup Create or Modify a Payment (included in Payments.php)-->
         <div id="popupForm" class="popup">
             <div class="popup-content">
                 <h2 class="popup-title">New Payment</h2>
@@ -9,12 +10,14 @@
 
                     <label for="user_from">From:</label>
                     <select name="user_from" id="user_from" required>
+                        <option value="" disabled selected>Select an user</option>
                         <!-- Options will be populated dynamically -->
                         
                     </select>
 
                     <label for="user_to">To:</label>
                     <select name="user_to" id="user_to" required>
+                        <option value="" disabled selected>Select an user</option>
                         <!-- Options will be populated dynamically -->
                         
                     </select>
@@ -25,7 +28,7 @@
                         <option value="Cash">Cash</option>
                         <option value="Bank Transfer">Bank Transfer</option>
                         <option value="PayPal">PayPal</option>
-                        <option value="Google Pay">Satispay</option>
+                        <option value="Satispay">Satispay</option>
                         <option value="Cryptocurrency">Cryptocurrency</option>
                         <option value="Prepaid Card">Prepaid Card</option>
                         <option value="Other">Other</option>

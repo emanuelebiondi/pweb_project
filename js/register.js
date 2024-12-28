@@ -1,5 +1,9 @@
 
 
+
+
+
+
 document.getElementById('registerForm').addEventListener('submit', async function(event) {
     event.preventDefault(); // Previeni il comportamento predefinito del form
 

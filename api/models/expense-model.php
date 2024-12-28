@@ -12,7 +12,7 @@ class ExpenseModel {
             FROM expenses E
             INNER JOIN users U ON  E.user_id = U.id
             WHERE E.house_id = ?
-            ORDER BY E.createdAt DESC
+            ORDER BY E.date DESC
             LIMIT ? OFFSET ?
         ";
     
@@ -50,6 +50,8 @@ class ExpenseModel {
         ];
     }
 
+
+
     public function getAll($house_id) {
         global $conn;
     
@@ -69,6 +71,7 @@ class ExpenseModel {
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
 
     public function fetchTotalByTime($house_id, $filter) {
         global $conn;
@@ -116,6 +119,7 @@ class ExpenseModel {
         return $data; // Restituisci i dati
     }
     
+
 
     public function fetchAllWithStatistics($house_id) {
         global $conn;
@@ -202,6 +206,7 @@ class ExpenseModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
+
     // Create a new expense
     public function create($data) {
         global $conn;
@@ -224,6 +229,7 @@ class ExpenseModel {
         return $stmt->execute();
     }
 
+    
     // Update an existing expense
     public function update($data) {
         global $conn;
@@ -235,6 +241,7 @@ class ExpenseModel {
         $stmt->bind_param('isssssi', $data['user_id'], $data['category'], $data['descr'], $data['date'], $data['amount'], $data['forusers'], $data['id']);
         return $stmt->execute();
     }
+
 
     // Delete an expense
     public function delete($id) {

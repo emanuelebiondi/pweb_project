@@ -17,7 +17,7 @@
 
                         <h2>Create an House</h2>
                         <label for="house_name">Enter the house name:</label>
-                        <input type="text" id="house_name" name="house_name">
+                        <input type="text" id="house_name" name="house_name" maxlength="30" >
                                                                                                                                         
                         <br>
                         <button type="submit">Send</button>

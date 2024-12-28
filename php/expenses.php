@@ -12,8 +12,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/style.css">
+    <?php include "snippet/head-meta.html"?>
     <title>Cohabitat - Expenses</title>
 </head>
 
@@ -23,6 +23,7 @@
         <main>
             <div class="header">
                 <div class="left">
+                    
                     <h1>Expenses</h1>
                 </div>
             </div>
@@ -30,9 +31,10 @@
             <div class="bottom-data">
                 <div class="payments all">
                     <div class="header">
-                        <i class='bx bx-cart-alt'></i>
                         <h3>All Expenses</h3>
-                        <button id="openPopupBtn"><i class='bx bx-plus'></i></button>
+                        <button id="openPopupBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/></svg>
+                        </button>
                         
                     </div>
                     <table>
@@ -43,6 +45,8 @@
                                 <th>Category</th>
                                 <th>Desc</th>
                                 <th>Amount</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,12 +71,12 @@
 
                 <!-- End of User Expense-->
             </div>
-
         </main>
         <!-- Popup Add Payment (Hidden by default)-->
         <?php include_once 'popupForms/expenseForm.php'; ?>
 
     <script src="../js/expenses.js"></script>
 </body>
+
 
 </html>
