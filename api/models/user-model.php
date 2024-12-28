@@ -23,8 +23,7 @@
             return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         }
 
-        // Ottieni un utente per ID
-
+        // Ottieni un utente attraverso l' ID
         public function fetchById($id) {
             global $conn;
             $sql = "
@@ -41,7 +40,7 @@
         }
 
 
-        // Crea un nuovo utente
+        /* Crea un nuovo utente
         public function create($data) {
             global $conn;
             $sql = "INSERT INTO users (email, name, surname, password) VALUES (?, ?, ?, ?)";
@@ -54,8 +53,10 @@
             
             return $stmt->execute();
         }
+        */
 
-
+        
+        // Ottini la casa di un utente
         public function userHouse($data) {
             global $conn;
             $query = "
@@ -74,6 +75,7 @@
             
             return $stmt->execute();
         }
+
 
         // Aggiorna un utente esistente
         public function update($data) {
@@ -110,31 +112,31 @@
             // Query di aggiornamento
             $sql = "UPDATE users SET $setClause WHERE id = ?";
             
-            
             // Preparare lo statement
             $stmt = $conn->prepare($sql);
             if ($stmt === false) {
-                return false;  // Restituisce false in caso di errore nella preparazione dello statement
+                return false;  // false in caso di errore nella preparazione dello statement
             }
         
             // Aggiungere l'user_id alla fine dei parametri per la clausola WHERE
             $params[] = $userId;  // Aggiungere l'user_id preso dalla sessione
-            $types .= 'i';  // Assumiamo che user_id sia sempre un intero
+            $types .= 'i';  // Assumo che user_id sia sempre un intero
         
             // Bind dei parametri dinamici
-            $stmt->bind_param($types, ...$params);  // Legare dinamicamente i parametri
+            $stmt->bind_param($types, ...$params); 
         
             // Eseguire la query
             if ($stmt->execute()) {
-                return $userId;  // Restituisce l'user_id al successo
+                return $userId;  // user_id al successo
             } else {
-                return false;  // Restituisce false in caso di errore durante l'update
+                return false;  // false in caso di errore durante l'update
             }
         
             $stmt->close();  // Chiudere lo statement
         }
     
         // Funzione per determinare il tipo di dato per il binding
+        // (necessario per il bind_param di mysqli con il sistema dinamico sopra)
         private function getType($var) {
             if (is_int($var)) {
                 return 'i';  // Intero
@@ -147,10 +149,5 @@
             }
         }
 
-        // Elimina un utente
-        public function delete($id) {
-            // TODO
-            // $sql = "DELETE FROM user WHERE id=$id";
-        }
     }
 ?>

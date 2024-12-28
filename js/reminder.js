@@ -24,7 +24,7 @@ function createPostit(data) {
     task.setAttribute("id", data.id); // Imposta l'ID del post-it
     task.innerHTML = `
         <div class="task-text">
-            <textarea maxlength="240">${data.text}</textarea>
+            <textarea maxlength="240" id="${data.id}">${data.text}</textarea>
         </div>
         <span class="delete-btn">Delete</span>
     `;
@@ -72,7 +72,7 @@ async function createUpdateReminder(method, data) {
 
         // Il post-it è stato creato o aggiornato con successo
         const result = await response.json();
-        console.log(result);
+        //console.log(result);
         return result;
 
     } catch (error) {

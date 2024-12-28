@@ -25,7 +25,7 @@
                         <option value="Cash">Cash</option>
                         <option value="Bank Transfer">Bank Transfer</option>
                         <option value="PayPal">PayPal</option>
-                        <option value="Google Pay">Satispay</option>
+                        <option value="Satispay">Satispay</option>
                         <option value="Cryptocurrency">Cryptocurrency</option>
                         <option value="Prepaid Card">Prepaid Card</option>
                         <option value="Other">Other</option>

@@ -7,10 +7,10 @@ class AuthController
         header('Content-Type: application/json');
 
         // Regex per la validazione
-        $regex_email = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/";
+        $regex_email = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
         $regex_password = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/";
-        $regex_name = "/^[A-Za-z]{2,12}$/";
-        $regex_surname = "/^[A-Za-z]{2,12}$/";
+        $regex_name = "/^[A-Za-z ]{2,12}$/";
+        $regex_surname = "/^[A-Za-z ]{2,12}$/";
 
         // Ricevi i dati dalla richiesta
         $data = json_decode(file_get_contents("php://input"), true);

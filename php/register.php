@@ -31,17 +31,17 @@
             
             <form id="registerForm">  
                 <div class="form-control">
-                    <input type="email" id="email" name="email" placeholder="Cazzo" required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}" autocomplete="on">
+                <input type="email" id="email" name="email" placeholder=" " required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" autocomplete="on">
                     <label for="email"> Email </label>
                 </div>
     
                 <div class="form-control">
-                    <input type="text" id="name" name="name" placeholder=" " required pattern="[A-Za-z]{2,12}" autocomplete="on">
+                    <input type="text" id="name" name="name" placeholder=" " required pattern="[A-Za-z ]{2,12}" autocomplete="on">
                     <label for="name"> Name </label>
                 </div>
                 
                 <div class="form-control">
-                    <input type="text" id="surname" name="surname" placeholder=" " required pattern="[A-Za-z]{2,12}" autocomplete="on">
+                    <input type="text" id="surname" name="surname" placeholder=" " required pattern="[A-Za-z ]{2,12}" autocomplete="on">
                     <label for="surname"> Surname </label>
                 </div>
                 

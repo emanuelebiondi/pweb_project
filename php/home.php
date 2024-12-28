@@ -39,7 +39,7 @@ $page_name = basename($_SERVER['PHP_SELF'], '.php');
 
 	</main>
 	</div>
-
+	<script src="../js/home.js"></script>
 	<script src="../js/houseChoiceDashboard.js"></script>
 	<?php include "../php/snippet/footer.html"?>
 </body>

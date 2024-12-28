@@ -12,14 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const changePwdBtn = document.getElementById("changePasswordBtn");
   changePwdBtn.addEventListener("click", () => {
-    console.log("change password");
     const oldPwd = document.getElementById("old_password").value;
     const newPwd = document.getElementById("new_password1").value;
     const confPwd = document.getElementById("new_password2").value;
 
-    // validate password
-
-    passwordChange(oldPwd, newPwd, confPwd);
+    if ( oldPwd !== "" && newPwd !== "" && confPwd !== "") 
+      passwordChange(oldPwd, newPwd, confPwd);
   });
 });
 
@@ -32,7 +30,7 @@ function createCategory(data) {
   cat.classList.add("category-element");
   cat.setAttribute("id", data.id); // Imposta l'ID del category
   cat.innerHTML = `
-        <textarea maxlength="20">${data.name}</textarea>
+        <textarea maxlength="20" id="${data.id}" required>${data.name}</textarea>
         <button class="delete-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
             <path fill="currentColor" d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"/>

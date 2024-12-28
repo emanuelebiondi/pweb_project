@@ -1,12 +1,3 @@
-# Page
-    - Login Page (DONE)
-    - Register Page (DONE)
-    - Password Reset Page
-    - Welcome Page
-    - Dashboard Page
-    - 404 Page
-
-
 # Colors palette:
 ![#F4F1DE](https://placehold.co/15x15/F4F1DE/F4F1DE.png) `#F4F1DE` <br>
 ![#E07A5F](https://placehold.co/15x15/E07A5F/E07A5F.png) `#E07A5F` <br>
@@ -19,8 +10,3 @@
 
 
 # USERS, PASSWORDS, HOUSES
-    emanuele@Cohabitat.it       Cambiami!123        53
-    antonio@Cohabitat.it        Cambiami!123        53
-    luca@Cohabitat.com          Cambiami!123        53
-    franco@Cohabitat.it         Cambiami!123        59
-    gennaro@Cohabitat.it        Cambiami!123        60

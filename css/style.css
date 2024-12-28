@@ -542,7 +542,7 @@ body{
 .content main .bottom-data .setteup-element {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background: var(--light-primary);
     border-radius: 20px;
@@ -698,6 +698,7 @@ body{
     color: var(--primary);
     cursor: pointer;
     border: none;
+    background-color: transparent;
 }
 
 .content main .bottom-data .categories .addCategoryBtn  {
@@ -781,6 +782,7 @@ form input {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 
 form select {
     margin-bottom: 15px;

@@ -177,7 +177,7 @@ async function updateSettleUp() {
             const settleupItem = document.createElement('li');
             settleupItem.className = 'setteup-element';
 
-                console.log(expense);
+                //console.log(expense);
                 settleupItem.innerHTML = `
                     <div class="users">    
                         <div><span>From: </span> ${expense.name_user_from}  ${expense.surname_user_from}</div>

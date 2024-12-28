@@ -2,7 +2,7 @@
 
 class HouseModel {
 
-    // Fetch a single expense by ID
+    // Fetch a single house by ID
     public function fetchById($id) {
         global $conn;
         $sql = "SELECT * FROM houses WHERE id = ?";
@@ -14,6 +14,7 @@ class HouseModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    // Fetch a single house by join code
     public function fetchByJoinCode($join_code) {
         global $conn;
         $sql = "SELECT * FROM houses WHERE join_code = ?";
@@ -25,6 +26,7 @@ class HouseModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    // Fetch a single house by house id, return only the join code
     public function findJoinCode($house_id) {
         global $conn;
         $sql = "SELECT join_code FROM houses WHERE id = ?";
@@ -45,7 +47,7 @@ class HouseModel {
         if ($stmt === false) die('Error in query preparation ' . $conn->error);
     
         // Generate the join code
-        $join_code = substr(md5(time()), 0, 6);
+        $join_code = substr(md5(time()), 0, 6); // Generate a 6 caracter long join code
     
         $stmt->bind_param('ss', $data['house_name'], $join_code); // Bind parameters
         if ($stmt->execute()) {
@@ -57,6 +59,7 @@ class HouseModel {
     
 
     // Update an existing house
+    /* NOTE: non in uso al momento
     public function update($data) {
         global $conn;
         $sql = "UPDATE houses SET name = ? WHERE id = ?";
@@ -67,5 +70,6 @@ class HouseModel {
         $stmt->bind_param('si', $data['name'], $data['id'],);
         return $stmt->execute();
     }
+    */
 }
 ?>

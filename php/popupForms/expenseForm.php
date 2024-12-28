@@ -8,12 +8,12 @@
                     <input type="date" id="date" name="date" required>
 
                     <label for="user">From:</label>
-                    <select name="user" id="user">
+                    <select name="user" id="user" required>
                         <!-- Options will be populated dynamically -->
                     </select>
 
                     <label for="category">Category:</label>
-                    <select name="category" id="category">
+                    <select name="category" id="category" required>
                         <!-- Options will be populated dynamically -->
                     </select>
 
@@ -26,7 +26,7 @@
                     
                     <label >For:</label>
                     <div class="usercheckbox" id="foruser">
-
+                        <!-- Options will be populated dynamically -->
                     </div>
 
                     <br>
