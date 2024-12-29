@@ -3,10 +3,13 @@
 /*
     
     In questo file, gestiamo tutte le richieste verso la tua API, instradandole al controller 
-    corappropriato in base all'endpoint e al metodo HTTP. Questo ti permette di avere un solo 
+    corappropriato in base all'endpoint e al metodo HTTP. Questo permette di avere un solo 
     punto di ingresso per tutte le operazioni.
 
 */
+require_once '../config/database.php'; // Include la connessione al database
+
+require_once 'middlewares/auth-middleware.php'; // Includi il middleware
 
 require_once 'controllers/user-controller.php';
 require_once 'controllers/auth-controller.php';
@@ -16,15 +19,16 @@ require_once 'controllers/house-controller.php';
 require_once 'controllers/category-controller.php';
 require_once 'controllers/reminder-controller.php';
 
-require_once '../config/database.php'; // Include la connessione al database
 
 
-// Middleware per controllare che l'utente sia autenticato
-/*if (!isset($_SESSION['id'])) {
-    header("HTTP/1.0 405 Method Not Allowed");
-    exit;
-}
-    */
+
+// Array di endpoint pubblici
+$publicEndpoints = ['register', 'login'];
+
+// Middleware per autenticazione
+checkAuthentication($publicEndpoints);
+
+
 
 
 // Ottieni il metodo HTTP e l'endpoint richiesto

@@ -1,5 +1,5 @@
 <?php
-session_start();
+if (!isset($_SESSION)) session_start();
 $data = [
     'id' => $_SESSION['id'] ?? null,
     'email' => $_SESSION['email'] ?? null,

@@ -5,7 +5,7 @@ class CategoryController {
     private $model;
 
     public function __construct() {
-        session_start();
+        if (!isset($_SESSION)) session_start();
         $this->model = new CategoryModel(); // Initialize the model
     }
 

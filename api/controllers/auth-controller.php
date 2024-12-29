@@ -138,7 +138,7 @@ class AuthController
                 }
 
                 // Imposta le variabili di sessione
-                session_start();
+                if (!isset($_SESSION)) session_start();
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['name'] = $row['name'];

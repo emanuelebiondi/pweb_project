@@ -33,7 +33,6 @@ class CategoryModel {
     
 
     // Update an existing category
-    // TODO
     public function update($data) {
         global $conn;
         $sql = "UPDATE categories SET name = ? WHERE id = ?";
