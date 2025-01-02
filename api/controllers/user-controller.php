@@ -18,16 +18,18 @@ class UserController {
                     $this->getUser(); // GET /user
                 }
                 break;
-
+            
+            
             case 'PUT':
                 $this->updateUser(); // PUT /user
                 break;
-
+            /*
             case 'DELETE':
                 if (isset($request[1])) {
                     $this->deleteUser(intval($request[1])); // DELETE /user/1
                 }
                 break;
+            */
 
             default:
                 header("HTTP/1.0 410 Method Not Allowed");
@@ -44,10 +46,12 @@ class UserController {
         echo json_encode($data);
     }
 
+    /*
     public function getUserHouse() {
         $data = $this->model->userHouse();
         echo json_encode($data);
     }
+    */
 
     // Funzione per ottenere un singolo User
     public function getUserById($id) {
@@ -61,6 +65,7 @@ class UserController {
     }
 
     // Funzione per creare un nuovo User
+    /*
     public function createUser() {
         $input = json_decode(file_get_contents("php://input"), true);   // read input from HTTP request
         
@@ -71,6 +76,7 @@ class UserController {
             echo json_encode(['success' => false, 'error' => 'Errore durante la creazione']);
         }
     }
+    */
 
     // Funzione per aggiornare un User
      public function updateUser() {
@@ -82,8 +88,9 @@ class UserController {
             if (json_last_error() !== JSON_ERROR_NONE) {
                 header("HTTP/1.0 400 Bad Request");
                 echo json_encode(['error' => 'Invalid JSON']);
-                return; // Esci dalla funzione
+                return; 
             }
+            
             if (isset($_SESSION['id'])) {
                 $user = $this->model->update($input);
                 if ($user) {
@@ -114,11 +121,12 @@ class UserController {
             echo json_encode(['error' => 'An unexpected error occurred: ' . $t->getMessage()]);
         }
     }
-
+    
 
 
 
     // Funzione per eliminare un User
+    /*
     public function deleteUser($id) {
         if ($this->model->delete($id)) {
             echo json_encode(['success' => true]);
@@ -126,5 +134,6 @@ class UserController {
             echo json_encode(['success' => false, 'error' => 'Errore durante l eliminazione']);
         }
     }
+    */
 }
 ?>

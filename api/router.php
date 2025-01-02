@@ -1,7 +1,6 @@
 <?php
-// API RESTful approach
+// RESTful API approach
 /*
-    
     In questo file, gestiamo tutte le richieste verso la tua API, instradandole al controller 
     corappropriato in base all'endpoint e al metodo HTTP. Questo permette di avere un solo 
     punto di ingresso per tutte le operazioni.
@@ -21,19 +20,18 @@ require_once 'controllers/reminder-controller.php';
 
 
 
-
 // Array di endpoint pubblici
 $publicEndpoints = ['register', 'login'];
+
 
 // Middleware per autenticazione
 checkAuthentication($publicEndpoints);
 
 
-
-
 // Ottieni il metodo HTTP e l'endpoint richiesto
 $method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'], '/')); // Prende l'endpoint dall'URL
+
 
 // Verifica l'endpoint e instrada la richiesta al controller corretto
 switch ($request[0]) {
@@ -89,7 +87,6 @@ switch ($request[0]) {
         $controller->handleRequest($method, $request);
         break;
 
-    // Altri endpoint possono essere aggiunti qui, es. prodotti, ordini, ecc.
 
     default:
         header("HTTP/1.0 404 Not Found");

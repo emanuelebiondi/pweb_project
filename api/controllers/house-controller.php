@@ -33,11 +33,13 @@ class HouseController {
             case 'POST':
                 $this->createHouse(); // POST /house
                 break;
-
+            
+            /*
             case 'PUT':
                 $this->updateHouse(); // PUT /house
                 break;
-
+            */
+            
             default:
                 header("HTTP/1.0 405 Method Not Allowed");
                 echo json_encode(['error' => 'Method not supported']);
@@ -88,14 +90,6 @@ class HouseController {
             // Read input from HTTP request
             $input = json_decode(file_get_contents("php://input"), true);
     
-            /* Verifica se i dati sono stati decodificati correttamente
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                header("HTTP/1.0 400 Bad Request");
-                echo json_encode(['error' => 'Invalid JSON']);
-                return; // Esci dalla funzione
-            }
-            */
-    
             // Chiamata al modello per creare la casa e recuperare l'ID
             $houseId = $this->model->create($input);
     
@@ -126,6 +120,7 @@ class HouseController {
     
 
     // Function to update a house
+    /*
     public function updateHouse() {
         $input = json_decode(file_get_contents("php://input"), true);
         if ($this->model->update($input)) {
@@ -135,6 +130,7 @@ class HouseController {
             echo json_encode(['success' => false, 'error' => 'Error while updating']);
         }
     }
+    */
 
 
 }

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Aggiunge un nuovo post-it quando viene cliccato il pulsante
 addPostitBtn.addEventListener('click', () => {
-    createUpdateReminder('POST', { text: "Write something cool!" }).then(() => {
+    createUpdateReminder('POST', { text: "Ehy I'm a Post-It. Write something on me!" }).then(() => {
         loadReminders();  // Ricarica i post-it dopo aver aggiunto un nuovo post-it
     });
 });

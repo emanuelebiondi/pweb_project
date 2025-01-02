@@ -67,7 +67,7 @@ class expenseController {
             echo json_encode($data);
         } else {
             header("HTTP/1.0 404 Not Found");
-            echo json_encode(['error' => 'Expense not found']);
+            echo json_encode(['success' => false, 'error' => 'Expense not found']);
         }
     }
 

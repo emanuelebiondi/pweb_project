@@ -30,7 +30,7 @@ document.getElementById('formData').addEventListener('submit', async function(ev
         if (!response1.ok) {
             const errorData = await response1.json();
             document.getElementById('formDataError').innerText = errorData.error || 'Error creating house';
-            //alert(errorData.error || 'Error creating house');
+            alert(errorData.error || 'Error creating house');
             return;
         }
     }

@@ -227,7 +227,7 @@ class AuthController
                 $newHash = password_hash($newPwd, PASSWORD_BCRYPT);
                 $updateQuery = "UPDATE users SET password = ? WHERE id = ?";
                 if ($updateStatement = mysqli_prepare($connection, $updateQuery)) {
-                    mysqli_stmt_bind_param($updateStatement, 'd', $newHash, $_SESSION['id']);
+                    mysqli_stmt_bind_param($updateStatement, 'sd', $newHash, $_SESSION['id']);
                     if (mysqli_stmt_execute($updateStatement)) {
                         echo json_encode(['success' => 'Password updated successfully']);
                     } else {

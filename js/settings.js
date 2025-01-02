@@ -102,7 +102,7 @@ async function getCategories() {
     //console.log(":::DATA", data);
     return data;
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("Error:", error);
   }
 }
 
@@ -124,11 +124,11 @@ function loadCategories() {
           };
           createCategory(data); // Crea il category
         } else {
-          console.warn("Category manca di id o text", category);
+          //console.warn("Category manca di id o text", category);
         }
       });
     } else {
-      console.warn("Nessun category disponibile o la risposta è vuota.");
+      //console.warn("Nessun category disponibile o la risposta è vuota.");
     }
   });
 }

@@ -20,13 +20,13 @@ class CategoryController {
                 break;
 
             case 'PUT':
-                $this->updateCategory(); // PUT /house
+                $this->updateCategory(); // PUT /category
                 break;
 
             case 'DELETE':
                 if (isset($request[1])) {
                     $id = $request[1]; // Supponendo che l'ID venga passato come parte della URL
-                    $this->deleteCategory($id); // DELETE /Reminder/{id}
+                    $this->deleteCategory($id); // DELETE /category/{id}
                 }
                 break;
 
@@ -37,7 +37,6 @@ class CategoryController {
         }
     }
 
-    // Function to fetch a single house by ID
     public function getCategories() {
         $house_id = $_SESSION['house_id'];
         $data = $this->model->fetchAll($house_id);
@@ -52,31 +51,19 @@ class CategoryController {
 
     // Function to create a new category
     public function createCategory() {
-        try {
-            // Read input from HTTP request
-            $input = json_decode(file_get_contents("php://input"), true);
-    
-            // Verifica se i dati sono stati decodificati correttamente
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                header("HTTP/1.0 400 Bad Request");
-                echo json_encode(['error' => 'Invalid JSON']);
-                return; // Esci dalla funzione
-            }
-            $houseId = $_SESSION['house_id'];
-            
-            $data = $this->model->create($input, $houseId);
-            if($data)
-                echo json_encode($data);
-            else 
-                echo json_encode(['success' => false, 'error' => 'Error while creating new category']);
-        } catch (Exception $e) {
-            header("HTTP/1.0 500 Internal Server Error");
-            echo json_encode(['error' => $e->getMessage()]);
-        }
+
+        // Read input from HTTP request
+        $input = json_decode(file_get_contents("php://input"), true);
+        
+        $houseId = $_SESSION['house_id'];
+        $data = $this->model->create($input, $houseId);
+        
+        if($data)
+            echo json_encode($data);
+        else 
+            echo json_encode(['success' => false, 'error' => 'Error while creating new category']);
     }
     
-
-    // Function to update a house
     public function updateCategory() {
         $input = json_decode(file_get_contents("php://input"), true);
         if ($this->model->update($input))
@@ -94,8 +81,6 @@ class CategoryController {
                 echo json_encode(['success' => false, 'error' => 'Error while deleting category']);
             }
     }
-
-
 }
 
 ?>

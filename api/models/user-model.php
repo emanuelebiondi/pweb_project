@@ -1,7 +1,5 @@
 
 <?php
-    //require_once '../config/database.php'; // Include la connessione al database
-
     class UserModel {
 
         // Ottieni tutti gli user
@@ -40,7 +38,7 @@
         }
 
 
-        /* Crea un nuovo utente
+        // Crea un nuovo utente
         public function create($data) {
             global $conn;
             $sql = "INSERT INTO users (email, name, surname, password) VALUES (?, ?, ?, ?)";
@@ -53,7 +51,7 @@
             
             return $stmt->execute();
         }
-        */
+        
 
         
         // Ottini la casa di un utente
@@ -127,12 +125,12 @@
         
             // Eseguire la query
             if ($stmt->execute()) {
+                $stmt->close();  // Chiudere lo statement
                 return $userId;  // user_id al successo
             } else {
+                $stmt->close();  // Chiudere lo statement
                 return false;  // false in caso di errore durante l'update
             }
-        
-            $stmt->close();  // Chiudere lo statement
         }
     
         // Funzione per determinare il tipo di dato per il binding
