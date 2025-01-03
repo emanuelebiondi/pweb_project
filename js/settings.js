@@ -108,13 +108,12 @@ async function getCategories() {
 
 // Funzione per caricare i category dal DB e visualizzarli
 function loadCategories() {
+  // Rimuovi tutti i category esistenti prima di caricare i nuovi
+  const categoryContainer = document.getElementById("categorySpace");
+  categoryContainer.innerHTML = "";
   getCategories().then((category) => {
     // Prima di caricare, controlla che category non sia null o undefined
     if (category && Array.isArray(category) && category.length > 0) {
-      // Rimuovi tutti i category esistenti prima di caricare i nuovi
-      const categoryContainer = document.getElementById("categorySpace");
-      categoryContainer.innerHTML = "";
-
       // Per ogni category, controlla che abbia un id e un testo valido
       category.forEach((category) => {
         if (category && category.id) {
