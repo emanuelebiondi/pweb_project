@@ -19,7 +19,7 @@ class PaymentController
     switch ($method) {
       case 'GET':
         if (isset($request[1]) && $request[1] === 'all') {
-          $this->getPaymentWithPagination(); // GET /payment/pagination?page={page}
+          $this->getPaymentWithPagination(); // GET /payment/all?page={page}
         } else if (isset($request[1]) && $request[1] === 'settleup') {
           $this->getSettleUp(); // GET /payment/settleup
         }
@@ -85,6 +85,7 @@ class PaymentController
     if ($data) {
       echo json_encode($data);
     } else {
+      header("HTTP/1.0 500 Internal Server Error");
       echo json_encode(['error' => 'Error while creating']);
     }
   }
@@ -97,6 +98,7 @@ class PaymentController
     if ($data) {
       echo json_encode(['success' => true]);
     } else {
+      header("HTTP/1.0 500 Internal Server Error");
       echo json_encode(['error' => 'Error while updating']);
     }
   }
@@ -107,6 +109,7 @@ class PaymentController
     if ($this->model->delete($id)) {
       echo json_encode(['success' => true]);
     } else {
+      header("HTTP/1.0 500 Internal Server Error");
       echo json_encode(['success' => false, 'error' => 'Error while deleting']);
     }
   }

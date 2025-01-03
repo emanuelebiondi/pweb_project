@@ -17,7 +17,7 @@ class expenseController
     switch ($method) {
       case 'GET':
         if (isset($request[1]) && $request[1] === 'all') {
-          $this->getExpensesWithPagination(); // GET /expense/pagination?page={page}
+          $this->getExpensesWithPagination(); // GET /expense/all??page={page}
         } else if (isset($request[1]) && $request[1] === 'statistics') {
           $this->getExpensesStatistics(); // GET /expense/statistics
         } else {
