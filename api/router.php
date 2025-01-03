@@ -35,63 +35,63 @@ $request = explode('/', trim($_SERVER['PATH_INFO'], '/')); // Prende l'endpoint 
 
 // Verifica l'endpoint e instrada la richiesta al controller corretto
 switch ($request[0]) {
-    case 'register':
-        if ($method === 'POST') {
-            $authController = new AuthController();
-            $authController->register(); // Chiama il metodo di registrazione
-        }
-        break;
+  case 'register':
+    if ($method === 'POST') {
+      $authController = new AuthController();
+      $authController->register(); // Chiama il metodo di registrazione
+    }
+    break;
 
-    case 'login':
-        if ($method === 'POST') {
-            $authController = new AuthController();
-            $authController->login(); // Chiama il metodo di registrazione
-        }
-        break;
+  case 'login':
+    if ($method === 'POST') {
+      $authController = new AuthController();
+      $authController->login(); // Chiama il metodo di registrazione
+    }
+    break;
 
-    case 'passwordChange':
-        if ($method === 'POST') {
-            $authController = new AuthController();
-            $authController->passwordChange(); // Chiama il metodo di registrazione
-        }
-        break;
-        
-    
-    case 'user':
-        $controller = new UserController();
-        $controller->handleRequest($method, $request);
-        break;
-
-    case 'expense':
-        $controller = new expenseController();
-        $controller->handleRequest($method, $request);
-        break;
-    
-    case 'payment':
-        $controller = new PaymentController();
-        $controller->handleRequest($method, $request);
-        break;
-
-    case 'house':
-        $controller = new HouseController();
-        $controller->handleRequest($method, $request);
-        break;
-
-    case 'category':
-        $controller = new CategoryController();
-        $controller->handleRequest($method, $request);
-        break;
-
-    case 'reminder':
-        $controller = new ReminderController();
-        $controller->handleRequest($method, $request);
-        break;
+  case 'passwordChange':
+    if ($method === 'POST') {
+      $authController = new AuthController();
+      $authController->passwordChange(); // Chiama il metodo di registrazione
+    }
+    break;
 
 
-    default:
-        header("HTTP/1.0 404 Not Found");
-        echo json_encode(['error' => 'Endpoint not found']);
-        echo error_log("Received request: Method = $method, Request = " . json_encode($request));
-        break;
+  case 'user':
+    $controller = new UserController();
+    $controller->handleRequest($method, $request);
+    break;
+
+  case 'expense':
+    $controller = new expenseController();
+    $controller->handleRequest($method, $request);
+    break;
+
+  case 'payment':
+    $controller = new PaymentController();
+    $controller->handleRequest($method, $request);
+    break;
+
+  case 'house':
+    $controller = new HouseController();
+    $controller->handleRequest($method, $request);
+    break;
+
+  case 'category':
+    $controller = new CategoryController();
+    $controller->handleRequest($method, $request);
+    break;
+
+  case 'reminder':
+    $controller = new ReminderController();
+    $controller->handleRequest($method, $request);
+    break;
+
+
+  default:
+    header("HTTP/1.0 404 Not Found");
+    echo json_encode(['error' => 'Endpoint not found']);
+    //echo error_log("Received request: Method = $method, Request = " . json_encode($request));
+    break;
 }
 ?>

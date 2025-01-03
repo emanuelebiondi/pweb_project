@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const newPwd = document.getElementById("new_password1").value;
     const confPwd = document.getElementById("new_password2").value;
 
-    if ( oldPwd !== "" && newPwd !== "" && confPwd !== "") 
+    if (oldPwd !== "" && newPwd !== "" && confPwd !== "")
       passwordChange(oldPwd, newPwd, confPwd);
   });
 });
