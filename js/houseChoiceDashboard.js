@@ -1,16 +1,17 @@
-document.getElementById('formData').addEventListener('submit', async function(event) {
+document
+  .getElementById("formData")
+  .addEventListener("submit", async function (event) {
     event.preventDefault(); // Evita il refresh della pagina
-    const house_code = document.getElementById('house_code').value;
-    const house_name = document.getElementById('house_name').value;
+    const house_code = document.getElementById("house_code").value;
+    const house_name = document.getElementById("house_name").value;
 
     // Controlla se solo uno dei campi è compilato
     if (house_code && house_name) {
-        alert('Please fill only one field');
-        return;
-    } 
-    else if (!house_code && !house_name) {
-        alert('Please fill at least one field');
-        return;
+      alert("Please fill only one field");
+      return;
+    } else if (!house_code && !house_name) {
+      alert("Please fill at least one field");
+      return;
     }
 
     let response1; // Definisci la variabile prima dell'uso
@@ -18,67 +19,72 @@ document.getElementById('formData').addEventListener('submit', async function(ev
 
     // Crea una casa
     if (house_name) {
-        response1 = await fetch('../api/router.php/house', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ house_name }),
-        });
+      response1 = await fetch("../api/router.php/house", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ house_name }),
+      });
 
-        // Controllo della risposta
-        if (!response1.ok) {
-            const errorData = await response1.json();
-            document.getElementById('formDataError').innerText = errorData.error || 'Error creating house';
-            //alert(errorData.error || 'Error creating house');
-            return;
-        }
+      // Controllo della risposta
+      if (!response1.ok) {
+        const errorData = await response1.json();
+        document.getElementById("formDataError").innerText =
+          errorData.error || "Error creating house";
+        alert(errorData.error || "Error creating house");
+        return;
+      }
     }
     // Unisciti a una casa
     else if (house_code) {
-        response1 = await fetch(`../api/router.php/house/join_code/${encodeURIComponent(house_code)}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        // Controllo della risposta
-        if (!response1.ok) {
-            const errorData = await response1.json();
-            document.getElementById('formDataError').innerText = errorData.error || 'Error joining house';
-            //alert(errorData.error || 'Error joining house');
-            return;
+      response1 = await fetch(
+        `../api/router.php/house/join_code/${encodeURIComponent(house_code)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
+      );
+
+      // Controllo della risposta
+      if (!response1.ok) {
+        const errorData = await response1.json();
+        document.getElementById("formDataError").innerText =
+          errorData.error || "Error joining house";
+        //alert(errorData.error || 'Error joining house');
+        return;
+      }
     }
 
     const data1 = await response1.json(); // Usa response1 per ottenere i dati
 
     // Assumendo che data1 contenga house_id
-    const house_id = data1.id; 
+    const house_id = data1.id;
 
     let date = new Date();
     date.setHours(date.getHours() + 2); // Aggiungi 2 ore
-    const joinedAt = date.toISOString().slice(0, 19).replace('T', ' ');
+    const joinedAt = date.toISOString().slice(0, 19).replace("T", " ");
 
     // Aggiungi house_id all'utente
-    const response2 = await fetch('../api/router.php/user', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ house_id, joinedAt }),  // TODO: recheck
+    const response2 = await fetch("../api/router.php/user", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ house_id, joinedAt }), // TODO: recheck
     });
-    
+
     const data2 = await response2.json();
-    console.log(data2);
+    //console.log(data2);
 
     // Controllo della risposta per il secondo fetch
     if (response2.ok) {
-        // Registrazione avvenuta con successo
-        document.getElementById('popupFormJoinHouse').style.display = 'none';
-        window.location.href = 'home.php'; // Redirect to home
+      // Registrazione avvenuta con successo
+      document.getElementById("popupFormJoinHouse").style.display = "none";
+      window.location.href = "home.php"; // Redirect to home
     } else {
-        alert(data2.error || 'Error updating user');
+      alert(data2.error || "Error updating user");
     }
-}); 
+  });

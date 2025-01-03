@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const newPwd = document.getElementById("new_password1").value;
     const confPwd = document.getElementById("new_password2").value;
 
-    if ( oldPwd !== "" && newPwd !== "" && confPwd !== "") 
+    if (oldPwd !== "" && newPwd !== "" && confPwd !== "")
       passwordChange(oldPwd, newPwd, confPwd);
   });
 });
@@ -102,7 +102,7 @@ async function getCategories() {
     //console.log(":::DATA", data);
     return data;
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("Error:", error);
   }
 }
 
@@ -110,9 +110,9 @@ async function getCategories() {
 function loadCategories() {
   getCategories().then((category) => {
     // Prima di caricare, controlla che category non sia null o undefined
+    const categoryContainer = document.getElementById("categorySpace");
     if (category && Array.isArray(category) && category.length > 0) {
       // Rimuovi tutti i category esistenti prima di caricare i nuovi
-      const categoryContainer = document.getElementById("categorySpace");
       categoryContainer.innerHTML = "";
 
       // Per ogni category, controlla che abbia un id e un testo valido
@@ -124,11 +124,15 @@ function loadCategories() {
           };
           createCategory(data); // Crea il category
         } else {
-          console.warn("Category manca di id o text", category);
+          //console.warn("Category manca di id o text", category);
         }
       });
     } else {
-      console.warn("Nessun category disponibile o la risposta è vuota.");
+      const p = document.createElement("p");
+      p.innerText =
+        "No category available. Add a new category before trying to insert an expense";
+      categoryContainer.appendChild(p);
+      //console.warn("Nessun category disponibile o la risposta è vuota.");
     }
   });
 }
