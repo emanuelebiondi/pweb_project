@@ -108,12 +108,13 @@ async function getCategories() {
 
 // Funzione per caricare i category dal DB e visualizzarli
 function loadCategories() {
-  // Rimuovi tutti i category esistenti prima di caricare i nuovi
-  const categoryContainer = document.getElementById("categorySpace");
-  categoryContainer.innerHTML = "";
   getCategories().then((category) => {
     // Prima di caricare, controlla che category non sia null o undefined
+    const categoryContainer = document.getElementById("categorySpace");
     if (category && Array.isArray(category) && category.length > 0) {
+      // Rimuovi tutti i category esistenti prima di caricare i nuovi
+      categoryContainer.innerHTML = "";
+
       // Per ogni category, controlla che abbia un id e un testo valido
       category.forEach((category) => {
         if (category && category.id) {
@@ -127,6 +128,10 @@ function loadCategories() {
         }
       });
     } else {
+      const p = document.createElement("p");
+      p.innerText =
+        "No category available. Add a new category before trying to insert an expense";
+      categoryContainer.appendChild(p);
       //console.warn("Nessun category disponibile o la risposta è vuota.");
     }
   });
