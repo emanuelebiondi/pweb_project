@@ -142,11 +142,6 @@ class PaymentController
       }
     }
 
-    //var_dump($spese);
-    //var_dump($utenti);
-    //var_dump($pagamenti);
-
-
     // Calcola la spesa totale e la quota
     $totaleSpese = array_reduce($spese, function ($totale, $spesa) {
       return $totale + $spesa["amount"];
@@ -164,18 +159,11 @@ class PaymentController
         $quotaPerUtente = $spesa["amount"] / count($spesa["forusers"]);
       }
 
-
       $bilanci[$spesa["user_id"]] = ($bilanci[$spesa["user_id"]] ?? 0) + $spesa["amount"];
 
       foreach ($spesa["forusers"] as $utente) {
         $bilanci[$utente] = ($bilanci[$utente] ?? 0) - $quotaPerUtente;
       }
-    }
-
-    // Stampa i bilanci
-    //echo "Bilanci dopo spese e pagamenti:\n";
-    foreach ($bilanci as $utente => $saldo) {
-      //echo "$utente ha un saldo di $saldo\n";
     }
 
     // Applica i pagamenti ai bilanci
@@ -195,18 +183,6 @@ class PaymentController
       }
     }
 
-    // Stampa i creditori
-    //echo "\nCreditori:\n";
-    foreach ($creditori as $utente => $importo) {
-      //echo "$utente deve ricevere $importo\n";
-    }
-
-    // Stampa i debitori
-    //echo "\nDebitori:\n";
-    foreach ($debbitori as $utente => $importo) {
-      //echo "$utente deve $importo\n";
-    }
-
     // Crea una mappa per una facile associazione degli ID
     $mappa_utenti = [];
     foreach ($utenti as $utente) {
@@ -221,7 +197,7 @@ class PaymentController
       $importo_creditore = $creditori[$nome_creditore];
       $importo_debitore = $debbitori[$nome_debitore];
 
-      $transazione = min($importo_creditore, $importo_debitore);
+      $transazione = min($importo_creditore, $importo_debitore);  // Trova il minimo tra i due importi
       //echo "$nome_debitore paga $transazione a $nome_creditore\n";
 
       // Aggiunge la transazione al JSON
@@ -238,10 +214,10 @@ class PaymentController
       // Aggiorna i bilanci
       if ($importo_creditore > $importo_debitore) {
         $creditori[$nome_creditore] -= $transazione;
-        unset($debbitori[$nome_debitore]);
+        unset($debbitori[$nome_debitore]);    // Rimuovi il debito distruggendo l'elemento
       } else {
         $debbitori[$nome_debitore] -= $transazione;
-        unset($creditori[$nome_creditore]);
+        unset($creditori[$nome_creditore]);   // Rimuovi il credido distruggendo l'elemento
       }
     }
 
