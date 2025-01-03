@@ -122,10 +122,6 @@ class UserController
       // Gestione delle eccezioni
       header("HTTP/1.0 500 Internal Server Error"); // Codice 500 per errori sul server
       echo json_encode(['error' => $e->getMessage()]); // Restituisci il messaggio dell'eccezione
-    } catch (Throwable $t) {
-      // Gestione di eventuali errori non catturati
-      header("HTTP/1.0 500 Internal Server Error");
-      echo json_encode(['error' => 'An unexpected error occurred: ' . $t->getMessage()]);
     }
   }
 

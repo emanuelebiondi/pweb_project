@@ -79,9 +79,9 @@ Here is a preview of sample users in the system, along with their associated det
 ### User Management
 
 | **Endpoint** | **Method** | **Description**                       |
-| ------------ | ---------- | ------------------------------------- | ---- |
+| ------------ | ---------- | ------------------------------------- |
 | `/user`      | `GET`      | Retrieve all users details of a house |
-| `/user/{id}` | `GET `     | Retrieve user details                 | \*\* |
+| `/user/{id}` | `GET `     | Retrieve user details                 |
 | `/user`      | `PUT`      | Update user details                   |
 
 ### Expense Management
@@ -153,4 +153,3 @@ The application uses a middleware layer to ensure all requests to protected endp
 2. Configure your environment and database connection.
 3. Start the Apache Server
 4. Start the MySql Server
-
