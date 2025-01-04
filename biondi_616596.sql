@@ -87,7 +87,7 @@ CREATE TABLE `houses` (
   `name` char(100) NOT NULL,
   `join_code` char(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE `reminders` (
   `text` varchar(240) DEFAULT NULL,
   `house_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (27,'gianluca.berni@gmail.com','$2y$10$GEFDGePzX0UG.Ox8SSGEB.ANFy53y/T63qBCOspK0kGewTBomZ79G','Gianluca','Berni',67,'2024-12-28 18:03:44'),(28,'luca.rovazzi@gmail.com','$2y$10$bd6nVeaitkcK2HI7KZNOGenkSpxwu0.TMmxzXxkznanZlTqOdRpQW','Luca','Rovazzi',67,'2024-12-28 18:50:54'),(29,'franco.de.lucia@gmail.com','$2y$10$dXsI3VbONJ0GpHuwpTHqKeDzMysCdIZpLbdDCyxlPJ/SguDwmjUYu','Franco','De lucia',68,'2024-12-28 19:01:26'),(30,'giuseppino190@gmail.com','$2y$10$/CHpvAQpZjaCptqYRo40Ge4N68EIf2cyCTPuyKhlQI8LB6u5T3dfO','Giuseppe','Francini',68,'2024-12-28 19:05:53'),(31,'emanuelebiondi@cohabitat.it','$2y$10$/EefabIplGrOxDnkZxeKmejCJViSn0zr9NDsaeHlcbcDiOI5VTgT6','Emanuele','Biondi',67,'2024-12-28 19:06:49'),(32,'filippo.rossi@gmail.com','$2y$10$iwUPVOqPtrxQZvnBUN3sHOv1V9SPO085eWozYBxWjn1wFdKMSW3eO','Filippo','Rossi',0,'2025-01-03 16:39:03'),(33,'francesco_beltrani@gmail.com','$2y$10$gO8sjPT9HTmNxNOCbu9CZejEgwUYHt7xaBVUWOK1WDIhQrNDJf2LS','Francesco','Beltrani',71,'2025-01-02 19:16:40'),(34,'carola.bellini@icloud.it','$2y$10$ePb.HS91C2vzw9rTYsIiWOIcJFmH/zT5K/wd.7QkkP2pC64ADeAEu','Carola','Bellini',71,'2025-01-02 19:40:54'),(35,'marco.ruta@gmail.com','$2y$10$08uPx.Z8eAF1Q9T7O3km8O6OYP8EC7fG/2TdwxRlfshMXBvT6zCHe','Marco','Ruta',68,'2025-01-03 13:23:15');
+INSERT INTO `users` VALUES (27,'gianluca.berni@gmail.com','$2y$10$bd6nVeaitkcK2HI7KZNOGenkSpxwu0.TMmxzXxkznanZlTqOdRpQW','Gianluca','Berni',67,'2024-12-28 18:03:44'),(28,'luca.rovazzi@gmail.com','$2y$10$bd6nVeaitkcK2HI7KZNOGenkSpxwu0.TMmxzXxkznanZlTqOdRpQW','Luca','Rovazzi',67,'2024-12-28 18:50:54'),(29,'franco.de.lucia@gmail.com','$2y$10$dXsI3VbONJ0GpHuwpTHqKeDzMysCdIZpLbdDCyxlPJ/SguDwmjUYu','Franco','De lucia',68,'2024-12-28 19:01:26'),(30,'giuseppino190@gmail.com','$2y$10$/CHpvAQpZjaCptqYRo40Ge4N68EIf2cyCTPuyKhlQI8LB6u5T3dfO','Giuseppe','Francini',68,'2024-12-28 19:05:53'),(31,'emanuelebiondi@cohabitat.it','$2y$10$/EefabIplGrOxDnkZxeKmejCJViSn0zr9NDsaeHlcbcDiOI5VTgT6','Emanuele','Biondi',67,'2024-12-28 19:06:49'),(32,'filippo.rossi@gmail.com','$2y$10$iwUPVOqPtrxQZvnBUN3sHOv1V9SPO085eWozYBxWjn1wFdKMSW3eO','Filippo','Rossi',0,'2025-01-03 16:39:03'),(33,'francesco_beltrani@gmail.com','$2y$10$gO8sjPT9HTmNxNOCbu9CZejEgwUYHt7xaBVUWOK1WDIhQrNDJf2LS','Francesco','Beltrani',71,'2025-01-02 19:16:40'),(34,'carola.bellini@icloud.it','$2y$10$ePb.HS91C2vzw9rTYsIiWOIcJFmH/zT5K/wd.7QkkP2pC64ADeAEu','Carola','Bellini',71,'2025-01-02 19:40:54'),(35,'marco.ruta@gmail.com','$2y$10$08uPx.Z8eAF1Q9T7O3km8O6OYP8EC7fG/2TdwxRlfshMXBvT6zCHe','Marco','Ruta',68,'2025-01-03 13:23:15');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -194,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-03 15:56:18
+-- Dump completed on 2025-01-04 12:42:58

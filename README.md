@@ -23,19 +23,17 @@ This project integrates modern design and user-friendly features to streamline u
 
 Here is a preview of sample users in the system, along with their associated details:
 
-| **Name**  | **Surname** | **Email**                    | **House ID** | **House Name**      | **Password** |
-| --------- | ----------- | ---------------------------- | ------------ | ------------------- | ------------ |
-| Gianluca  | Berni       | gianluca.berni@gmail.com     | 67           | House of Gabriela   | Password!123 |
-| Luca      | Rovazzi     | luca.rovazzi@gmail.com       | 67           | House of Gabriela   | Password!123 |
-| Franco    | De Lucia    | franco.de.lucia@gmail.com    | 68           | Via Roma 19         | Password!123 |
-| Giuseppe  | Francini    | giuseppino190@gmail.com      | 68           | Via Roma 19         | Password!123 |
-| Emanuele  | Biondi      | emanuelebiondi@cohabitat.it  | 67           | House of Gabriela   | Password!123 |
-| Filippo   | Rossi       | filippo.rossi@gmail.com      | NULL         | NULL                | Password!123 |
-| Francesco | Beltrani    | francesco_beltrani@gmail.com | 71           | I ragazzi di Via Po | Password!123 |
-| Carola    | Bellini     | carola.bellini@icloud.it     | 71           | I ragazzi di Via Po | Password!123 |
-| Marco     | Ruta        | marco.ruta@gmail.com         | 68           | Via Roma 19         | Password!123 |
-
----
+| **Name**  | **Surname** | **Email**                    | **Password** | **House ID** | **House Name**      | **Join Code** |
+| --------- | ----------- | ---------------------------- | ------------ | ------------ | ------------------- | ------------- |
+| Gianluca  | Berni       | gianluca.berni@gmail.com     | Password!123 | 67           | House of Gabriela   | ac1611        |
+| Luca      | Rovazzi     | luca.rovazzi@gmail.com       | Password!123 | 67           | House of Gabriela   | ac1611        |
+| Franco    | De Lucia    | franco.de.lucia@gmail.com    | Password!123 | 68           | Via Roma 19         | d21464        |
+| Giuseppe  | Francini    | giuseppino190@gmail.com      | Password!123 | 68           | Via Roma 19         | d21464        |
+| Emanuele  | Biondi      | emanuelebiondi@cohabitat.it  | Password!123 | 67           | House of Gabriela   | ac1611        |
+| Filippo   | Rossi       | filippo.rossi@gmail.com      | Password!123 | NULL         | NULL                | NULL          |
+| Francesco | Beltrani    | francesco_beltrani@gmail.com | Password!123 | 71           | I ragazzi di Via Po | 4598d8        |
+| Carola    | Bellini     | carola.bellini@icloud.it     | Password!123 | 71           | I ragazzi di Via Po | 4598d8        |
+| Marco     | Ruta        | marco.ruta@gmail.com         | Password!123 | 68           | Via Roma 19         | d21464        |
 
 ## 🔑 Key Details
 
