@@ -2,7 +2,8 @@
 
 ### Welcome to My App!
 
-This project integrates modern design and user-friendly features to streamline user interactions. Below are some key details about the project.
+This project was developed for the Web Design exam as part of the Computer Engineering program at the University of Pisa.
+It consists of a management tool to track expenses and payments among roommates.
 
 ---
 
